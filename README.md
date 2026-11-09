@@ -1,6 +1,6 @@
 # Cable Pusher
 
-**Current version: v1.4 “Fall”** · [Open the app](https://claude.ai/artifact/Jru6YZ9enoc7HhQRfUAoAm)
+**Current version: v1.5 “Curiosities”** · [Open the app](https://claude.ai/artifact/4bZdh4MpcXizjbcCtN3n3c)
 
 Cable Pusher is an interactive 2D analyser for hanging cable structures: chains, suspension and stayed cables, guyed masts, cable trusses, nets and tensegrities. You draw cables and struts, anchor them, and load them, and the app shows the hanging shape, tensions, sag and reactions.
 
@@ -71,6 +71,27 @@ Undo covers Solve, the first Step, Reset and Bake. Save files store both positio
 
 ---
 
+## Examples
+
+There are 34 examples in the **Load example…** list and the **Gallery**, in seven groups: Single cables, Bridges and lines, Masts, trusses and nets, Head to head, Roofs and domes, Tensegrity, and **Curiosities** (new in v1.5).
+
+| Curiosity | What it shows |
+|---|---|
+| Bungee jump | A 20 m rubber cord (EA ≈ 1.6 kN) drawn coiled at the deck. ⏵ Play drops the 80 kg jumper to the static stretch (about +50 %). |
+| Kite on its line | A cable loaded only at its free end: the line lines up with the kite's pull and sags under its own weight. |
+| Mooring chain to a buoy | A 180 m chain in 40 m of water, with the buoy on a roller at the surface pulled by 80 kN. A catenary mooring that lifts off the seabed. |
+| Hanging mobile (after Calder) | Two balanced arms hung from strings. Change a weight and the arms tip to a new balance. |
+| Spider web (rope orb) | Pretensioned radials and a ring with a “fly” caught in it. |
+| Castle drawbridge (half raised) | A heavy timber deck hinged at the gate and held at 35° by a chain: a strut and a tie. |
+| Hammock | Two ropes and a fabric bed carrying a person: the hang angle decides the rope tension. |
+| Cable camera over a stadium | A camera on three winched lines, one of them a down-haul for stiffness. |
+| Inca rope bridge (Q’eswachaka) | A heavy grass deck cable and a handrail joined by side ropes, with a walker. |
+| Washing line with a prop | Wet clothes on a line with a clothes prop pushing up the middle. |
+
+The water, seabed, ground, trees and walls are drawn as annotations, so you can move, restyle or delete them.
+
+---
+
 ## Method (summary)
 
 - **Cables** are exact elastic catenary elements (Irvine; O’Brien & Francis). One element reproduces a hanging cable with its self-weight and stretch, slack or taut, without subdivision.
@@ -86,7 +107,7 @@ Undo covers Solve, the first Step, Reset and Bake. Save files store both positio
 
 ## Verification
 
-**✓ Verification tests** runs 104 checks against closed-form solutions: catenary, elastic catenary, funicular, statics, the X-module self-stress, the stiffness-matrix tangent against finite differences, and others. Five checks are new since v1.3:
+**✓ Verification tests** runs 114 checks against closed-form solutions: catenary, elastic catenary, funicular, statics, the X-module self-stress, the stiffness-matrix tangent against finite differences, and others. Five checks are new since v1.3:
 
 1. The Play spline passes exactly through every iteration (v1.4).
 2. Solving the suspension bridge from its drawn state gives the same H as the live solve.
@@ -94,7 +115,7 @@ Undo covers Solve, the first Step, Reset and Bake. Save files store both positio
 4. Bake shape leaves the equilibrium unchanged.
 5. Bake as unstressed leaves weightless members with no force, and the load node's out-of-balance force equals the load.
 
-All 104 checks pass in v1.4. All 24 examples solve in Live mode, and they also solve from their drawn state in Paused mode.
+All 114 checks pass in v1.5. The global check that every example is in equilibrium now covers all 34. Every example solves in Live mode, and they also solve from their drawn state in Paused mode.
 
 ---
 
@@ -115,7 +136,8 @@ All 104 checks pass in v1.4. All 24 examples solve in Live mode, and they also s
 
 | Version | Name | Highlights |
 |---|---|---|
-| **1.4** | **Fall** | ⏵ Play: the solver iterations animated as one smooth movement (spline interpolation between iterations, distance-based timing, ease in and out), speed ½×–4×; 1 new verification check. |
+| **1.5** | **Curiosities** | Ten unusual examples in a new Curiosities group: bungee jump, kite, mooring chain, Calder mobile, spider web, drawbridge, hammock, cable camera, Inca rope bridge, washing line with a prop. |
+| 1.4 | Fall | ⏵ Play: the solver iterations animated as one smooth movement (spline interpolation between iterations, distance-based timing, ease in and out), speed ½×–4×; 1 new verification check. |
 | 1.3 | Bake | Drawn (initial) state for every node. Live / Paused solver; Solve, Step, Reset; Bake shape and Bake as unstressed; out-of-balance ΔF arrows; Drawn state ghost; 4 new verification checks. |
 | 1.2 | Matrix | Tangent stiffness matrix inspector: heatmap, element-by-element assembly, δ / F / R strips. |
 | 1.1 | Tensegrity | Frame Pusher grid and snapping, hover highlighting, animation, node and member inspector, theme and home buttons, Millennium Dome, cable dome and tensegrity examples. |
