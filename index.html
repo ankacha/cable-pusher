@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Cable Pusher v1.1 “Tensegrity”</title>
+<title>Cable Pusher v1.2 “Matrix”</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
 :root{--bg:#f1ebfc;--panel:#fbf9ff;--ink:#241838;--mut:#6d6188;--line:#d8cbf0;--mem:#43376a;--acc:#7c3aed;--grid:#d3c5ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -310,8 +310,11 @@ details.ip:has(#hint){display:none}
 #sideTab .stT{writing-mode:vertical-rl;transform:rotate(180deg)}#sideTab .stA{font-size:14px;letter-spacing:0;color:var(--neon2,var(--acc))}
 #sideTab:hover{background:color-mix(in srgb,var(--neon2,var(--acc)) 14%,var(--panel));border-color:var(--neon2,var(--acc));box-shadow:0 0 14px -3px color-mix(in srgb,var(--neon2,var(--acc)) 65%,transparent)}
 #wrap.tabOn #dock{right:36px}
+.hmK{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:flex-start;margin:4px 0}.hmK>span{display:flex;flex-direction:column;font-size:10.5px;color:var(--mut)}
+#hm .hmr label{gap:5px}
+#hm:not(.hm-max){top:62px;max-height:calc(100% - 72px)}
 </style>
-<nav id="top"><a id="home" href="https://ankacha.github.io/" title="Home – ankacha.github.io" aria-label="Home (ankacha.github.io)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h5v-5.5h3V20h5V9.5"/></svg></a><span class="tt">◡ Cable Pusher</span><small id="topVer" style="color:var(--mut);margin-right:8px"></small><button id="mIO" title="Save the model to a file, or open a saved file (Ctrl+S / Ctrl+O)">⤓ Save / open</button><button id="mRep" title="A4 calculation sheets of the current model as a PDF">⎙ Report</button><i></i><button id="mGuide" title="Open the illustrated quick guide">? Guide</button><button id="mVer" title="Compare the solver with closed-form cable solutions">✓ Verification tests</button><button id="mMeth">Method</button><button id="mKeys">Shortcuts</button><button id="mAbout">About</button><button id="mNew" title="Clear the canvas">New</button><button id="theme" class="thm" type="button"></button></nav>
+<nav id="top"><a id="home" href="https://ankacha.github.io/" title="Home – ankacha.github.io" aria-label="Home (ankacha.github.io)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h5v-5.5h3V20h5V9.5"/></svg></a><span class="tt">◡ Cable Pusher</span><small id="topVer" style="color:var(--mut);margin-right:8px"></small><button id="mIO" title="Save the model to a file, or open a saved file (Ctrl+S / Ctrl+O)">⤓ Save / open</button><button id="mRep" title="A4 calculation sheets of the current model as a PDF">⎙ Report</button><i></i><button id="mGuide" title="Open the illustrated quick guide">? Guide</button><button id="mVer" title="Compare the solver with closed-form cable solutions">✓ Verification tests</button><button id="mK" title="Inspect the tangent stiffness matrix of the solved structure">▦ Stiffness matrix</button><button id="mMeth">Method</button><button id="mKeys">Shortcuts</button><button id="mAbout">About</button><button id="mNew" title="Clear the canvas">New</button><button id="theme" class="thm" type="button"></button></nav>
 <aside id="tools"><div class="gh" style="margin-top:2px">Example structures</div><select id="pre"><option value="">Load example…</option></select></aside>
 <main><div id="mid"><div id="wrap"><canvas id="cv"></canvas><div id="dock"><div id="dsb"><button id="dsT" title="Scale the on-screen size of loads, reactions and the tension band"><span>⇕ Diagram scale</span><span id="dsA">▸</span></button><div id="dsB" hidden></div></div><div id="info"><button id="infoT">▸ Info panel</button><div id="infoB" hidden><div id="coord"></div><details open class="ip"><summary>Results</summary><div id="read"></div></details><details open class="ip"><summary>Solver status</summary><div id="fea"></div></details></div></div></div><label id="lgT"><input type="checkbox" id="sL" checked>Legend</label><div id="ctb"><button id="undo" title="Undo (Ctrl+Z)">↶ Undo</button><button id="redo" title="Redo (Ctrl+Y)">↷ Redo</button><button id="fit" title="Fit view (F)">⤢ Fit</button><button id="dup" title="Copy the selection (or the whole structure) and paste it into free space">⧉ Duplicate</button><button id="clr" title="Remove all point and deck loads">Clear loads</button><label title="Keep a dragged load in place when you let go, instead of it springing back to zero"><input type="checkbox" id="latch" checked>Keep loads on release</label></div><div id="tchip" class="off"></div><div id="pop" hidden></div><button id="sideTab" type="button" title="Open the inspector (I): select a cable, a bar or a node to interrogate it" aria-label="Open the inspector"><span class="stA">‹</span><span class="stT">Inspector</span></button></div><aside id="side" hidden><div id="sideH"><b>Inspector</b><span><button id="sideC" title="Collapse or expand the panel">»</button><button id="sideX" title="Close the panel">✕</button></span></div><div id="sideB"><div id="sideMsg">Select a cable, a bar or a node to interrogate it.</div><div id="sideNode" hidden></div><div id="sideMain" hidden><div id="sideSel"></div><div style="margin-top:6px">Position along the cable (A → B)<input type="range" id="psl" min="0" max="1" step="0.0025" value="0.5"></div><div id="sideCh"></div><details open id="sideSf"><summary>Force triangle at the cut</summary><div id="pshape"></div></details></div></div></aside></div>
 <div class="bar b">
@@ -344,7 +347,7 @@ const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
 const $=id=>document.getElementById(id);
 let nodes=[],members=[],ann=[],tool='sel',S=30,ox=0,oy=0,W=0,H=0,sel=null,drag=null,first=null,mouse=[0,0],res=null,res0=null,hov=null,hold=null,
  DS={L:1,R:1,T:1},interr=false,interS=.5,lastSig='',dirtyU=true,mouseIn=false;
-const VER='1.1',VNAME='Tensegrity';
+const VER='1.2',VNAME='Matrix';
 /* v1.1 state: animation, inspector cache, teal grid step */
 let ANF=1,anOn=false,anT0=0,anPh=0,anSpd=1,ANSW=false,TGFIX=0,LSC=1,RMFIX=0,G5=5,SIDEK='';const AK={D:1,T:1,P:1,R:1},AN={sig:null,K:12,k:0,frames:[],done:false,mode:'load'};
 /* indicative cable and bar products: EA (kN) and weight w (kN/m) */
@@ -504,8 +507,8 @@ function solveModel(N,M,opt){opt=opt||{};const LF=opt.lf==null?1:opt.lf,WF=opt.w
   if(m.type=='bar'&&m.w){const W=m.w*m.L0/2*WF;P[ia].fy-=W;P[ib].fy-=W}
   if(m.type!='bar'&&q){const k=nsub,old=m._sub&&m._sub.length==k-1?m._sub:null;let prev=ia;
    for(let j=1;j<=k;j++){let id=ib;if(j<k){let x,y;if(old){x=old[j-1][0];y=old[j-1][1]}else{const t=j/k,A=N[ia],B=N[ib],ch=Math.hypot(B.x-A.x,B.y-A.y),f=Math.sqrt(Math.max(0,3/8*Math.max(m.L0*m.L0-ch*ch,0)/4))*1.2;x=A.x+(B.x-A.x)*t;y=A.y+(B.y-A.y)*t-4*f*t*(1-t)}
-     id=P.length;P.push({x,y,fx:0,fy:0,r:[0,0],inner:info})}
-    const e={type:'cable',L0:m.L0/k,EA:m.EA,w,_g:m._gs&&m._gs[j-1]?m._gs[j-1].slice():null,a:prev,b:id,m};E.push(e);info.els.push(e);info.ids.push(id);prev=id}info.q=q}
+     id=P.length;P.push({x,y,fx:0,fy:0,r:[0,0],inner:info,sub:j})}
+    const e={type:'cable',L0:m.L0/k,EA:m.EA,w,_g:m._gs&&m._gs[j-1]?m._gs[j-1].slice():null,a:prev,b:id,m,sub:j};E.push(e);info.els.push(e);info.ids.push(id);prev=id}info.q=q}
   else{const e={type:m.type=='bar'?'bar':'cable',L0:m.L0,EA:m.EA,w,_g:m._g?m._g.slice():null,a:ia,b:ib,m};E.push(e);info.els.push(e);info.ids.push(ib)}});
  P.forEach(p=>{scale+=Math.hypot(p.fx,p.fy)});let x0=1e18,x1=-1e18,y0=1e18,y1=-1e18;P.forEach(p=>{x0=Math.min(x0,p.x);x1=Math.max(x1,p.x);y0=Math.min(y0,p.y);y1=Math.max(y1,p.y)});size=Math.max(x1-x0,y1-y0,1);scale=Math.max(scale,1e-6);
  /* degrees of freedom */
@@ -558,6 +561,12 @@ function solveModel(N,M,opt){opt=opt||{};const LF=opt.lf==null?1:opt.lf,WF=opt.w
  if(conv)MI.forEach(I=>{if(!I)return;const m=I.m;if(I.q){m._sub=I.ids.slice(1,-1).map(i=>[X[2*i],X[2*i+1]]);m._gs=I.els.map(e=>e._g?e._g.slice():null);m._g=null}else{m._g=I.els[0]._g?I.els[0]._g.slice():null;m._sub=null;m._gs=null}});
  /* applied totals for the equilibrium check */let Fx=0,Fy=0;P.forEach(p=>{Fx+=p.fx;Fy+=p.fy});const fp=plan(X);for(let i=1;i<fp.length;i+=2)Fy+=fp[i];E.forEach(e=>{if(e.type=='cable')Fy-=e.w*e.L0});
  out.applied={Fx,Fy};let Rx=0,Ry=0;out.R.forEach(q=>{Rx+=q.rx;Ry+=q.ry});out.sumR={Rx,Ry};out.eq=Math.max(Math.abs(Fx+Rx),Math.abs(Fy+Ry))/Math.max(scale,1e-9);
+ /* tangent stiffness at the solved shape, for the matrix inspector: K (all 2 × points DOFs), fixed flags, applied nodal forces, element blocks */
+ const Xs=X.slice();out.km=()=>{if(out._km)return out._km;const nd=2*P.length,K=Array.from({length:nd},()=>new Float64Array(nd)),fx=new Uint8Array(nd),F=new Float64Array(nd),fp=plan(Xs),els=[];
+  P.forEach((p,i)=>{fx[2*i]=p.r[0]?1:0;fx[2*i+1]=p.r[1]?1:0;F[2*i]=p.fx+fp[2*i];F[2*i+1]=p.fy+fp[2*i+1]});
+  E.forEach(e=>{const r=elEval(Object.assign({},e,{_g:e._g?e._g.slice():null}),Xs[2*e.a],Xs[2*e.a+1],Xs[2*e.b],Xs[2*e.b+1]);if(!r.ok)return;const k=r.K,id=[2*e.a,2*e.a+1,2*e.b,2*e.b+1],Ke=[0,1,2,3].map(p=>[0,1,2,3].map(q=>((p<2)==(q<2)?1:-1)*k[p%2][q%2]));
+   for(let p=0;p<4;p++)for(let q=0;q<4;q++)K[id[p]][id[q]]+=Ke[p][q];els.push({e,r,k,Ke,id,a:e.a,b:e.b,m:e.m,sub:e.sub})});
+  return out._km={nd,K,fx,F,els,X:Xs,pts:P.map(p=>({user:p.user||null,m:p.inner?p.inner.m:null,sub:p.sub,held:!!(opt.hold&&p.user&&opt.hold.has(p.user))}))}};
  out.ms=(typeof performance!='undefined'?performance:Date).now()-t0;return out}
 
 /* ===== analysis driver and drawing ===== */
@@ -613,7 +622,7 @@ function nodeSide(n){let v=0;members.forEach(m=>{if(m.a===n)v+=m.b.x-n.x;else if
 function memPts(i){const r=res&&res.ok&&res.mem[i];if(r)return r.pts;const m=members[i];return[[m.a.x,m.a.y],[m.b.x,m.b.y]]}
 function drawCurve(pts,o){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(sx(p[0]),sy(p[1])):ctx.moveTo(sx(p[0]),sy(p[1])));if(o)ctx.stroke()}
 function Tglob(){if(TGFIX)return TGFIX;let t=0;if(res&&res.ok)res.mem.forEach(r=>{if(r&&!r.bar)t=Math.max(t,Math.abs(r.Tmax))});return t||1}
-function draw(){if(!W)return;recompute();const sv=anSwap();try{draw0()}finally{anRestore(sv)}sideUpdate()}
+function draw(){if(!W)return;recompute();const sv=anSwap();try{draw0()}finally{anRestore(sv)}try{hmDraw()}catch(e){console.error(e)}sideUpdate()}
 function draw0(){PILLS=[];LBLM=$('lblM').value;const C=cols(),ok=res&&res.ok,Tg=Tglob(),dk=isDark();
  ctx.fillStyle=css('--bg');ctx.fillRect(0,0,W,H);grid();
  /* inverted (funicular arch) and unloaded ghosts */
@@ -683,7 +692,7 @@ function drawLabels(C,Tg){const showT=LBLM!='none',showF=$('sF').checked;let lim
 function peakD(){if(!(res&&res.ok&&res0))return null;let best=null;res.mem.forEach((r,i)=>{const u=res0.mem[i];if(!r||!u||r.pts.length!=u.pts.length)return;r.pts.forEach((p,k)=>{const d=Math.hypot(p[0]-u.pts[k][0],p[1]-u.pts[k][1]);if(!best||d>best.d)best={d,p,u:u.pts[k]}})});return best&&best.d>1e-9?best:null}
 function drawPeak(C){const b=peakD();if(!b)return;const c=C.D,X=sx(b.p[0]),Y=sy(b.p[1]);ctx.save();ctx.strokeStyle=c;ctx.fillStyle=c;ctx.lineWidth=1.2;ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(sx(b.u[0]),sy(b.u[1]));ctx.lineTo(X,Y);ctx.stroke();ctx.beginPath();ctx.arc(X,Y,3.5,0,7);ctx.fill();ctx.restore();
  pill(X,Y+20,'δmax '+(b.d<1?(b.d*1000).toFixed(0)+' mm':f3(b.d)+' m'),c,{b:1,fs:11,tries:[[0,0],[34,0],[-34,0],[0,-40],[60,0],[-60,0]]})}
-function drawNumbers(){ctx.save();ctx.font='600 10.5px ui-monospace,Menlo,monospace';ctx.textAlign='center';ctx.textBaseline='middle';nodes.forEach((n,i)=>{ctx.fillStyle=css('--mut');ctx.fillText(String(i+1),sx(n.x)-9,sy(n.y)-10)});
+function drawNumbers(){ctx.save();ctx.font='600 10.5px ui-monospace,Menlo,monospace';ctx.textAlign='center';ctx.textBaseline='middle';nodes.forEach((n,i)=>{ctx.fillStyle=css('--mut');ctx.fillText('n'+(i+1),sx(n.x)-10,sy(n.y)-11)});
  members.forEach((m,i)=>{const p=memPts(i),q=p[Math.floor(p.length/2)];const t=(m.type=='bar'?'B':'C')+(i+1),w=ctx.measureText(t).width+8;ctx.fillStyle=css('--panel');ctx.strokeStyle=css('--line');ctx.beginPath();ctx.roundRect(sx(q[0])-w/2,sy(q[1])-8,w,16,4);ctx.fill();ctx.stroke();ctx.fillStyle=css('--ink');ctx.fillText(t,sx(q[0]),sy(q[1])+.5)});ctx.restore()}
 function legend(C,Tg){const x=12,h=74,y=H-h-34,w=212;ctx.save();ctx.font='11px system-ui,sans-serif';ctx.fillStyle=css('--mut');ctx.textBaseline='alphabetic';ctx.fillText(gridTxt(),x+2,y-8);ctx.fillStyle=css('--panel');ctx.globalAlpha=.93;ctx.strokeStyle=css('--line');ctx.beginPath();ctx.roundRect(x,y,w,h,10);ctx.fill();ctx.globalAlpha=1;ctx.stroke();
  ctx.font='600 10px Inter,system-ui,sans-serif';ctx.fillStyle=css('--mut');ctx.textBaseline='middle';ctx.fillText('TENSION (kN)',x+10,y+12);
@@ -720,7 +729,7 @@ let svT=0;function autosave(){clearTimeout(svT);svT=setTimeout(()=>{try{localSto
 function fit(){if(!W)return;recompute();let a=[1e9,1e9,-1e9,-1e9];const add=(x,y)=>{a=[Math.min(a[0],x),Math.min(a[1],y),Math.max(a[2],x),Math.max(a[3],y)]};nodes.forEach(n=>add(n.x,n.y));
  members.forEach((m,i)=>memPts(i).forEach(p=>add(p[0],p[1])));if(res0)res0.mem.forEach(r=>r&&r.pts.forEach(p=>add(p[0],p[1])));ann.forEach(q=>{add(q.x1,q.y1);add(q.x2,q.y2)});
  if(a[0]>1e8)a=[0,-5,20,5];const w=Math.max(a[2]-a[0],1),h=Math.max(a[3]-a[1],1);const rpd=(!$('dsB').hidden||!$('infoB').hidden)&&$('dock')?Math.min($('dock').offsetWidth+16,W*.28):0;
- S=Math.max(.3,Math.min(200,Math.min((W-170-rpd)/w,(H-270)/h)));ox=(W-rpd)/2-S*(a[0]+a[2])/2;oy=(H-40)/2+S*(a[1]+a[3])/2;draw()}
+ const lp=typeof hm!='undefined'&&hm.open&&!hm.max&&hm.el?Math.min(hm.el.offsetWidth+20,W*.6):0;S=Math.max(.3,Math.min(200,Math.min((W-170-rpd-lp)/w,(H-270)/h)));ox=lp+(W-rpd-lp)/2-S*(a[0]+a[2])/2;oy=(H-40)/2+S*(a[1]+a[3])/2;draw()}
 /* ---- dialogs ---- */
 function showV(t,h){$('vt').textContent=t;$('vb').innerHTML=h;$('vmodal').hidden=false;const c=$('vmodal').querySelector('.vc');c.scrollTop=0;c.style.maxWidth=h.length>4000?'980px':'780px'}
 $('vclose').onclick=()=>{$('vmodal').hidden=true};$('vmodal').addEventListener('pointerdown',e=>{if(e.target===$('vmodal'))$('vmodal').hidden=true});
@@ -1131,6 +1140,16 @@ VTESTS.push(
   const sv=[nodes,members,ann,res,res0];let out=[];try{nodes=[];members=[];ann=[];PRESETS.susp[1]();const r=solveModel(nodes,members);res=r;res0=null;r.pos.forEach((p,i)=>{nodes[i].x=p[0];nodes[i].y=p[1]});
    const t1=nodeData(nodes[1],r),t0=nodeData(nodes[0],r);out=[['Saddle node: |ΣF| ÷ largest force',0,t1.res,1e-7],['Anchor: |ΣF| ÷ largest force',0,t0.res,1e-7],['Saddle node: member ends found',2,t1.ends.length,0]]}
   finally{nodes=sv[0];members=sv[1];ann=sv[2];res=sv[3];res0=sv[4];lastSig=''}return out}]);
+VTESTS.push(
+ ['Tangent stiffness matrix (v1.2)','Symmetry and rigid-body rows','The assembled tangent K of the suspension bridge and the tensegrity beam must be symmetric, and each row must sum to zero over all u columns and over all v columns: moving every point together needs no force.',()=>{
+  const out=[];['susp','tg_beam'].forEach(k=>{const M=galModel(k),KM=M.r.km(),K=KM.K,n=KM.nd;let mx=0,asy=0,rs=0;for(let i=0;i<n;i++){let su=0,sv=0;for(let j=0;j<n;j++){mx=Math.max(mx,Math.abs(K[i][j]));asy=Math.max(asy,Math.abs(K[i][j]-K[j][i]));if(j%2)sv+=K[i][j];else su+=K[i][j]}rs=Math.max(rs,Math.abs(su),Math.abs(sv))}
+   out.push([PRESETS[k][0]+': max |K_ij − K_ji| ÷ max |K|',0,asy/mx,1e-9],[PRESETS[k][0]+': max row sum ÷ max |K|',0,rs/mx,1e-9])});return out}],
+ ['Tangent stiffness matrix (v1.2)','Geometric stiffness of a bar','A horizontal bar of length 4 m with N = 50 kN tension: k = (EA/L₀) n nᵀ + (N/L)(I − n nᵀ), so the transverse term K[v, v] = N/L = 12.5 kN/m, and K[u, u] = EA/L₀.',()=>{
+  const A=vN(0,0,'pin'),B=vN(4,0,'pin'),EA=1e5,L0=4/(1+50/EA),r=solveModel([A,B],[vB(A,B,L0,EA)]),KM=r.km();return[['Axial force N (kN)',50,r.mem[0].N],['K[n2 v, n2 v] = N/L (kN/m)',r.mem[0].N/4,KM.K[3][3]],['K[n2 u, n2 u] = EA/L₀ (kN/m)',EA/L0,KM.K[2][2]]]}],
+ ['Tangent stiffness matrix (v1.2)','Tangent against finite differences','The tangent K_ff of the point-load cable must match the change in out-of-balance force when the free node is moved by ±0.01 mm (central differences).',()=>{
+  const mk=()=>{const A=vN(0,0,'pin'),B=vN(18,0,'pin'),C=vN(6,-3,'none',[0,-20]);return[[A,B,C],[vC(A,C,6.9,39200,.0195),vC(C,B,12.4,39200,.0195)]]},m0=mk(),r=solveModel(m0[0],m0[1]),KM=r.km(),x=r.pos[2],h=1e-5;
+  const force=(dx,dy)=>{const m=mk();let fx=0,fy=0;[[0,2],[2,1]].forEach(([a,b],k)=>{const e=m[1][k],pa=a==2?[x[0]+dx,x[1]+dy]:r.pos[a],pb=b==2?[x[0]+dx,x[1]+dy]:r.pos[b],q=elEval(e,pa[0],pa[1],pb[0],pb[1]);const f=a==2?q.fA:q.fB;fx+=f[0];fy+=f[1]});return[fx,fy]};
+  const fu=[force(h,0),force(-h,0)],fv=[force(0,h),force(0,-h)];return[['K[n3 u, n3 u] (kN/m)',-(fu[0][0]-fu[1][0])/(2*h),KM.K[4][4],1e-4],['K[n3 v, n3 v] (kN/m)',-(fv[0][1]-fv[1][1])/(2*h),KM.K[5][5],1e-4],['K[n3 u, n3 v] (kN/m)',-(fv[0][0]-fv[1][0])/(2*h),KM.K[4][5],1e-3]]}]);
 function vtRunAll(){const rows=[];VTESTS.forEach(([g,n,d,f])=>{let cs=[],err=null;try{cs=f()}catch(e){err=e.message||String(e)}rows.push({g,n,d,cs,err})});return rows}
 function vtPass(c){const[q,e,g,t]=c;if(!isFinite(g))return false;if(Math.abs(e)<1e-12)return Math.abs(g)<=(t!=null?t:1e-9);return Math.abs(g-e)<=(t!=null?t:1e-4)*Math.abs(e)}
 const vtF=v=>!isFinite(v)?'–':Math.abs(v)>=1e4||(Math.abs(v)<1e-3&&v!=0)?v.toExponential(4):(+v.toPrecision(7)).toString();
@@ -1589,6 +1608,7 @@ addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey)||e.altKey||e.shiftKey)
 
 /* ===== about, method, shortcuts and start-up ===== */
 const CHANGELOG=[
+['1.2','Matrix',['Tangent stiffness matrix inspector (▦ Stiffness matrix in the top bar), the counterpart of Frame Pusher’s. A cable structure is non-linear, so it shows the tangent K at the solved shape (the matrix the Newton–Raphson solver factorises at its last step): two DOFs (u, v) per point, with the joints inside deck-loaded cables as extra points named C4·7.', 'Heatmap with free (K_ff) and full views, log / linear / pattern colours, assembly or reduced-bandwidth (RCM) order, zoom and Read, values or element terms in the cells, and strips for the movement under the loads δ, the applied forces F and the reactions R. Changed cells and the DOFs of the selection are highlighted; the panel can be dragged, collapsed and maximised, and Fit leaves room for it.', 'Hovering a cell names its two DOFs, sums the element contributions, highlights the elements and draws the column on the canvas: a unit move of one DOF and the forces needed to hold the rest still. Clicking pins it.', 'The element panel derives each block: for a bar the elastic part (EA/L₀) n nᵀ plus the geometric part (N/L)(I − n nᵀ), side by side; for a catenary the flexibility f, k = f⁻¹, and its stiffness along the chord (softened by sag, Ernst’s effect) and across it (≈ T/L). Build K element by element with a slider and play button.', 'Statistics: non-zeros, bandwidth, symmetry, positive definiteness (stability), the smallest and largest eigenvalues and the condition number. Show softest mode draws the eigenvector of the smallest eigenvalue on the canvas: the way the structure would give way first.', 'Node numbers on the canvas read n1, n2 … to match the matrix; they are shown while the matrix is open on models of up to 20 members.', 'Three new verification checks: the symmetry and rigid-body rows of the tangent matrix, the geometric stiffness N/L of a bar, and the tangent against finite differences.']],
 ['1.1','Tensegrity',['Grid and snapping as in Frame Pusher: a 1–2–5 grid at least 22 px apart with a major line every five, teal reference lines every 5 m labelled with their coordinates (stepping to 50 m and 500 m when zoomed far out), the grid size in the legend and the snap step beside the cursor coordinates. A ring shows the grid point a click would use with the Node, Cable, Strut and support tools.',
  'Hover highlighting as in Frame Pusher: the cable, bar or node that the current tool would act on glows under the cursor (only cables for Split, Deck load, Self-weight and Length; nodes or cables for supports and new cables). Larger node dots.',
  'Bottom bar options for forces and animation: ▶ Animate grows the loads from zero to their full value and back, with each of twelve frames a solved, non-linear equilibrium blended smoothly (with no load, the self-weight grows instead), so the cables can be seen stiffening as they tighten. Speed control, and toggles for the shape, tension, load arrows and reactions; the panel shows the current load factor. A Labels control (All / Key values / None) replaces the Labels tick box, and a Loads tick box hides the load arrows.',
@@ -1731,6 +1751,207 @@ $('theme').onclick=()=>{const r=document.documentElement;r.dataset.theme=isDark(
 {let t=null;try{t=localStorage.getItem('cp.theme')}catch(e){}if(t=='light'||t=='dark')document.documentElement.dataset.theme=t;thmSync();
  const h=$('home');let framed=true;try{framed=window.top!==window.self}catch(x){}if(h&&framed){h.target='_blank';h.rel='noopener'}}
 HINTS.sel+=' Tick “Member inspector” or “Node inspector” in the popup (or press I) to interrogate the selection in the side panel.';
+
+/* ===== v1.2 “Matrix”: tangent stiffness matrix inspector, after Frame Pusher's stiffness-matrix heatmap =====
+   The solver's res.km() assembles K_T, the tangent stiffness at the solved shape: 2 DOFs (u, v) per point, the
+   real nodes first and then the joints inside deck-loaded cables. Each element adds a 4 × 4 block [k −k; −k k],
+   where k is the 2 × 2 tangent of the force at its far end: for a catenary k = f⁻¹ (f = ∂(lx, ly)/∂(H, V₀)), for a
+   bar k = (EA/L₀) n nᵀ + (N/L)(I − n nᵀ). The panel draws K as a heatmap with δ / F / R strips, explains any
+   cell from the elements behind it, builds K element by element, and finds the softest mode of K_ff. */
+const hm={open:false,mode:'free',col:'log',ord:'asm',chg:true,vec:true,max:false,sz:420,z:1,tx:'val',step:null,pin:null,hover:null,view:null,sig:'',cur:null,curN:0,chm:null,note:'',noteS:'',infoS:'',eqS:'',eqK:'',vsS:'',ctx:null,off:null,tm:null,nEl:0,eig:null,eigK:'',modeOn:false,el:null,kd:null,sm:null,rq:0,stS:''};
+let HM_PP=[[254,215,170],[185,28,28]],HM_NN=[[190,215,250],[29,78,216]];const HM_EQ=96;
+function hmRGB(c){c=(c||'').trim();if(c[0]=='#'){if(c.length==4)c='#'+c[1]+c[1]+c[2]+c[2]+c[3]+c[3];return[parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)]}const m=c.match(/\d+/g);return m?m.slice(0,3).map(Number):[128,128,128]}
+function hmRamps(){const b=hmRGB(css('--bg')),dark=.299*b[0]+.587*b[1]+.114*b[2]<110;if(dark){HM_PP=[[96,26,118],[255,64,236]];HM_NN=[[10,70,92],[30,238,255]]}else{HM_PP=[[255,210,243],[190,0,140]];HM_NN=[[200,242,255],[0,118,160]]}}
+const hmFmt=x=>x==0?'0':Math.abs(x)>=1e5||Math.abs(x)<1e-2?x.toExponential(2):String(+x.toPrecision(4));
+/* names: n3 for node 3, C4·7 for joint 7 inside deck-loaded cable C4; elements C2, B5, C4.7 */
+function hmPt(KM,p){const q=KM.pts[p];if(q.user){const i=nodes.indexOf(q.user);return{node:q.user,s:'n'+(i+1)}}const mi=members.indexOf(q.m);return{node:null,s:'C'+(mi+1)+'·'+q.sub}}
+function hmLab(d,KM){const p=d>>1,c=d&1,P=hmPt(KM,p);return{p,c,node:P.node,s:P.s+' '+(c?'v':'u')}}
+const hmEn=el=>(el.m.type=='bar'?'B':'C')+(members.indexOf(el.m)+1)+(el.sub?'.'+el.sub:'');
+function hmBW(L,K,tol){let b=0;for(let a=0;a<L.length;a++)for(let c=a+1;c<L.length;c++)if(c-a>b&&(Math.abs(K[L[a]][L[c]])>tol||Math.abs(K[L[c]][L[a]])>tol))b=c-a;return b}
+function hmRCM(idx,K,tol){const n=idx.length,adj=Array.from({length:n},()=>[]);for(let a=0;a<n;a++)for(let b=a+1;b<n;b++)if(Math.abs(K[idx[a]][idx[b]])>tol||Math.abs(K[idx[b]][idx[a]])>tol){adj[a].push(b);adj[b].push(a)}
+ const deg=adj.map(l=>l.length),seen=new Uint8Array(n),ord=[],st=[...Array(n).keys()].sort((a,b)=>deg[a]-deg[b]);
+ for(const s of st){if(seen[s])continue;seen[s]=1;const q=[s];for(let h=0;h<q.length;h++){const v=q[h];ord.push(v);adj[v].filter(w=>!seen[w]).sort((a,b)=>deg[a]-deg[b]).forEach(w=>{seen[w]=1;q.push(w)})}}
+ return ord.reverse().map(a=>idx[a])}
+const hmVecOn=()=>hm.vec&&hm.step==null;
+function hmGeom(side,n){const m=34,gap=16,nv=hmVecOn()&&n?(hm.mode=='full'?3:2):0,z=n?hm.z:1;let sw1=22;if(nv&&(side-m-4-nv*(gap+58))/n>=30)sw1=58;const ps1=side-m-4-nv*(gap+sw1),ps=ps1*z,cell=n?ps/n:1,sw=z>1&&nv&&cell>=30?58:sw1,vx=[];for(let k=0;k<nv;k++)vx.push(m+ps+gap+k*(gap+sw));return{m,ps,cell,vx,sw,gap,w:m+ps+4+nv*(gap+sw),h:m+ps+6}}
+function hmSide(){return Math.max(220,Math.floor(hm.max?Math.min(W-40,Math.max(300,H-360)):Math.min(hm.sz,W-36)))}
+
+/* ---------- vectors: δ (movement under the loads), F (applied nodal forces), R (reactions, full view) ---------- */
+function hmVecRaw(KM){const nd=KM.nd,dl=new Float64Array(nd),R=new Float64Array(nd);KM.pts.forEach((q,p)=>{const n=q.user;if(n&&res0&&n.ux!=null&&isFinite(n.ux)){dl[2*p]=n.x-n.ux;dl[2*p+1]=n.y-n.uy}
+ if(n){const r=(res.R||[]).find(o=>o.n===n);if(r){R[2*p]=r.rx;R[2*p+1]=r.ry}}});return{d:dl,F:KM.F,R}}
+function hmVecs(v){hmRamps();const raw=hmVecRaw(v.KM),bg=hmRGB(css('--bg')),L=[['δ',v.idx.map(i=>raw.d[i])],['F',v.idx.map(i=>raw.F[i])]];if(hm.mode=='full')L.push(['R',v.idx.map(i=>raw.R[i])]);
+ return L.map(([k,a])=>{let mx=0;a.forEach(x=>{mx=Math.max(mx,Math.abs(x))});const tol=1e-9*mx,nz=a.map(x=>mx>0&&Math.abs(x)>tol);let mn=Infinity;a.forEach((x,i)=>{if(nz[i])mn=Math.min(mn,Math.abs(x))});const lmx=Math.log10(mx||1),lmn=Math.log10(mn<Infinity?mn:1);
+  const c=a.map((x,i)=>{if(!nz[i])return bg;if(hm.col=='pat')return[139,92,246];let t=hm.col=='log'?(lmx>lmn?(Math.log10(Math.abs(x))-lmn)/(lmx-lmn):1):Math.abs(x)/mx;t=Math.max(0,Math.min(1,t));const P=x>0?HM_PP:HM_NN;return[0,1,2].map(q=>P[0][q]+(P[1][q]-P[0][q])*t)});return{k,a,nz,c,mx}})}
+function hmVecDraw(g,v,G){if(!G.vx.length)return;const vs=v.vecs=hmVecs(v),cell=G.cell,n=v.n,mut=css('--mut'),line=css('--line'),ink=css('--ink'),gp=cell>=14?1:-.6;
+ vs.forEach((o,k)=>{const x=G.vx[k];for(let r=0;r<n;r++){const c=o.c[r];g.fillStyle='rgb('+c[0]+','+c[1]+','+c[2]+')';g.fillRect(x,G.m+r*cell,G.sw,cell-gp)}
+  g.strokeStyle=line;g.lineWidth=1;g.strokeRect(x-.5,G.m-.5,G.sw+1,G.ps+1);g.fillStyle=ink;g.font='600 12px system-ui,sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText(o.k,x+G.sw/2,G.m-16);
+  if(G.sw>30&&cell>=30){g.font=Math.min(11,cell/4.5)+'px system-ui,sans-serif';for(let r=0;r<n;r++){if(!o.nz[r])continue;const c=o.c[r];g.fillStyle=.299*c[0]+.587*c[1]+.114*c[2]<140?'#fff':'#222';g.fillText(hmFmt(k?o.a[r]:o.a[r]*1000),x+G.sw/2,G.m+(r+.5)*cell)}}});
+ g.fillStyle=mut;g.font='11px system-ui,sans-serif';g.textAlign='center';g.textBaseline='middle';vs.forEach((o,k)=>{const x0=k?G.vx[k-1]+G.sw:G.m+G.ps;g.fillText('·',x0+G.gap/2,G.m+G.ps/2)})}
+
+/* ---------- softest mode: the lowest eigenvalue of K_ff by inverse iteration on its Cholesky factor ---------- */
+function hmEig(KM){const fr=[];for(let i=0;i<KM.nd;i++)if(!KM.fx[i])fr.push(i);const n=fr.length,o={n,pd:false};if(!n)return o;const A=new Float64Array(n*n);
+ for(let a=0;a<n;a++)for(let b=0;b<n;b++)A[a*n+b]=KM.K[fr[a]][fr[b]];const L=chol(A,n);const mul=v=>{const y=new Float64Array(n);for(let a=0;a<n;a++){let s=0;for(let b=0;b<n;b++)s+=A[a*n+b]*v[b];y[a]=s}return y},
+  nrm=v=>{let s=0;for(let i=0;i<n;i++)s+=v[i]*v[i];s=Math.sqrt(s)||1;for(let i=0;i<n;i++)v[i]/=s;return v},ray=v=>{const y=mul(v);let s=0;for(let i=0;i<n;i++)s+=v[i]*y[i];return s};
+ let v=nrm(Float64Array.from({length:n},(_,i)=>1+.37*Math.sin(1.7*i+.3)));for(let k=0;k<80;k++)v=nrm(mul(v));o.lmax=ray(v);
+ if(!L){o.pd=false;return o}o.pd=true;let u=nrm(Float64Array.from({length:n},(_,i)=>1+.29*Math.cos(2.3*i+.1)));for(let k=0;k<80;k++)u=nrm(cholSolve(L,n,u));o.lmin=ray(u);
+ const ph=new Float64Array(KM.nd);fr.forEach((d,a)=>ph[d]=u[a]);o.phi=ph;o.cond=o.lmax/o.lmin;return o}
+
+/* ---------- element panel: where a block of K comes from ---------- */
+function hmInv2(k){const d=k[0][0]*k[1][1]-k[0][1]*k[1][0];return Math.abs(d)>1e-300?[[k[1][1]/d,-k[0][1]/d],[-k[1][0]/d,k[0][0]/d]]:null}
+function hmElInfo(el,KM){const e=el.e,r=el.r,X=KM.X,ax=X[2*el.a],ay=X[2*el.a+1],bx=X[2*el.b],by=X[2*el.b+1],L=Math.hypot(bx-ax,by-ay)||1e-12,c=(bx-ax)/L,s=(by-ay)/L,k=el.k,
+  knn=c*c*k[0][0]+c*s*(k[0][1]+k[1][0])+s*s*k[1][1],ktt=s*s*k[0][0]-c*s*(k[0][1]+k[1][0])+c*c*k[1][1];return{L,c,s,knn,ktt,EA:e.EA,L0:e.L0,bar:e.type=='bar',T:r.bar?r.N:(r.T0+r.T1)/2,N:r.N}}
+function hmTermStr(el,p,q,KM){const I=hmElInfo(el,KM),sg=(p<2)==(q<2)?1:-1,a=p%2,b=q%2,f=hmFmt,val=el.Ke[p][q],nm=['x','y'];
+ if(I.bar){const EAL=I.EA/I.L0,NL=I.N/I.L,cc=[I.c,I.s],ca=cc[a],cb=cc[b],sym=a==b?(a==0?'(EA/L₀)c² + (N/L)s²':'(EA/L₀)s² + (N/L)c²'):'(EA/L₀ − N/L)·c·s';
+  const num=a==b?f(EAL)+'×('+f(ca)+')² + '+f(NL)+'×('+f(a==0?I.s:I.c)+')²':'('+f(EAL)+' − '+f(NL)+')×('+f(I.c)+')×('+f(I.s)+')';return{sym:(sg<0?'−[':'')+sym+(sg<0?']':''),num:(sg<0?'−[':'')+num+(sg<0?']':''),val,short:(sg<0?'−':'')+(a==b?'EA/L₀·n²+N/L·t²':'(EA/L₀−N/L)cs')}}
+ return{sym:(sg<0?'−':'')+'k'+nm[a]+nm[b]+' = '+(sg<0?'−':'')+'(f⁻¹)'+nm[a]+nm[b],num:(sg<0?'−':'')+f(el.k[a][b]),val,short:(sg<0?'−':'')+'(f⁻¹)'+nm[a]+nm[b]}}
+function hmElBlock(v,el,i,j){const KM=v.KM,I=hmElInfo(el,KM),f=hmFmt,nm=hmEn(el),pa=hmPt(KM,el.a).s,pb=hmPt(KM,el.b).s,p=i<0?-1:el.id.indexOf(i),q=j<0?-1:el.id.indexOf(j),k=el.k,dn=['x','y'],nameOf=d=>hmLab(d,KM).s,tz=x=>f(Math.abs(x)<1e-9*(v.kmx||1)?0:x);
+ let h='<div class="hmE"><b>'+nm+'</b> from '+pa+' to '+pb+' · '+(I.bar?'bar':el.e.w>1e-8?'catenary element':'weightless cable')+' · L₀ = '+f(I.L0)+' m, chord L = '+f(I.L)+' m · EA = '+f(I.EA)+' kN · '+(I.bar?'N = '+f(I.N)+' kN':'T = '+f(el.r.T0)+' → '+f(el.r.T1)+' kN')+' · chord direction n = (c, s) = ('+f(I.c)+', '+f(I.s)+')';
+ const t2=(M,hl,raw)=>'<table class="hmT"><tr><th></th>'+dn.map(x=>'<th>'+x+'</th>').join('')+'</tr>'+M.map((r,a)=>'<tr><th>'+dn[a]+'</th>'+r.map((x,b)=>'<td class="'+(hl&&hl(a,b)?'hi':Math.abs(x)<1e-12*(raw?1e-12:1)?'z':'')+'">'+(raw?f(x):tz(x))+'</td>').join('')+'</tr>').join('')+'</table>',hl=(a,b)=>p>=0&&a==p%2&&b==q%2;
+ if(I.bar){const EAL=I.EA/I.L0,NL=I.N/I.L,c=I.c,s=I.s,KE=[[EAL*c*c,EAL*c*s],[EAL*c*s,EAL*s*s]],KG=[[NL*s*s,-NL*c*s],[-NL*c*s,NL*c*c]];
+  h+='<br><b>1 · Tangent of the bar</b>: k = (EA/L₀) n nᵀ + (N/L)(I − n nᵀ). The first part is the elastic stretch along the bar ('+f(EAL)+' kN/m); the second is the <i>geometric</i> stiffness from its axial force ('+f(NL)+' kN/m across the bar). Tension stiffens the bar sideways, compression softens it.';
+  h+='<div class="hmK"><span>elastic (EA/L₀) n nᵀ'+t2(KE)+'</span><span>+ geometric (N/L)(I − n nᵀ)'+t2(KG)+'</span><span>= k'+t2(k,hl)+'</span></div>'}
+ else{const F=hmInv2(k);h+='<br><b>1 · Tangent of the catenary</b>: the exact element gives the chord (l<sub>x</sub>, l<sub>y</sub>) from the end forces (H, V₀); its flexibility f = ∂(l<sub>x</sub>, l<sub>y</sub>)/∂(H, V₀) is inverted, k = f⁻¹.';
+  h+='<div class="hmK"><span>flexibility f (m/kN)'+(F?t2(F,null,1):' singular')+'</span><span>k = f⁻¹ (kN/m)'+t2(k,hl)+'</span></div>';
+  const ea=I.EA/I.L0,tl=Math.abs(I.T)/I.L;h+='Along the chord nᵀkn = <b>'+f(I.knn)+'</b> kN/m against EA/L₀ = '+f(ea)+(I.knn<.95*ea?' – the sag makes the cable '+f(ea/Math.max(I.knn,1e-12))+' × softer than its steel (Ernst’s effect)':'')+'. Across it tᵀkt = <b>'+f(I.ktt)+'</b> kN/m, close to T/L = '+f(tl)+': a cable resists sideways movement only through its tension.'}
+ h+='<br><b>2 · Element block</b>: the force at end B grows by k·(d<sub>B</sub> − d<sub>A</sub>) and end A takes the opposite, so the element adds K<sub>e</sub> = [ k −k ; −k k ] to the global DOFs ('+el.id.map(nameOf).join(', ')+'):';
+ h+='<table class="hmT"><tr><th></th>'+el.id.map(d=>'<th>'+nameOf(d)+'</th>').join('')+'</tr>';for(let a=0;a<4;a++){h+='<tr><th>'+nameOf(el.id[a])+'</th>';for(let b=0;b<4;b++)h+='<td class="'+(a==p&&b==q?'hi':Math.abs(el.Ke[a][b])<1e-9*(v.kmx||1)?'z':'')+'">'+tz(el.Ke[a][b])+'</td>';h+='</tr>'}h+='</table>';
+ if(p>=0&&q>=0){const t=hmTermStr(el,p,q,KM);h+='<b>3 · This cell</b>: K<sub>e</sub>['+nameOf(i)+', '+nameOf(j)+']<div class="hmF">= '+t.sym+'<br>= '+t.num+'<br>= <b>'+tz(t.val)+'</b></div>This is added to K['+nameOf(i)+', '+nameOf(j)+']; every other element joining both DOFs adds its own term.'}
+ else h+='<b>3 · Assembly</b>: K<sub>e</sub>[a, b] is added into K[id<sub>a</sub>, id<sub>b</sub>].';return h+'</div>'}
+function hmEqPanel(v,h){const e=$('hmEq');if(!e)return;const key=[h&&h.c>=0?h.r+','+h.c:'',sel&&sel.t=='m'?members.indexOf(sel.m):'',hm.step,v.els.length,lastSig].join('|');if(hm.eqV===v&&hm.eqK===key)return;hm.eqV=v;hm.eqK=key;let t='';
+ if(h&&h.c>=0&&h.r<v.n&&h.c<v.n){const i=v.idx[h.r],j=v.idx[h.c];t=(v.dofEls.get(i)||[]).filter(el=>el.id.includes(j)).map(el=>hmElBlock(v,el,i,j)).join('')}
+ else if(v.step!=null&&v.els.length)t='<b>Element just added to K</b>'+hmElBlock(v,v.els[v.els.length-1],-1,-1);
+ else if(sel&&sel.t=='m'){const el=v.els.find(x=>x.m===sel.m);if(el)t='<b>Selected member</b>'+(v.els.filter(x=>x.m===sel.m).length>1?' (first of its '+v.els.filter(x=>x.m===sel.m).length+' sub-elements)':'')+hmElBlock(v,el,-1,-1)}
+ if(!t)t='<span style="color:var(--mut)">Hover or click a non-zero cell, or select a member, to see the element tangent behind it.</span>';if(hm.eqS!==t){hm.eqS=t;e.innerHTML=t}}
+/* element terms printed in the cells once they are big enough */
+function hmCellEq(g,v,G,cl){if(hm.tx=='val'||G.cell<HM_EQ||!v.n||!v.dofEls)return;const cell=G.cell,n=v.n,m=G.m,cw=$('hmCw'),sl=cw?cw.scrollLeft:0,st=cw?cw.scrollTop:0,vw=cw?cw.clientWidth:1e9,vh=cw?cw.clientHeight:1e9;
+ let c0=Math.max(0,Math.floor((sl-m)/cell)-1),c1=Math.min(n-1,Math.ceil((sl+vw-m)/cell)+1),r0=Math.max(0,Math.floor((st-m)/cell)-1),r1=Math.min(n-1,Math.ceil((st+vh-m)/cell)+1);if((c1-c0+1)*(r1-r0+1)>600){c1=Math.min(c1,c0+24);r1=Math.min(r1,r0+24)}
+ g.textAlign='center';g.textBaseline='middle';
+ for(let r=r0;r<=r1;r++)for(let c=c0;c<=c1;c++){const i=v.idx[r],j=v.idx[c],val=v.K[i][j];if(Math.abs(val)<=1e-12*v.kmx)continue;const o=3*(r*n+c),dark=.299*cl[o]+.587*cl[o+1]+.114*cl[o+2]<140,L=[];
+  if(hm.tx=='both')L.push([hmFmt(val),1]);(v.dofEls.get(i)||[]).forEach(el=>{const q=el.id.indexOf(j);if(q<0)return;const t=hmTermStr(el,el.id.indexOf(i),q,v.KM);L.push([hmEn(el)+': '+hmFmt(t.val),2]);L.push([t.short,0])});
+  if(!L.length)continue;let fs=10.5;g.font='600 '+fs+'px system-ui,sans-serif';let mw=0;L.forEach(([s])=>{mw=Math.max(mw,g.measureText(s).width)});fs=Math.max(6,Math.min(fs,fs*(cell-10)/Math.max(mw,1),(cell-6)/(L.length*1.25)));
+  const lh=fs*1.25,y0=m+(r+.5)*cell-L.length*lh/2+lh/2,x0=m+(c+.5)*cell;L.forEach(([s,k],a)=>{g.font=(k==1?'700 ':k==2?'600 ':'400 ')+fs+'px system-ui,sans-serif';g.fillStyle=dark?'#fff':'#222';g.globalAlpha=k==0?.75:1;g.fillText(s,x0,y0+a*lh)});g.globalAlpha=1}}
+
+/* ---------- colours, statistics and legend ---------- */
+function hmRebuild(KM,K,kmx){hmRamps();const fx=KM.fx,nd=KM.nd,tol=1e-12*kmx,CM=hm.step!=null?hm.sm:(hm.chg?hm.chm:null);let idx=[];for(let i=0;i<nd;i++)if(hm.mode=='full'||!fx[i])idx.push(i);
+ const bwA=hmBW(idx,K,tol);if(hm.ord=='rcm'&&idx.length>2)idx=hmRCM(idx,K,tol);
+ const n=idx.length,bw=hm.ord=='rcm'?hmBW(idx,K,tol):bwA,bg=hmRGB(css('--bg')),pn=hmRGB(css('--panel')),cols=new Uint8ClampedArray(n*n*3);
+ let nnz=0,mn=Infinity,asy=0;for(let r=0;r<n;r++)for(let c=0;c<n;c++){const a=Math.abs(K[idx[r]][idx[c]]);if(a>tol){nnz++;if(a<mn)mn=a}if(c>r)asy=Math.max(asy,Math.abs(K[idx[r]][idx[c]]-K[idx[c]][idx[r]]))}
+ const lmax=Math.log10(kmx||1),lmin=Math.log10(mn<Infinity?mn:1);
+ for(let r=0;r<n;r++)for(let c=0;c<n;c++){const i=idx[r],j=idx[c],v=K[i][j],a=Math.abs(v);let q;
+  if(a<=tol)q=bg;else if(hm.col=='pat')q=i==j?[91,33,182]:[139,92,246];
+  else{let t=hm.col=='log'?(lmax>lmin?(Math.log10(a)-lmin)/(lmax-lmin):1):a/kmx;t=Math.max(0,Math.min(1,t));const P=v>0?HM_PP:HM_NN;q=[0,1,2].map(k=>P[0][k]+(P[1][k]-P[0][k])*t)}
+  if(hm.mode=='full'&&(fx[i]||fx[j]))q=q.map((x,k)=>x*.45+pn[k]*.55);
+  if(CM&&CM[i*nd+j])q=q.map((x,k)=>x*.35+[250,204,21][k]*.65);const o=3*(r*n+c);cols[o]=q[0];cols[o+1]=q[1];cols[o+2]=q[2]}
+ const nfix=[...fx].filter(Boolean).length;hm.view={idx,n,nd,cols,nnz,mn,kmx,bw,bwA,asy,nfix,K,KM,els:[],m:34,cell:1};
+ const gr=P=>'linear-gradient(90deg,rgb('+P[0]+'),rgb('+P[1]+'))',lo=hm.col=='log'?hmFmt(mn<Infinity?mn:0):'0',hi=hmFmt(kmx);let lg='';
+ if(hm.col=='pat')lg='<span><i class="sw" style="background:#8b5cf6"></i> non-zero</span>';else lg='<span>positive</span><span>'+lo+'</span><i style="background:'+gr(HM_PP)+'"></i><span>'+hi+'</span><span>negative</span><span>'+lo+'</span><i style="background:'+gr(HM_NN)+'"></i><span>'+hi+'</span>';
+ lg+='<span><i class="sw" style="background:var(--bg)"></i> exact zero</span>';if(hm.step!=null)lg+='<span><i class="sw" style="background:rgb(250,204,21)"></i> added by the latest element</span>';else if(hm.chg)lg+='<span><i class="sw" style="background:rgb(250,204,21)"></i> changed</span>';if(hm.mode=='full')lg+='<span><i class="sw" style="background:var(--panel);border-style:dashed"></i> washed = fixed by a support</span>';$('hmLg').innerHTML=lg}
+function hmStats(){const v=hm.view;if(!v)return;const E=hm.eig,lmax=Math.log10(v.kmx||1),lmin=Math.log10(v.mn<Infinity?v.mn:1),nin=v.KM.pts.filter(q=>!q.user).length;
+ let t='<b>'+v.n+' × '+v.n+'</b> shown of '+v.nd+' DOFs ('+(v.nd-v.nfix)+' free, '+v.nfix+' fixed)'+(nin?' · '+nin+' of the '+v.KM.pts.length+' points are joints inside deck-loaded cables':'')+'<br>Non-zeros: '+v.nnz+' of '+(v.n*v.n)+' ('+(v.n?(100*v.nnz/(v.n*v.n)).toFixed(1):'0')+' %) · half-bandwidth '+(hm.ord=='rcm'?v.bwA+' → <b>'+v.bw+'</b> after RCM':v.bw)+'<br>Largest |K| '+hmFmt(v.kmx)+' · smallest non-zero '+(v.nnz?hmFmt(v.mn):'–')+' · spread '+(v.nnz?(lmax-lmin).toFixed(1):'0')+' decades · symmetry max |K<sub>ij</sub> − K<sub>ji</sub>| = '+hmFmt(v.asy);
+ if(E&&E.n){t+=E.pd?'<br>K<sub>ff</sub> is <b>positive definite</b>: stable. Softest mode λ<sub>min</sub> = <b>'+hmFmt(E.lmin)+'</b> kN/m, stiffest λ<sub>max</sub> = '+hmFmt(E.lmax)+' kN/m, condition number '+hmFmt(E.cond)+'.':'<br><b style="color:#ff3d5a">K<sub>ff</sub> is not positive definite</b> at this shape: a mechanism, or a strut past its buckling load (λ<sub>max</sub> = '+hmFmt(E.lmax)+').'}
+ if(t!==hm.stS){hm.stS=t;$('hmSt').innerHTML=t}}
+function hmVsUpd(){const v=hm.view,e=$('hmVs'),vs=hmVecOn()&&v&&v.vecs;let t='';if(vs&&vs.length){const mk=(o,sc,u)=>{let b=-1;o.a.forEach((x,i)=>{if(b<0||Math.abs(x)>Math.abs(o.a[b]))b=i});return b<0||!o.mx?'0':hmFmt(o.mx*sc)+' '+u+' ('+hmLab(v.idx[b],v.KM).s+')'};
+ t='Largest |δ| '+mk(vs[0],1000,'mm')+' · largest |F| '+mk(vs[1],1,'kN')+(vs[2]?' · largest |R| '+mk(vs[2],1,'kN'):'')+'<br>Equilibrium after the solve: out-of-balance '+hmFmt(res.resid||0)+' kN at the free DOFs. The problem is non-linear, so K·δ ≠ F: K is the slope at this shape, a small extra load dF moves it by dδ = K<sub>ff</sub>⁻¹ dF.'}if(t!==hm.vsS){hm.vsS=t;e.innerHTML=t}}
+
+/* ---------- hover read-out ---------- */
+function hmWhere(KM,d){const L=hmLab(d,KM),q=KM.pts[L.p],X=KM.X;let s=L.s+' = '+(L.c?'vertical':'horizontal')+' movement of '+(q.user?'node '+L.s.split(' ')[0].slice(1)+(q.user.sup!='none'?' ('+q.user.sup+' support)':q.held?' (held by hand)':''):'joint '+q.sub+' inside cable '+L.s.split('·')[0]);return s+' at ('+hmFmt(X[2*L.p])+', '+hmFmt(X[2*L.p+1])+') m'+(KM.fx[d]?' · fixed':'')}
+function hmInfo(){const v=hm.view,e=$('hmIn'),h=hm.pin||hm.hover;let t;if(!h||!v||h.r>=v.n||(h.c>=v.n))t='Hover a cell to see which DOFs it couples and which elements contribute, or a row of δ / F / R. <b>Click</b> a cell to pin it while you read its derivation below.';
+ else if(h.c<0){const i=v.idx[h.r],A=hmLab(i,v.KM),o=(v.vecs||[]).find(x=>x.k==h.v);if(!o)t='';else{const val=o.a[h.r],nm={'δ':'movement under the loads, from the self-weight shape (nodes only)',F:'applied force: point load, deck-load share and half the weight of any bar here (cable weight acts inside the elements)',R:'support reaction'}[h.v];
+  t='<b>'+h.v+'['+A.s+'] = '+(h.v=='δ'?hmFmt(val*1000)+'</b> mm':hmFmt(val)+'</b> kN')+' — '+nm+'<br>'+hmWhere(v.KM,i)}}
+ else{const i=v.idx[h.r],j=v.idx[h.c],A=hmLab(i,v.KM),B=hmLab(j,v.KM),val=v.K[i][j],parts=[];(v.dofEls.get(i)||[]).forEach(el=>{const p=el.id.indexOf(i),q=el.id.indexOf(j);if(p<0||q<0)return;parts.push(hmEn(el)+' '+hmFmt(el.Ke[p][q]))});
+  t='<b>K['+A.s+', '+B.s+'] = '+hmFmt(val)+'</b> kN/m<br>Row: '+hmWhere(v.KM,i)+'<br>Column: '+hmWhere(v.KM,j)+'<br>'+(parts.length?'Sum of element contributions: '+parts.join(' + '):'No element joins these two DOFs, so this entry is exactly zero.')+'<br><span style="color:var(--mut)">Meaning: the force needed at '+A.s+' to hold the structure when '+B.s+' moves by a small amount (per metre), every other free DOF held still. The column’s forces are drawn on the canvas.</span>';if(hm.pin)t='<b>Pinned</b> (click the cell again to release)<br>'+t}
+ if(hm.infoS!==t){hm.infoS=t;e.innerHTML=t}if(v)hmEqPanel(v,h)}
+
+/* ---------- matrix painting ---------- */
+function hmPaint(){const v=hm.view,cv2=$('hmCv'),g=hm.ctx||(hm.ctx=cv2.getContext('2d')),dpr=devicePixelRatio||1,side=hmSide(),n=v.n,G=hmGeom(side,n),m=G.m,ps=G.ps,cell=G.cell;
+ if(cv2.width!==Math.round(G.w*dpr)||cv2.height!==Math.round(G.h*dpr)){cv2.width=Math.round(G.w*dpr);cv2.height=Math.round(G.h*dpr);cv2.style.width=G.w+'px';cv2.style.height=G.h+'px'}
+ v.m=m;v.cell=cell;v.vx=G.vx;v.sw=G.sw;if(!hm.max)hm.el.style.width=Math.min(W-20,Math.max(470,Math.min(G.w,hmSide()+(G.vx.length?G.vx.length*74:0))+30))+'px';else hm.el.style.width='';g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,G.w,G.h);const mut=css('--mut'),ink=css('--ink'),line=css('--line'),acc=css('--acc');
+ if(!n){g.fillStyle=mut;g.font='12px system-ui,sans-serif';g.textAlign='left';g.fillText('No free degrees of freedom to show.',10,m+16);hmInfo();return}
+ const cl=v.cols;
+ if(cell>=5){const gp=cell>=14?1:-.6;for(let r=0;r<n;r++)for(let c=0;c<n;c++){const o=3*(r*n+c);g.fillStyle='rgb('+cl[o]+','+cl[o+1]+','+cl[o+2]+')';g.fillRect(m+c*cell,m+r*cell,cell-gp,cell-gp)}}
+ else{const oc=hm.off||(hm.off=document.createElement('canvas'));oc.width=oc.height=n;const og=oc.getContext('2d'),im=og.createImageData(n,n);for(let k=0;k<n*n;k++){im.data[4*k]=cl[3*k];im.data[4*k+1]=cl[3*k+1];im.data[4*k+2]=cl[3*k+2];im.data[4*k+3]=255}og.putImageData(im,0,0);g.imageSmoothingEnabled=false;g.drawImage(oc,m,m,ps,ps)}
+ g.strokeStyle=line;g.lineWidth=1;g.strokeRect(m-.5,m-.5,ps+1,ps+1);
+ const lab=(s,p)=>{g.fillStyle=mut;g.font='9px system-ui,sans-serif';g.textBaseline='middle';g.textAlign='right';g.fillText(s,m-3,p);g.save();g.translate(p,m-3);g.rotate(-Math.PI/2);g.textAlign='left';g.fillText(s,0,0);g.restore()};
+ if(cell>=13){for(let r=0;r<n;r++)lab(hmLab(v.idx[r],v.KM).s,m+(r+.5)*cell)}
+ else if(hm.ord=='asm'){const pt=i=>v.idx[i]>>1,gs0=[];let s=0;for(let r=1;r<=n;r++)if(r==n||pt(r)!==pt(s)){gs0.push([s,r]);s=r}
+  if(cell>=3){g.strokeStyle=ink;g.globalAlpha=.22;g.beginPath();gs0.forEach(([a])=>{if(a>0){const p=m+a*cell;g.moveTo(m,p);g.lineTo(m+ps,p);g.moveTo(p,m);g.lineTo(p,m+ps)}});g.stroke();g.globalAlpha=1}
+  if(cell*2>=15)gs0.forEach(([a,b])=>lab(hmPt(v.KM,pt(a)).s,m+((a+b)/2)*cell))}
+ if(cell>=34&&!(hm.tx!='val'&&cell>=HM_EQ)){g.font=Math.min(11,cell/5)+'px system-ui,sans-serif';g.textAlign='center';g.textBaseline='middle';for(let r=0;r<n;r++)for(let c=0;c<n;c++){const val=v.K[v.idx[r]][v.idx[c]],o=3*(r*n+c);if(Math.abs(val)<=1e-12*v.kmx)continue;g.fillStyle=.299*cl[o]+.587*cl[o+1]+.114*cl[o+2]<140?'#fff':'#222';g.fillText(hmFmt(val),m+(c+.5)*cell,m+(r+.5)*cell)}}
+ hmCellEq(g,v,G,cl);hmVecDraw(g,v,G);const rows=[];v.idx.forEach((d,k)=>{if(hm.selD.has(d))rows.push(k)});
+ if(rows.length){g.fillStyle=acc;g.globalAlpha=.2;rows.forEach(k=>{g.fillRect(m,m+k*cell,ps,Math.max(cell,1.5));g.fillRect(m+k*cell,m,Math.max(cell,1.5),ps)});g.globalAlpha=1}
+ const h=hm.pin||hm.hover;if(h&&h.r<n&&h.c<n){g.fillStyle='#f59e0b';g.globalAlpha=.2;g.fillRect(m,m+h.r*cell,G.vx.length?G.vx[G.vx.length-1]+G.sw-m:ps,Math.max(cell,1.5));if(h.c>=0){g.fillStyle='#00d9bf';g.fillRect(m+h.c*cell,m,Math.max(cell,1.5),ps)}g.globalAlpha=1;g.strokeStyle=ink;g.lineWidth=hm.pin?3.5:2;
+  if(h.c>=0)g.strokeRect(m+h.c*cell,m+h.r*cell,Math.max(cell,3),Math.max(cell,3));else{const x=G.vx['δFR'.indexOf(h.v)];if(x!==undefined)g.strokeRect(x,m+h.r*cell,G.sw,Math.max(cell,3))}}
+ {const cw_=$('hmCw');if(cw_)cw_.classList.toggle('zm',hm.z>1)}{const zv=$('hmZv');if(zv)zv.textContent=Math.round(hm.z*100)+'% · cell '+Math.round(cell)+' px'+(hm.tx!='val'&&cell<HM_EQ?' · zoom in to show the terms':'')}
+ hmInfo()}
+function hmSel(KM){const S2=new Set(),addP=p=>{if(p>=0){S2.add(2*p);S2.add(2*p+1)}},pOf=n=>KM.pts.findIndex(q=>q.user===n);
+ if(sel){if(sel.t=='n')addP(pOf(sel.n));else if(sel.t=='m'||sel.t=='multi'){const ms=sel.t=='m'?[sel.m]:[...(sel.members||[])];KM.els.forEach(el=>{if(ms.includes(el.m))el.id.forEach(d=>S2.add(d))});if(sel.t=='multi')(sel.nodes||[]).forEach(n=>addP(pOf(n)))}}
+ else if(!drag){const n=hitNode(mouse);if(n)addP(pOf(n))}hm.selD=S2}
+
+/* ---------- on the canvas: the column of the hovered cell as forces, and the softest mode ---------- */
+function hmArrow(x0,y0,x1,y1,c,w){const L=Math.hypot(x1-x0,y1-y0);if(L<2)return;ctx.save();ctx.strokeStyle=c;ctx.lineWidth=w||2.4;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x1-(x1-x0)/L*6,y1-(y1-y0)/L*6);ctx.stroke();ctx.restore();head(x1,y1,x1-x0,y1-y0,c,10)}
+function hmStruct(){const v=hm.view;if(!v)return;const KM=v.KM,X=KM.X,P=p=>[sx(X[2*p]),sy(X[2*p+1])];
+ if(hm.modeOn&&hm.eig&&hm.eig.phi){const ph=hm.eig.phi;let mx=0;for(let i=0;i<ph.length;i++)mx=Math.max(mx,Math.abs(ph[i]));if(mx>0){const k=46/mx,Q=p=>[sx(X[2*p])+ph[2*p]*k,sy(X[2*p+1])-ph[2*p+1]*k];ctx.save();ctx.strokeStyle='#00d9bf';ctx.lineWidth=2.4;ctx.setLineDash([7,4]);
+  KM.els.forEach(el=>{const a=Q(el.a),b=Q(el.b);ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke()});ctx.restore();let tp=null;KM.pts.forEach((q,p)=>{if(!tp||Math.hypot(ph[2*p],ph[2*p+1])>Math.hypot(ph[2*tp],ph[2*tp+1]))tp=p});
+  if(tp!=null){const q=Q(tp);pill(q[0],q[1]-22,'softest mode λ = '+hmFmt(hm.eig.lmin)+' kN/m (shape exaggerated)','#00d9bf',{keep:1,must:1,fs:11})}}}
+ const h=hm.pin||hm.hover;if(!h||h.r>=v.n||h.c>=v.n)return;const i=v.idx[h.r],j=h.c<0?i:v.idx[h.c],A=hmLab(i,KM),B=hmLab(j,KM);
+ ctx.save();ctx.lineCap='round';ctx.strokeStyle='#8b5cf6';ctx.globalAlpha=.35;ctx.lineWidth=10;v.els.forEach(el=>{if(el.id.includes(i)&&el.id.includes(j)){const a=P(el.a),b=P(el.b);ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke()}});ctx.globalAlpha=1;ctx.lineWidth=3;
+ [[A,'#f59e0b',14],[B,'#00d9bf',19]].forEach(([L,c,rad],q)=>{if(h.c<0&&q)return;const p=P(L.p);ctx.strokeStyle=c;ctx.beginPath();ctx.arc(p[0],p[1],rad,0,7);ctx.stroke()});ctx.restore();
+ if(h.c<0)return;
+ /* column j: unit movement of DOF j (teal) and the forces at every point needed to hold the rest still (amber) */
+ const pb=P(B.p),ux=B.c?0:1,uy=B.c?1:0;hmArrow(pb[0],pb[1],pb[0]+ux*40,pb[1]-uy*40,'#00d9bf',3);
+ const fs=new Map();let fm=0;for(let d=0;d<v.nd;d++){const kv=v.K[d][j];if(Math.abs(kv)<=1e-12*v.kmx)continue;const p=d>>1,o=fs.get(p)||[0,0];o[d&1]=kv;fs.set(p,o)}fs.forEach(o=>{fm=Math.max(fm,Math.hypot(o[0],o[1]))});
+ fs.forEach((o,p)=>{const q=P(p),l=Math.hypot(o[0],o[1]);if(!(l>0))return;const L=14+46*l/fm,dx=o[0]/l,dy=-o[1]/l,off=p===B.p?8:0;hmArrow(q[0]+dx*off,q[1]+dy*off,q[0]+dx*(off+L),q[1]+dy*(off+L),'#f59e0b',2.2)});
+ pill(pb[0]+28,pb[1]+30,'column '+B.s+': move it by a unit, hold the rest – amber forces = K[·, '+B.s+']','#00d9bf',{keep:1,must:1,fs:11})}
+
+/* ---------- the panel ---------- */
+function hmZoom(f,cx,cy){const v=hm.view;if(!v||!v.n)return;const cw=$('hmCw'),cvv=$('hmCv'),z0=hm.z,z1=Math.max(1,Math.min(24,+(z0*f).toFixed(3)));if(z1===z0)return;
+ const b=cvv.getBoundingClientRect(),w=cw.getBoundingClientRect(),X=cx==null?w.left+w.width/2:cx,Y=cy==null?w.top+w.height/2:cy,px=X-b.left,py=Y-b.top,m=v.m,r=z1/z0,nx=m+(px-m)*r,ny=m+(py-m)*r;hm.z=z1;draw();cw.scrollLeft+=nx-px;cw.scrollTop+=ny-py}
+function hmRead(){const v=hm.view;if(!v||!v.n)return;hm.z=1;const c1=hmGeom(hmSide(),v.n).cell;hm.z=Math.max(1,Math.min(24,((hm.tx!='val'?HM_EQ+14:58))/c1));draw()}
+function hmInit(){const d=document.createElement('div');d.id='hm';d.hidden=true;
+ d.innerHTML='<div id="hmH"><b>▦ Tangent stiffness matrix K</b><span><button id="hmZ" title="Maximise over the canvas">⤢</button><button id="hmC" title="Collapse or expand">▾</button><button id="hmX" title="Close">✕</button></span></div><div id="hmB">'+
+ '<div class="hmr"><label>Matrix <select id="hmM"><option value="free">Free DOFs (K_ff, the part solved)</option><option value="full">Full assembled K (all DOFs)</option></select></label><label>Colour <select id="hmCol"><option value="log">Log magnitude, magenta + / cyan −</option><option value="lin">Linear, signed</option><option value="pat">Non-zero pattern</option></select></label></div>'+
+ '<div class="hmr"><label>Order <select id="hmO"><option value="asm">Assembly (point by point)</option><option value="rcm">Reduced bandwidth (RCM)</option></select></label><label>Size <select id="hmS"><option value="320">Small</option><option value="420" selected>Medium</option><option value="560">Large</option><option value="720">Extra large</option></select></label><label><input type="checkbox" id="hmCh" checked>Highlight changes</label><label><input type="checkbox" id="hmV" checked>Show δ and F</label></div>'+
+ '<div class="hmr"><label>Cell text <select id="hmTx"><option value="val">Values</option><option value="eq">Element terms</option><option value="both">Value + terms</option></select></label><span class="hmZ">Zoom <button id="hmZo" title="Zoom out">−</button><button id="hmZi" title="Zoom in">+</button><button id="hmZf" title="Back to fit">Fit</button><button id="hmZr" title="Zoom until the numbers (or terms) can be read">Read</button><span id="hmZv"></span></span></div>'+
+ '<div class="hmr"><label><input type="checkbox" id="hmAs">Build K element by element</label><span id="hmAc" hidden><button id="hmAp" title="Previous element">◀</button><input type="range" id="hmSl" min="1" max="1" value="1"><button id="hmAn" title="Next element">▶</button><button id="hmAg" title="Play">▶▶</button><span id="hmSv"></span></span><label title="Draw the eigenvector of the smallest eigenvalue of K_ff on the canvas: the direction in which the structure is softest"><input type="checkbox" id="hmMd">Show softest mode</label></div>'+
+ '<div id="hmCw"><canvas id="hmCv"></canvas></div><div id="hmLg"></div><div id="hmIn"></div><details id="hmEqD" open><summary>Element tangent behind the selected cell</summary><div id="hmEq"></div></details><div id="hmSt"></div><div id="hmVs"></div>'+
+ '<details id="hmHow"><summary>How to read and check this matrix</summary><p><b>What it is.</b> A cable structure is non-linear, so there is no single K with K·u = F. This is the <i>tangent</i> stiffness K at the solved shape: K[i, j] is the extra force needed at DOF i per metre of small extra movement of DOF j, with every other free DOF held. It is the matrix the Newton–Raphson solver factorises at its last step, and it says how the structure answers a small extra load: dδ = K<sub>ff</sub>⁻¹ dF.</p>'+
+ '<p><b>Where it comes from.</b> Each element (a cable, a bar, or one of the sixteen pieces of a deck-loaded cable) has a 2 × 2 tangent k relating the force at one end to the relative movement of its ends, and adds [ k −k ; −k k ] to the four DOFs of its two ends. For a bar k = (EA/L₀) n nᵀ + (N/L)(I − n nᵀ): elastic stiffness along it plus geometric stiffness N/L across it. For a catenary, k = f⁻¹, the inverse of the exact element’s flexibility. Tick “Build K element by element” to watch it assemble.</p>'+
+ '<p><b>What to look for.</b> Pretension is stiffness: across a taut cable the stiffness is about T/L, so a slack cable adds almost nothing and an X-module or a net is stiff only because it is pretensioned (try the Length tool and watch the cells fade). Sag softens a cable along its chord (Ernst’s effect). Compression in a strut subtracts N/L; when K<sub>ff</sub> stops being positive definite the structure has buckled or become a mechanism. “Show softest mode” draws the direction it would give way first.</p>'+
+ '<p><b>Checking by hand.</b> K is symmetric. In the full matrix each row sums to zero across all the u DOFs and across all the v DOFs (moving everything together needs no force). Units: kN/m throughout. Points named C4·7 are the joints inside deck-loaded cable C4.</p></details><div id="hmNote"></div></div>';
+ $('wrap').appendChild(d);hm.el=d;
+ const rs=()=>{hm.sig='';draw()};$('hmM').onchange=()=>{hm.mode=$('hmM').value;rs()};$('hmCol').onchange=()=>{hm.col=$('hmCol').value;rs()};$('hmO').onchange=()=>{hm.ord=$('hmO').value;rs()};$('hmS').onchange=()=>{hm.sz=+$('hmS').value;draw()};$('hmCh').onchange=()=>{hm.chg=$('hmCh').checked;rs()};
+ $('hmX').onclick=()=>hmToggle();$('hmZ').onclick=()=>{hm.max=!hm.max;hm.el.classList.toggle('hm-max',hm.max);hm.el.style.left=hm.el.style.top='';draw()};$('hmV').onchange=()=>{hm.vec=$('hmV').checked;draw()};$('hmMd').onchange=()=>{hm.modeOn=$('hmMd').checked;draw()};
+ $('hmC').onclick=()=>{const b=$('hmB');b.hidden=!b.hidden;$('hmC').textContent=b.hidden?'▸':'▾'};
+ const mv=e=>{const v=hm.view;if(!v||!v.n)return;const b=$('hmCv').getBoundingClientRect(),X=e.clientX-b.left,c=Math.floor((X-v.m)/v.cell),r=Math.floor((e.clientY-b.top-v.m)/v.cell);let h=null;if(r>=0&&r<v.n){if(c>=0&&c<v.n)h={r,c};else if(v.vx)for(let k=0;k<v.vx.length;k++)if(X>=v.vx[k]&&X<=v.vx[k]+v.sw)h={r,c:-1,v:'δFR'[k]}}if(!h&&!hm.hover)return;if(h&&hm.hover&&h.r==hm.hover.r&&h.c==hm.hover.c&&h.v==hm.hover.v)return;hm.hover=h;draw()};
+ $('hmZo').onclick=()=>hmZoom(1/1.25);$('hmZi').onclick=()=>hmZoom(1.25);$('hmZf').onclick=()=>{hm.z=1;draw()};$('hmZr').onclick=()=>hmRead();$('hmTx').onchange=()=>{hm.tx=$('hmTx').value;if(hm.tx!='val')hmRead();else draw()};
+ $('hmCw').addEventListener('wheel',e=>{const cw=$('hmCw'),can=cw.scrollHeight>cw.clientHeight+2||cw.scrollWidth>cw.clientWidth+2;if(e.ctrlKey||e.metaKey||e.altKey||!can){e.preventDefault();hmZoom(e.deltaY<0?1.2:1/1.2,e.clientX,e.clientY)}},{passive:false});
+ $('hmCw').onscroll=()=>{if(hm.tx!='val'&&!hm.rq){hm.rq=1;requestAnimationFrame(()=>{hm.rq=0;draw()})}};
+ $('hmCv').onclick=()=>{const h=hm.hover;if(!h||h.c<0){hm.pin=null;draw();return}const p=hm.pin;hm.pin=p&&p.r==h.r&&p.c==h.c?null:{r:h.r,c:h.c};draw()};
+ const stSet=k=>{hm.step=Math.max(1,Math.min(hm.nEl||1,k));draw()},stStop=()=>{if(hm.tm){clearInterval(hm.tm);hm.tm=null;$('hmAg').textContent='▶▶'}};
+ $('hmAs').onchange=()=>{const on=$('hmAs').checked;$('hmAc').hidden=!on;stStop();hm.step=on?1:null;hm.sig='';draw()};
+ $('hmAp').onclick=()=>{stStop();stSet((hm.step||1)-1)};$('hmAn').onclick=()=>{stStop();stSet((hm.step||0)+1)};$('hmSl').oninput=()=>{stStop();stSet(+$('hmSl').value)};
+ $('hmAg').onclick=()=>{if(hm.tm){stStop();return}if(hm.step>=hm.nEl)hm.step=0;$('hmAg').textContent='⏸';hm.tm=setInterval(()=>{if(!hm.open||hm.step==null||hm.step>=hm.nEl){stStop();return}stSet(hm.step+1)},Math.max(120,Math.min(900,9000/Math.max(hm.nEl,1))))};
+ $('hmCv').onpointermove=mv;$('hmCv').onpointerdown=mv;$('hmCv').onpointerleave=()=>{if(hm.hover){hm.hover=null;draw()}};
+ const H_=$('hmH');H_.onpointerdown=e=>{if(e.target.tagName=='BUTTON'||hm.max)return;const r0=hm.el.getBoundingClientRect(),w0=$('wrap').getBoundingClientRect(),dx=e.clientX-r0.left,dy=e.clientY-r0.top;H_.setPointerCapture(e.pointerId);H_.onpointermove=ev=>{hm.el.style.left=Math.max(0,Math.min(w0.width-60,ev.clientX-w0.left-dx))+'px';hm.el.style.top=Math.max(0,Math.min(w0.height-30,ev.clientY-w0.top-dy))+'px'};H_.onpointerup=()=>{H_.onpointermove=null;H_.onpointerup=null}}}
+function hmToggle(){if(!hm.el)hmInit();hm.open=!hm.open;hm.el.hidden=!hm.open;$('mK').classList.toggle('on',hm.open);hm.hover=null;hm.pin=null;hm.sig='';draw();fit()}
+function hmDraw(){if(!hm.open||!hm.el)return;if(!$('sN').checked&&members.length<=20)drawNumbers();
+ const r=res;if(!r||!r.ok||!r.km){$('hmNote').innerHTML='<b>No equilibrium yet, so there is no tangent matrix to show.</b>';hm.view=null;const g=$('hmCv').getContext('2d');g.clearRect(0,0,$('hmCv').width,$('hmCv').height);$('hmSt').innerHTML='';$('hmVs').innerHTML='';$('hmIn').innerHTML='';hm.stS=hm.vsS=hm.infoS='';return}
+ const KM=r.km(),K=KM.K,nd=KM.nd,fx=KM.fx;let kmx=0;for(let i=0;i<nd;i++){const a=K[i];for(let j=0;j<nd;j++){const v=Math.abs(a[j]);if(v>kmx)kmx=v}}
+ let diff=true;if(hm.cur&&hm.curN==nd){diff=false;let m=null;const tl=1e-6*(kmx||1);for(let i=0;i<nd;i++){const a=K[i],b=hm.cur[i];for(let j=0;j<nd;j++)if(Math.abs(a[j]-b[j])>tl){if(!m)m=new Uint8Array(nd*nd);m[i*nd+j]=1}}if(m){diff=true;hm.chm=m;hm.note=''}}else if(hm.cur){hm.chm=null;hm.note='Matrix size changed: '+hm.curN+' → '+nd+' DOFs'}
+ if(diff){hm.cur=K.map(a=>Float64Array.from(a));hm.curN=nd}
+ const els=KM.els,ne=els.length;hm.nEl=ne;if(hm.step!=null)hm.step=Math.max(1,Math.min(ne||1,hm.step));
+ const sig=[hm.mode,hm.col,hm.ord,hm.chg?1:0,nd,[...fx].join(''),hm.step,isDark()].join('|');let Kv=K;
+ if(diff||sig!==hm.sig||!hm.view){if(sig!==hm.sig)hm.pin=null;hm.sig=sig;hm.kd=null;
+  if(hm.step!=null&&ne){const Kd=Array.from({length:nd},()=>new Float64Array(nd)),sm=new Uint8Array(nd*nd),tl=1e-12*(kmx||1);els.slice(0,hm.step).forEach((el,k)=>{const last=k==hm.step-1;for(let a=0;a<4;a++)for(let b=0;b<4;b++){Kd[el.id[a]][el.id[b]]+=el.Ke[a][b];if(last&&Math.abs(el.Ke[a][b])>tl)sm[el.id[a]*nd+el.id[b]]=1}});hm.kd=Kd;hm.sm=sm}
+  hmRebuild(KM,hm.kd||K,kmx)}
+ Kv=hm.kd||K;const v=hm.view;v.K=Kv;v.KM=KM;v.els=hm.step!=null?els.slice(0,hm.step):els;v.step=hm.step;v.kmx=kmx;
+ {const de=new Map();v.els.forEach(el=>el.id.forEach(d=>{let a=de.get(d);if(!a)de.set(d,a=[]);if(!a.includes(el))a.push(el)}));v.dofEls=de;
+  const sl=$('hmSl');sl.max=ne||1;sl.value=hm.step==null?ne:hm.step;$('hmSv').textContent=hm.step==null||!ne?'':'element '+hm.step+' of '+ne+': '+hmEn(els[hm.step-1])}
+ const ek=lastSig+'|'+nd;if(hm.eigK!==ek){hm.eigK=ek;try{hm.eig=hmEig(KM)}catch(e){hm.eig=null}}
+ const nt=(hm.note?'<b>'+hm.note+'</b><br>':'')+'Each point owns a 2×2 block: u = horizontal, v = vertical. K[i,j] is non-zero only when an element joins the two points, so the pattern is the structure’s connectivity. Unlike a linear frame, K changes with the loads: they change the tensions and the shape, and with them the geometric stiffness. Supports remove rows and columns, leaving K_ff.'+(hm.vec?' The strips on the right are the movement under the loads δ (mm) and the applied forces F (kN); the full view adds the reactions R.':'');
+ if(nt!==hm.noteS){hm.noteS=nt;$('hmNote').innerHTML=nt}
+ hmSel(KM);hmPaint();hmStats();hmVsUpd();hmStruct()}
+$('mK').onclick=()=>hmToggle();
 
 /* ---- start-up ---- */
 $('topVer').textContent='v'+VER+' “'+VNAME+'”';document.title='Cable Pusher v'+VER+' “'+VNAME+'”';
