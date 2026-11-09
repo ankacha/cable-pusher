@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Cable Pusher v1.0 “Catenary”</title>
+<title>Cable Pusher v1.1 “Tensegrity”</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
 :root{--bg:#f1ebfc;--panel:#fbf9ff;--ink:#241838;--mut:#6d6188;--line:#d8cbf0;--mem:#43376a;--acc:#7c3aed;--grid:#d3c5ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -279,13 +279,46 @@ details.ip:has(#hint){display:none}
 .vc p{line-height:1.5}
 @media(max-width:700px){#pop{width:min(262px,calc(100% - 16px))}}
 #dock #info{max-width:min(360px,100%)}
+/* ===== v1.1 home and theme buttons, labels control, node inspector, inspector tab (from Frame Pusher v2.11–v2.13) ===== */
+#top #home{display:inline-flex;align-items:center;justify-content:center;width:30px;height:28px;margin-right:6px;border-radius:8px;border:1px solid color-mix(in srgb,var(--acc) 45%,var(--line));color:var(--ink);text-decoration:none;flex:none;transition:background .12s,border-color .12s,box-shadow .12s}
+#top #home svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#top #home:hover{border-color:var(--neon2,var(--acc));background:color-mix(in srgb,var(--neon2,var(--acc)) 10%,transparent);box-shadow:0 0 14px -3px color-mix(in srgb,var(--neon2,var(--acc)) 65%,transparent)}
+#top #home:focus-visible{outline:2px solid var(--neon2,var(--acc));outline-offset:1px}
+#top #theme.thm{margin-left:auto;width:32px;height:28px;padding:0;justify-content:center;border-radius:8px;border:1px solid color-mix(in srgb,var(--acc) 45%,var(--line));color:var(--ink);flex:none}
+#top #theme.thm svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#top #theme.thm:hover{border-color:var(--neon2,var(--acc))}
+#lblW{gap:6px}#lblW select{width:auto;padding:2px 22px 2px 7px;font-size:12px}
+#anLf{min-width:0!important;text-align:left!important;color:var(--ink);font-weight:600}
+#sideNode{font-size:11.5px;color:var(--mut);line-height:1.45}#sideNode[hidden]{display:none}
+#sideNode .ndT{color:var(--ink);font-size:12.5px;margin:0 0 2px}#sideNode .ndT b{color:var(--ink)}
+#sideNode .ndC{margin:0 0 6px}
+#sideNode .ndSvg{display:block;width:100%;height:auto;background:color-mix(in srgb,var(--acc) 5%,var(--bg));border:1px solid var(--line);border-radius:10px}
+#sideNode .ndL{font:600 9.5px system-ui,sans-serif}
+#sideNode .ndH{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--neon2,var(--acc));margin:10px 0 3px}
+#sideNode .ndTb{width:100%;border-collapse:collapse;font-size:11.5px;font-variant-numeric:tabular-nums}
+#sideNode .ndTb th,#sideNode .ndTb td{padding:2px 4px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+#sideNode .ndTb th{color:var(--mut);font-weight:600}#sideNode .ndTb td{color:var(--ink)}
+#sideNode .ndTb td:first-child,#sideNode .ndTb th:first-child{text-align:left;white-space:normal}
+#sideNode .ndEq tr.ndP td:first-child{color:#ff2bd6}#sideNode .ndEq tr.ndR td:first-child{color:#ff3d5a}
+#sideNode .ndEq tr.ndSum td{font-weight:700;border-top:1.5px solid var(--mut);border-bottom:0}
+#sideNode .ndN{font-size:11px;margin:4px 0 0}
+#sideNode .ndW{color:#ff3d5a;font-weight:600}
+#pop label.ndChk{display:flex;gap:6px;align-items:center;margin:6px 0 2px;font-size:12px;white-space:normal}
+#sideB .sch.ft{max-height:240px}
+#sideTab{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:6px;width:26px;padding:12px 0;border-radius:10px 0 0 10px;border:1px solid color-mix(in srgb,var(--acc) 60%,var(--line));border-right:0;background:var(--panel);color:var(--ink);box-shadow:var(--sh-s,0 2px 10px rgba(0,0,0,.25));font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+#sideTab[hidden]{display:none}
+#sideTab .stT{writing-mode:vertical-rl;transform:rotate(180deg)}#sideTab .stA{font-size:14px;letter-spacing:0;color:var(--neon2,var(--acc))}
+#sideTab:hover{background:color-mix(in srgb,var(--neon2,var(--acc)) 14%,var(--panel));border-color:var(--neon2,var(--acc));box-shadow:0 0 14px -3px color-mix(in srgb,var(--neon2,var(--acc)) 65%,transparent)}
+#wrap.tabOn #dock{right:36px}
 </style>
-<nav id="top"><span class="tt">◡ Cable Pusher</span><small id="topVer" style="color:var(--mut);margin-right:8px"></small><button id="mIO" title="Save the model to a file, or open a saved file (Ctrl+S / Ctrl+O)">⤓ Save / open</button><button id="mRep" title="A4 calculation sheets of the current model as a PDF">⎙ Report</button><i></i><button id="mGuide" title="Open the illustrated quick guide">? Guide</button><button id="mVer" title="Compare the solver with closed-form cable solutions">✓ Verification tests</button><button id="mMeth">Method</button><button id="mKeys">Shortcuts</button><button id="mAbout">About</button><button id="mNew" title="Clear the canvas">New</button></nav>
+<nav id="top"><a id="home" href="https://ankacha.github.io/" title="Home – ankacha.github.io" aria-label="Home (ankacha.github.io)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h5v-5.5h3V20h5V9.5"/></svg></a><span class="tt">◡ Cable Pusher</span><small id="topVer" style="color:var(--mut);margin-right:8px"></small><button id="mIO" title="Save the model to a file, or open a saved file (Ctrl+S / Ctrl+O)">⤓ Save / open</button><button id="mRep" title="A4 calculation sheets of the current model as a PDF">⎙ Report</button><i></i><button id="mGuide" title="Open the illustrated quick guide">? Guide</button><button id="mVer" title="Compare the solver with closed-form cable solutions">✓ Verification tests</button><button id="mMeth">Method</button><button id="mKeys">Shortcuts</button><button id="mAbout">About</button><button id="mNew" title="Clear the canvas">New</button><button id="theme" class="thm" type="button"></button></nav>
 <aside id="tools"><div class="gh" style="margin-top:2px">Example structures</div><select id="pre"><option value="">Load example…</option></select></aside>
-<main><div id="mid"><div id="wrap"><canvas id="cv"></canvas><div id="dock"><div id="dsb"><button id="dsT" title="Scale the on-screen size of loads, reactions and the tension band"><span>⇕ Diagram scale</span><span id="dsA">▸</span></button><div id="dsB" hidden></div></div><div id="info"><button id="infoT">▸ Info panel</button><div id="infoB" hidden><div id="coord"></div><details open class="ip"><summary>Results</summary><div id="read"></div></details><details open class="ip"><summary>Solver status</summary><div id="fea"></div></details></div></div></div><label id="lgT"><input type="checkbox" id="sL" checked>Legend</label><div id="ctb"><button id="undo" title="Undo (Ctrl+Z)">↶ Undo</button><button id="redo" title="Redo (Ctrl+Y)">↷ Redo</button><button id="fit" title="Fit view (F)">⤢ Fit</button><button id="dup" title="Copy the selection (or the whole structure) and paste it into free space">⧉ Duplicate</button><button id="clr" title="Remove all point and deck loads">Clear loads</button><button id="theme">◐ Theme</button><label title="Keep a dragged load in place when you let go, instead of it springing back to zero"><input type="checkbox" id="latch" checked>Keep loads on release</label></div><div id="tchip" class="off"></div><div id="pop" hidden></div></div><aside id="side" hidden><div id="sideH"><b>Interrogate cable</b><span><button id="sideC" title="Collapse or expand the panel">»</button><button id="sideX" title="Close the panel">✕</button></span></div><div id="sideB"><div id="sideMsg">Select a cable or bar to interrogate it.</div><div id="sideMain" hidden><div id="sideSel"></div><div style="margin-top:6px">Position along the cable (A → B)<input type="range" id="psl" min="0" max="1" step="0.0025" value="0.5"></div><div id="sideCh"></div><details open id="sideSf"><summary>Force polygon at the cut</summary><div id="pshape"></div></details></div></div></aside></div>
+<main><div id="mid"><div id="wrap"><canvas id="cv"></canvas><div id="dock"><div id="dsb"><button id="dsT" title="Scale the on-screen size of loads, reactions and the tension band"><span>⇕ Diagram scale</span><span id="dsA">▸</span></button><div id="dsB" hidden></div></div><div id="info"><button id="infoT">▸ Info panel</button><div id="infoB" hidden><div id="coord"></div><details open class="ip"><summary>Results</summary><div id="read"></div></details><details open class="ip"><summary>Solver status</summary><div id="fea"></div></details></div></div></div><label id="lgT"><input type="checkbox" id="sL" checked>Legend</label><div id="ctb"><button id="undo" title="Undo (Ctrl+Z)">↶ Undo</button><button id="redo" title="Redo (Ctrl+Y)">↷ Redo</button><button id="fit" title="Fit view (F)">⤢ Fit</button><button id="dup" title="Copy the selection (or the whole structure) and paste it into free space">⧉ Duplicate</button><button id="clr" title="Remove all point and deck loads">Clear loads</button><label title="Keep a dragged load in place when you let go, instead of it springing back to zero"><input type="checkbox" id="latch" checked>Keep loads on release</label></div><div id="tchip" class="off"></div><div id="pop" hidden></div><button id="sideTab" type="button" title="Open the inspector (I): select a cable, a bar or a node to interrogate it" aria-label="Open the inspector"><span class="stA">‹</span><span class="stT">Inspector</span></button></div><aside id="side" hidden><div id="sideH"><b>Inspector</b><span><button id="sideC" title="Collapse or expand the panel">»</button><button id="sideX" title="Close the panel">✕</button></span></div><div id="sideB"><div id="sideMsg">Select a cable, a bar or a node to interrogate it.</div><div id="sideNode" hidden></div><div id="sideMain" hidden><div id="sideSel"></div><div style="margin-top:6px">Position along the cable (A → B)<input type="range" id="psl" min="0" max="1" step="0.0025" value="0.5"></div><div id="sideCh"></div><details open id="sideSf"><summary>Force triangle at the cut</summary><div id="pshape"></div></details></div></div></aside></div>
 <div class="bar b">
+<span class="dgrp"><button id="anB" title="Animate the response: the loads grow from zero to their full value and back (with no load, the self-weight grows instead). Every frame is a solved equilibrium, so the stiffening of the cables shows">▶ Animate</button><div id="anSp" hidden><div class="anR"><span>Speed</span><input type="range" id="anSl" min="-2" max="2" step="0.25" value="0" aria-label="Animation speed"><b id="anSv">1×</b></div><div class="anR" id="anK"><span>Animate</span><button data-k="D" class="on" title="Hanging shape">δ</button><button data-k="T" class="on" title="Tension and bar forces">T</button><button data-k="P" class="on" title="Load arrows">P</button><button data-k="R" class="on" title="Reactions">R</button></div><div class="anR"><span>Now</span><b id="anLf">–</b></div></div></span><i class="bsep"></i>
+<label id="lblW" title="How many values are written on the canvas: All, Key values (the largest tensions, loads, reactions and sags; labels that would overlap move or are left out) or None"><span>Labels</span><select id="lblM"><option value="all">All</option><option value="key" selected>Key values</option><option value="none">None</option></select></label>
 <label><input type="checkbox" id="sT" checked><i class="sw" style="--c:#ff2bd6;--a:24px;--b:24px"></i>Tension</label>
-<label><input type="checkbox" id="sTl" checked>Labels</label>
+<label title="Point loads and deck loads"><input type="checkbox" id="sP" checked><i class="sw" style="--c:#c026d3;--a:24px;--b:24px"></i>Loads</label>
 <label><input type="checkbox" id="sR" checked><i class="sw" style="--c:#ff3d5a;--a:7px;--b:11px"></i>Reactions</label>
 <label><input type="checkbox" id="sF" checked><i class="sw" style="--c:#12d98a;--a:3px;--b:7px"></i>Sag</label>
 <label><input type="checkbox" id="sU"><i class="sw" style="--c:#9d90c9;--a:9px;--b:14px"></i>Unloaded shape</label>
@@ -311,7 +344,9 @@ const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
 const $=id=>document.getElementById(id);
 let nodes=[],members=[],ann=[],tool='sel',S=30,ox=0,oy=0,W=0,H=0,sel=null,drag=null,first=null,mouse=[0,0],res=null,res0=null,hov=null,hold=null,
  DS={L:1,R:1,T:1},interr=false,interS=.5,lastSig='',dirtyU=true,mouseIn=false;
-const VER='1.0',VNAME='Catenary';
+const VER='1.1',VNAME='Tensegrity';
+/* v1.1 state: animation, inspector cache, teal grid step */
+let ANF=1,anOn=false,anT0=0,anPh=0,anSpd=1,ANSW=false,TGFIX=0,LSC=1,RMFIX=0,G5=5,SIDEK='';const AK={D:1,T:1,P:1,R:1},AN={sig:null,K:12,k:0,frames:[],done:false,mode:'load'};
 /* indicative cable and bar products: EA (kN) and weight w (kN/m) */
 const CABLES=[['ss20','Spiral strand Ø20',39200,.0195],['ss40','Spiral strand Ø40',156800,.079],['lc60','Locked coil Ø60',400000,.2],['lc100','Locked coil Ø100',1104000,.56],['wr32','Wire rope Ø32 (6×36)',58000,.042],['mac30','Tension bar Ø30',145000,.055],['chain','Stud-link chain Ø26',80000,.15],['poly','Polyester rope Ø24',1000,.004],['ideal','Weightless (ideal)',1e6,0],['custom','Custom',null,null]];
 const BARS=[['chs168','CHS 168.3×8',846300,.31],['chs114','CHS 114.3×6',405000,.15],['chs273','CHS 273×10',1737000,.64],['timber','Timber 150×150 C24',247500,.09],['rigid','Near-rigid strut',1e8,0],['custom','Custom',null,null]];
@@ -319,8 +354,8 @@ const prodOf=(L,k)=>L.find(p=>p[0]==k);
 let CB={prod:'ss40',EA:156800,w:.079,mode:'slack',v:2},BR={prod:'chs168',EA:846300,w:0},SPN=4,WT={prod:'ss40',w:.079,EA:156800,ea:true},DK={mode:'drag',q:10},LN={mode:'drag',v:2},PL={k:.25,s:1};
 const css=(()=>{let th=null,c={};return n=>{const t=document.documentElement.dataset.theme+'|'+matchMedia('(prefers-color-scheme: dark)').matches;if(t!==th){th=t;c={}}return c[n]||(c[n]=getComputedStyle(document.documentElement).getPropertyValue(n).trim()||'#888')}})();
 const sx=x=>ox+x*S,sy=y=>oy-y*S,mx=X=>(X-ox)/S,my=Y=>(oy-Y)/S;
-let gs=.5;const gStep=()=>{const c=[.05,.1,.25,.5,1,2,5,10,20,50];gs=c.find(v=>v*S>=14)||50;return gs};
-const snap=v=>Math.round(v/gs)*gs;
+let gs=.5;const gStep=()=>{const t=22/S,b=Math.pow(10,Math.floor(Math.log10(t)));gs=[1,2,5,10].map(k=>k*b).find(v=>v>=t);return gs};
+const snap=v=>+(Math.round(v/gs)*gs).toFixed(6);
 const f1=v=>(Math.abs(v)<.05?0:v).toFixed(1),f2=v=>(Math.abs(v)<.005?0:v).toFixed(2),f3=v=>(Math.abs(v)<5e-4?0:v).toFixed(3);
 const fk=v=>{const a=Math.abs(v);return a>=1000?v.toFixed(0):a>=10?v.toFixed(1):a>=1?v.toFixed(2):v.toFixed(3)};
 const fEA=v=>v>=1e6?(+(v/1e6).toPrecision(3))+'×10⁶ kN':Math.round(v).toLocaleString('en-GB')+' kN';
@@ -403,7 +438,7 @@ function dump(){const ix=new Map(nodes.map((n,i)=>[n,i]));return{v:1,n:nodes.map
  m:members.map(m=>{const o={a:ix.get(m.a),b:ix.get(m.b),t:m.type,L0:m.L0,EA:m.EA,w:m.w};if(m.q)o.q=m.q;if(m.prod)o.p=m.prod;return o}),an:ann.map(a=>Object.assign({},a))}}
 function loadDump(d){nodes=d.n.map(o=>({x:+o.x,y:+o.y,sup:['pin','rx','ry','none'].includes(o.s)?o.s:'none',load:o.l?{fx:+o.l[0]||0,fy:+o.l[1]||0}:null}));
  members=d.m.filter(o=>nodes[o.a]&&nodes[o.b]&&o.a!==o.b).map(o=>({a:nodes[o.a],b:nodes[o.b],type:o.t=='bar'?'bar':'cable',L0:Math.max(1e-6,+o.L0||1),EA:Math.max(1e-6,+o.EA||1),w:Math.max(0,+o.w||0),q:+o.q||0,prod:o.p||'custom'}));
- ann=Array.isArray(d.an)?d.an.map(a=>Object.assign({},a)):[];sel=null;first=null;hold=null;lastSig='';dirtyU=true}
+ ann=Array.isArray(d.an)?d.an.map(a=>Object.assign({},a)):[];sel=null;first=null;hold=null;lastSig='';lastSig0='';dirtyU=true}
 
 /* ===== Solver: elastic catenary elements + geometrically non-linear bars, Newton–Raphson with line search =====
    Units kN, m. Each cable member is one exact elastic catenary element (Irvine; O'Brien & Francis): given the
@@ -461,12 +496,12 @@ const RESTR={pin:[1,1],rx:[1,0],ry:[0,1],none:[0,0]};
 /* solveModel: N = nodes, M = members (cable | bar). opt: {noLoads, hold:Set of nodes held where they are, nsub, maxIt}
    Returns positions of every node at equilibrium, member results and reactions; never touches the input arrays
    except to cache warm starts (m._g, m._sub). */
-function solveModel(N,M,opt){opt=opt||{};const t0=(typeof performance!='undefined'?performance:Date).now(),nsub=opt.nsub||16,P=[],idx=new Map();
- N.forEach((n,i)=>{idx.set(n,i);P.push({x:n.x,y:n.y,fx:opt.noLoads||!n.load?0:+n.load.fx||0,fy:opt.noLoads||!n.load?0:+n.load.fy||0,r:opt.hold&&opt.hold.has(n)?[1,1]:(RESTR[n.sup]||[0,0]),user:n})});
+function solveModel(N,M,opt){opt=opt||{};const LF=opt.lf==null?1:opt.lf,WF=opt.wf==null?1:opt.wf;const t0=(typeof performance!='undefined'?performance:Date).now(),nsub=opt.nsub||16,P=[],idx=new Map();
+ N.forEach((n,i)=>{idx.set(n,i);P.push({x:n.x,y:n.y,fx:(opt.noLoads||!n.load?0:+n.load.fx||0)*LF,fy:(opt.noLoads||!n.load?0:+n.load.fy||0)*LF,r:opt.hold&&opt.hold.has(n)?[1,1]:(RESTR[n.sup]||[0,0]),user:n})});
  const E=[],MI=[];let scale=0,size=0;
  M.forEach(m=>{const ia=idx.get(m.a),ib=idx.get(m.b);if(ia==null||ib==null||ia==ib){MI.push(null);return}
-  const q=opt.noLoads?0:+m.q||0,w=m.type=='bar'?0:Math.max(0,+m.w||0),info={m,els:[],ids:[ia]};MI.push(info);scale+=Math.abs(w*m.L0)+Math.abs(q*Math.abs(N[ib].x-N[ia].x));
-  if(m.type=='bar'&&m.w){const W=m.w*m.L0/2;P[ia].fy-=W;P[ib].fy-=W}
+  const q=(opt.noLoads?0:+m.q||0)*LF,w=(m.type=='bar'?0:Math.max(0,+m.w||0))*WF,info={m,els:[],ids:[ia]};MI.push(info);scale+=Math.abs(w*m.L0)+Math.abs(q*Math.abs(N[ib].x-N[ia].x));
+  if(m.type=='bar'&&m.w){const W=m.w*m.L0/2*WF;P[ia].fy-=W;P[ib].fy-=W}
   if(m.type!='bar'&&q){const k=nsub,old=m._sub&&m._sub.length==k-1?m._sub:null;let prev=ia;
    for(let j=1;j<=k;j++){let id=ib;if(j<k){let x,y;if(old){x=old[j-1][0];y=old[j-1][1]}else{const t=j/k,A=N[ia],B=N[ib],ch=Math.hypot(B.x-A.x,B.y-A.y),f=Math.sqrt(Math.max(0,3/8*Math.max(m.L0*m.L0-ch*ch,0)/4))*1.2;x=A.x+(B.x-A.x)*t;y=A.y+(B.y-A.y)*t-4*f*t*(1-t)}
      id=P.length;P.push({x,y,fx:0,fy:0,r:[0,0],inner:info})}
@@ -531,7 +566,7 @@ function sigOf(){const ix=new Map(nodes.map((n,i)=>[n,i]));let s='';nodes.forEac
 let unsolved='',lastSig0='';
 /* the self-weight shape depends only on the anchors and the members, so it is solved again only when they change */
 function sig0(){const ix=new Map(nodes.map((n,i)=>[n,i]));let s='';nodes.forEach(n=>{s+=n.sup+(n.sup!='none'?n.x.toFixed(9)+','+n.y.toFixed(9):'')+';'});members.forEach(m=>{s+=ix.get(m.a)+'-'+ix.get(m.b)+m.type+m.L0+','+m.EA+','+m.w+';'});return s}
-function recompute(force){const g=sigOf();if(!force&&g===lastSig&&res)return;
+function recompute(force){if(ANSW)return;const g=sigOf();if(!force&&g===lastSig&&res)return;
  unsolved='';if(!nodes.length){res=null;res0=null;lastSig=g;return}
  try{res=solveModel(nodes,members,{hold})}catch(e){console.error(e);res={ok:false,fail:'error',R:[],mem:[]}}
  if(res.ok)res.pos.forEach((p,i)=>{nodes[i].x=p[0];nodes[i].y=p[1]});else unsolved=whyUnsolved();
@@ -555,20 +590,18 @@ const isDark=()=>{const t=document.documentElement.dataset.theme;return t?t=='da
 function cols(){return isDark()?COL:{L:'#c026d3',R:'#e11d48',C:'#b45309',F:'#0f9d6b',D:'#cf5a06'}}
 /* ---- canvas ---- */
 function resize(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;const w0=W,h0=H;W=r.width;H=r.height;cv.width=Math.round(W*d);cv.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0);if(w0&&h0){ox+=(W-w0)/2;oy+=(H-h0)/2}draw()}
-let PILLS=[];
-function pill(x,y,t,c,o){o=o||{};ctx.save();ctx.font=(o.b?'600 ':'500 ')+(o.fs||11.5)+'px Inter,system-ui,sans-serif';const w=ctx.measureText(t).width+12,h=(o.fs||11.5)+8;
+let PILLS=[],LBLM='key';
+function pill(x,y,t,c,o){o=o||{};if(LBLM=='none'&&!o.keep)return false;ctx.save();ctx.font=(o.b?'600 ':'500 ')+(o.fs||11.5)+'px Inter,system-ui,sans-serif';const w=ctx.measureText(t).width+12,h=(o.fs||11.5)+8;
  const tries=o.tries||[[0,0],[0,-h-2],[0,h+2],[w/2+6,0],[-w/2-6,0],[0,-2*h-4],[0,2*h+4]];let px=null,py=null;
  for(const[dx,dy]of tries){const bx=x+dx-w/2,by=y+dy-h/2;if(PILLS.some(b=>bx<b[2]&&bx+w>b[0]&&by<b[3]&&by+h>b[1]))continue;px=bx;py=by;break}
  if(px==null){if(o.must){px=x-w/2;py=y-h/2}else{ctx.restore();return false}}
  PILLS.push([px,py,px+w,py+h]);ctx.fillStyle=css('--panel');ctx.globalAlpha=.94;ctx.beginPath();ctx.roundRect(px,py,w,h,h/2);ctx.fill();ctx.globalAlpha=1;ctx.strokeStyle=c;ctx.lineWidth=1;ctx.stroke();
  ctx.fillStyle=o.tc||c;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(t,px+w/2,py+h/2+.5);ctx.restore();return[px+w/2,py+h/2]}
-function grid(){gStep();const g=css('--grid'),step=gs*Math.max(1,Math.round(24/(gs*S)));ctx.strokeStyle=g;ctx.lineWidth=1;ctx.beginPath();
- for(let x=Math.floor(mx(0)/step)*step;x<=mx(W);x+=step){ctx.moveTo(Math.round(sx(x))+.5,0);ctx.lineTo(Math.round(sx(x))+.5,H)}
- for(let y=Math.floor(my(H)/step)*step;y<=my(0);y+=step){ctx.moveTo(0,Math.round(sy(y))+.5);ctx.lineTo(W,Math.round(sy(y))+.5)}ctx.stroke();
- /* major lines with labels */const nice=[1,2,5,10,20,50,100,200,500],maj=nice.find(v=>v*S>=90)||1000;ctx.strokeStyle=color_mix(css('--neon2'),.28);ctx.beginPath();
- for(let x=Math.ceil(mx(0)/maj)*maj;x<=mx(W);x+=maj){ctx.moveTo(Math.round(sx(x))+.5,0);ctx.lineTo(Math.round(sx(x))+.5,H)}for(let y=Math.ceil(my(H)/maj)*maj;y<=my(0);y+=maj){ctx.moveTo(0,Math.round(sy(y))+.5);ctx.lineTo(W,Math.round(sy(y))+.5)}ctx.stroke();
- ctx.fillStyle=color_mix(css('--neon2'),.7);ctx.font='10px ui-monospace,Menlo,monospace';ctx.textBaseline='top';for(let x=Math.ceil(mx(0)/maj)*maj;x<=mx(W);x+=maj)ctx.fillText(+x.toFixed(3)+' m',sx(x)+3,4);
- ctx.textBaseline='bottom';for(let y=Math.ceil(my(H)/maj)*maj;y<=my(0);y+=maj)if(sy(y)>20)ctx.fillText(+y.toFixed(3)+' m',3,sy(y)-2)}
+function grid(){gStep();const x0=Math.floor(mx(0)/gs),x1=Math.ceil(mx(W)/gs),y0=Math.floor(my(H)/gs),y1=Math.ceil(my(0)/gs);
+ for(let pass=0;pass<2;pass++){ctx.strokeStyle=css('--grid');ctx.globalAlpha=pass?1:.6;ctx.lineWidth=1;ctx.beginPath();
+  for(let i=x0;i<=x1;i++)if((i%5==0)==!!pass){const X=Math.round(sx(i*gs))+.5;ctx.moveTo(X,0);ctx.lineTo(X,H)}
+  for(let j=y0;j<=y1;j++)if((j%5==0)==!!pass){const Y=Math.round(sy(j*gs))+.5;ctx.moveTo(0,Y);ctx.lineTo(W,Y)}
+  ctx.stroke()}ctx.globalAlpha=1;g5()}
 function color_mix(c,a){const v=hex(c);return'rgba('+v.join(',')+','+a+')'}
 function supSym(n,c){const X=sx(n.x),Y=sy(n.y);ctx.save();ctx.strokeStyle=c;ctx.fillStyle=css('--panel');ctx.lineWidth=1.6;ctx.lineJoin='round';
  const tri=(rot)=>{ctx.translate(X,Y);ctx.rotate(rot);ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-8,14);ctx.lineTo(8,14);ctx.closePath();ctx.fill();ctx.stroke()};
@@ -579,8 +612,9 @@ function supSym(n,c){const X=sx(n.x),Y=sy(n.y);ctx.save();ctx.strokeStyle=c;ctx.
 function nodeSide(n){let v=0;members.forEach(m=>{if(m.a===n)v+=m.b.x-n.x;else if(m.b===n)v+=m.a.x-n.x});return v>=0?-1:1}
 function memPts(i){const r=res&&res.ok&&res.mem[i];if(r)return r.pts;const m=members[i];return[[m.a.x,m.a.y],[m.b.x,m.b.y]]}
 function drawCurve(pts,o){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(sx(p[0]),sy(p[1])):ctx.moveTo(sx(p[0]),sy(p[1])));if(o)ctx.stroke()}
-function Tglob(){let t=0;if(res&&res.ok)res.mem.forEach(r=>{if(r&&!r.bar)t=Math.max(t,Math.abs(r.Tmax))});return t||1}
-function draw(){if(!W)return;recompute();PILLS=[];const C=cols(),ok=res&&res.ok,Tg=Tglob(),dk=isDark();
+function Tglob(){if(TGFIX)return TGFIX;let t=0;if(res&&res.ok)res.mem.forEach(r=>{if(r&&!r.bar)t=Math.max(t,Math.abs(r.Tmax))});return t||1}
+function draw(){if(!W)return;recompute();const sv=anSwap();try{draw0()}finally{anRestore(sv)}sideUpdate()}
+function draw0(){PILLS=[];LBLM=$('lblM').value;const C=cols(),ok=res&&res.ok,Tg=Tglob(),dk=isDark();
  ctx.fillStyle=css('--bg');ctx.fillRect(0,0,W,H);grid();
  /* inverted (funicular arch) and unloaded ghosts */
  if(ok&&$('sA').checked)drawArch(C);
@@ -600,12 +634,13 @@ function draw(){if(!W)return;recompute();PILLS=[];const C=cols(),ok=res&&res.ok,
  /* hover and selection */
  const glow=(m,c,w)=>{const i=members.indexOf(m);if(i<0)return;ctx.save();ctx.strokeStyle=c;ctx.globalAlpha=.28;ctx.lineWidth=w;ctx.lineCap='round';drawCurve(memPts(i),1);ctx.globalAlpha=1;ctx.lineWidth=1.3;drawCurve(memPts(i),1);ctx.restore()};
  const ring=(n,c)=>{ctx.save();ctx.strokeStyle=c;ctx.lineWidth=2;ctx.beginPath();ctx.arc(sx(n.x),sy(n.y),9,0,7);ctx.stroke();ctx.globalAlpha=.18;ctx.fillStyle=c;ctx.fill();ctx.restore()};
- if(hov&&!drag){if(hov.t=='m')glow(hov.m,css('--neon2'),11);else if(hov.t=='n')ring(hov.n,css('--neon2'))}
+ if(hov&&!drag&&hov.t=='m')hovMem(hov.m);
  if(sel){const c=css('--neon3');if(sel.t=='m')glow(sel.m,c,13);if(sel.t=='n')ring(sel.n,c);if(sel.t=='multi'){sel.members.forEach(m=>glow(m,c,11));sel.nodes.forEach(n=>ring(n,c))}}
  /* supports and nodes */
  nodes.forEach(n=>{if(n.sup!='none')supSym(n,css('--mut'))});
- nodes.forEach((n,i)=>{const X=sx(n.x),Y=sy(n.y),held=hold&&hold.has(n);ctx.fillStyle=held?css('--neon3'):css('--mem');ctx.beginPath();ctx.arc(X,Y,held?5:n.sup!='none'?3.6:3.1,0,7);ctx.fill();
+ nodes.forEach((n,i)=>{const X=sx(n.x),Y=sy(n.y),held=hold&&hold.has(n);ctx.fillStyle=held?css('--neon3'):css('--mem');ctx.beginPath();ctx.arc(X,Y,held?5.5:n.sup!='none'?4.5:4,0,7);ctx.fill();
   if(held){ctx.strokeStyle=css('--neon3');ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(X,Y,10,0,7);ctx.stroke()}});
+ if(hov&&!drag&&hov.t=='n')hovNode(hov.n);snapGhost();
  if(ok){drawLabels(C,Tg);drawLoads(C);if($('sR').checked)drawReac(C);drawPeak(C)}else drawLoads(C);
  if($('sN').checked)drawNumbers();
  /* rubber band */
@@ -618,22 +653,23 @@ function drawArch(C){const sups=nodes.filter(n=>n.sup!='none');if(sups.length<1)
  const yb=x=>R.x-L.x>1e-9?L.y+(R.y-L.y)*(x-L.x)/(R.x-L.x):L.y,c=C.C;ctx.save();ctx.strokeStyle=c;ctx.globalAlpha=.85;ctx.lineWidth=2;ctx.setLineDash([9,4,2,4]);
  let top=null;res.mem.forEach(r=>{if(!r)return;const q=r.pts.map(p=>[p[0],2*yb(p[0])-p[1]]);drawCurve(q,1);q.forEach(p=>{if(!top||p[1]>top[1])top=p})});ctx.restore();
  if(top)pill(sx(top[0]),sy(top[1])-16,'Inverted: funicular arch (compression)',c,{fs:11})}
-function drawDeck(C){if(!(res&&res.ok))return;let qm=0;members.forEach(m=>{qm=Math.max(qm,Math.abs(m.q||0))});if(!qm)return;
- members.forEach((m,i)=>{if(!m.q)return;const p=memPts(i);let x0=Math.min(...p.map(q=>q[0])),x1=Math.max(...p.map(q=>q[0]));const yAt=x=>{for(let k=1;k<p.length;k++){const a=p[k-1],b=p[k];if((x-a[0])*(x-b[0])<=0&&a[0]!=b[0])return a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0])}return p[0][1]};
-  const n=Math.max(4,Math.min(26,Math.round((sx(x1)-sx(x0))/26))),Lp=(16+22*Math.abs(m.q)/qm)*DS.L,c=C.L,tails=[];ctx.save();ctx.strokeStyle=c;ctx.lineWidth=1.3;
+function drawDeck(C){if(!(res&&res.ok)||!$('sP').checked||LSC<.02)return;let qm=0;members.forEach(m=>{qm=Math.max(qm,Math.abs(m.q||0))});if(!qm)return;
+ const seenQ=new Set();members.forEach((m,i)=>{if(!m.q)return;const p=memPts(i);let x0=Math.min(...p.map(q=>q[0])),x1=Math.max(...p.map(q=>q[0]));const yAt=x=>{for(let k=1;k<p.length;k++){const a=p[k-1],b=p[k];if((x-a[0])*(x-b[0])<=0&&a[0]!=b[0])return a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0])}return p[0][1]};
+  const n=Math.max(4,Math.min(26,Math.round((sx(x1)-sx(x0))/26))),Lp=(16+22*Math.abs(m.q)/qm)*DS.L*LSC,c=C.L,tails=[];ctx.save();ctx.strokeStyle=c;ctx.lineWidth=1.3;
   for(let k=0;k<=n;k++){const x=x0+(x1-x0)*k/n,X=sx(x),Y=sy(yAt(x))-3;tails.push([X,Y-Lp]);ctx.beginPath();ctx.moveTo(X,Y-Lp);ctx.lineTo(X,Y-6);ctx.stroke();head(X,Y,0,1,c,7)}
-  ctx.beginPath();tails.forEach((t,k)=>k?ctx.lineTo(t[0],t[1]):ctx.moveTo(t[0],t[1]));ctx.stroke();ctx.restore();const mid=tails[Math.floor(tails.length/2)];pill(mid[0],mid[1]-12,'q = '+fk(m.q)+' kN/m (plan)',c,{tc:c})})}
-function drawLoads(C){let Fm=0;nodes.forEach(n=>{if(n.load)Fm=Math.max(Fm,Math.hypot(n.load.fx,n.load.fy))});if(!Fm)return;
- nodes.forEach(n=>{const l=n.load;if(!l||!(l.fx||l.fy))return;const F=Math.hypot(l.fx,l.fy),ux=l.fx/F,uy=-l.fy/F,len=(24+40*Math.sqrt(F/Fm))*DS.L,X=sx(n.x),Y=sy(n.y),x0=X-ux*len,y0=Y-uy*len,c=C.L;
+  ctx.beginPath();tails.forEach((t,k)=>k?ctx.lineTo(t[0],t[1]):ctx.moveTo(t[0],t[1]));ctx.stroke();ctx.restore();const mid=tails[Math.floor(tails.length/2)];const qk=fk(m.q);if(LBLM=='all'||!seenQ.has(qk)){seenQ.add(qk);pill(mid[0],mid[1]-12,'q = '+qk+' kN/m (plan)',c,{tc:c})}})}
+function drawLoads(C){if(!$('sP').checked||LSC<.02)return;let Fm=0;nodes.forEach(n=>{if(n.load)Fm=Math.max(Fm,Math.hypot(n.load.fx,n.load.fy))});if(!Fm)return;
+ nodes.forEach(n=>{const l=n.load;if(!l||!(l.fx||l.fy))return;const F=Math.hypot(l.fx,l.fy),ux=l.fx/F,uy=-l.fy/F,len=(24+40*Math.sqrt(F/Fm))*DS.L*LSC,X=sx(n.x),Y=sy(n.y),x0=X-ux*len,y0=Y-uy*len,c=C.L;
   ctx.save();ctx.strokeStyle=c;ctx.lineWidth=2.4;ctx.shadowColor=c;ctx.shadowBlur=isDark()?6:0;ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(X-ux*12,Y-uy*12);ctx.stroke();ctx.restore();head(X-ux*4,Y-uy*4,ux,uy,c,11);
   pill(x0-ux*12,y0-uy*12,fk(F)+' kN',c,{b:1,must:1})})}
-function drawReac(C){if(!res||!res.R)return;let Rm=0;res.R.forEach(q=>{Rm=Math.max(Rm,Math.abs(q.rx),Math.abs(q.ry))});if(!(Rm>1e-9))return;const c=C.R;
+function drawReac(C){if(!res||!res.R)return;let Rm=0;res.R.forEach(q=>{Rm=Math.max(Rm,Math.abs(q.rx),Math.abs(q.ry))});if(RMFIX)Rm=RMFIX;if(!(Rm>1e-9))return;const c=C.R;
  res.R.forEach(q=>{const n=q.n,X=sx(n.x),Y=sy(n.y);[[q.rx,1,0],[q.ry,0,1]].forEach(([v,ax,ay])=>{if(Math.abs(v)<Rm*5e-3)return;const s=Math.sign(v),ux=ax*s,uy=-ay*s,len=(22+30*Math.sqrt(Math.abs(v)/Rm))*DS.R,off=ay?24:14,x1=X-ux*off,y1=Y-uy*off,x0=x1-ux*len,y0=y1-uy*len;
   ctx.save();ctx.strokeStyle=c;ctx.lineWidth=2;ctx.setLineDash([5,3]);ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x1-ux*8,y1-uy*8);ctx.stroke();ctx.restore();head(x1,y1,ux,uy,c,9);
   pill(x0-ux*10,y0-uy*10,(ay?'V ':'H ')+fk(Math.abs(v))+' kN'+(q.held?' (hand)':''),c,{fs:11})})})}
-function drawLabels(C,Tg){const showT=$('sTl').checked,showF=$('sF').checked;let lim=0;if(members.length>12){const v=res.mem.map((r,i)=>r?Math.abs(r.bar?r.N:r.Tmax):0).sort((a,b)=>b-a);lim=v[Math.min(9,v.length-1)]*(1-1e-9)}
+function drawLabels(C,Tg){const showT=LBLM!='none',showF=$('sF').checked;let lim=0;if(LBLM=='key'&&members.length>12){const v=res.mem.map((r,i)=>r?Math.abs(r.bar?r.N:r.Tmax):0).sort((a,b)=>b-a);lim=v[Math.min(9,v.length-1)]*(1-1e-9)}
+ const sagK=new Set();if(LBLM!='all'&&members.length>8)res.mem.map((r,i)=>[r&&!r.bar&&r.sag>1e-6&&r.span>.05*r.chord?r.span/r.sag:1e18,i]).sort((a,b)=>a[0]-b[0]).slice(0,4).forEach(q=>{if(q[0]<1e17)sagK.add(q[1])});
  members.forEach((m,i)=>{const r=res.mem[i];if(!r)return;const p=r.pts;
-  if(showF&&!r.bar&&r.sag>Math.max(.004*r.chord,1e-6)&&r.span>.05*r.chord){const x=r.sagX,A=p[0],B=p[p.length-1],t=(x-A[0])/((B[0]-A[0])||1),yc=A[1]+(B[1]-A[1])*t,yv=yc-r.sag,X=sx(x);
+  if(showF&&!r.bar&&r.sag>Math.max(.004*r.chord,1e-6)&&r.span>.05*r.chord&&(LBLM=='all'||members.length<=8||sagK.has(i))){const x=r.sagX,A=p[0],B=p[p.length-1],t=(x-A[0])/((B[0]-A[0])||1),yc=A[1]+(B[1]-A[1])*t,yv=yc-r.sag,X=sx(x);
    ctx.save();ctx.strokeStyle=C.F;ctx.lineWidth=1.2;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(sx(A[0]),sy(A[1]));ctx.lineTo(sx(B[0]),sy(B[1]));ctx.globalAlpha=.45;ctx.stroke();ctx.globalAlpha=1;ctx.beginPath();ctx.moveTo(X,sy(yc));ctx.lineTo(X,sy(yv));ctx.stroke();ctx.setLineDash([]);
    [[sy(yc),1],[sy(yv),-1]].forEach(([Y,d])=>{ctx.beginPath();ctx.moveTo(X-4,Y);ctx.lineTo(X+4,Y);ctx.stroke()});ctx.restore();
    pill(X+6,(sy(yc)+sy(yv))/2,'f '+f2(r.sag)+' m · span/'+(r.span/r.sag).toFixed(1),C.F,{fs:11,tries:[[40,0],[-40,0],[40,-22],[-40,-22],[40,22],[-40,22]]})}
@@ -642,14 +678,14 @@ function drawLabels(C,Tg){const showT=$('sTl').checked,showF=$('sF').checked;let
    const mp=p[Math.floor(p.length/2)],kk=Math.min(Math.max(k,1),p.length-2),q0=p[Math.max(0,kk-1)],q1=p[Math.min(p.length-1,kk+1)];
    const nx=-(sy(q1[1])-sy(q0[1])),ny=sx(q1[0])-sx(q0[0]),nl=Math.hypot(nx,ny)||1,o=16,tx=sx(P[0])+nx/nl*o,ty=sy(P[1])+ny/nl*o;
    pill(tx,ty,'T '+fk(r.Tmax)+' kN',tcol(r.Tmax/Tg),{fs:11,tries:[[0,0],[-nx/nl*2*o,-ny/nl*2*o],[0,-18],[0,18],[24,0],[-24,0]]});
-   if(r.H>1e-6&&r.span>.1*r.chord&&res.mem.length<=8&&r.sag>.02*r.chord)pill(sx(mp[0]),sy(mp[1])+16,'H '+fk(r.H)+' kN',css('--mut'),{fs:10.5,tries:[[0,0],[0,14],[0,-34],[40,0],[-40,0]]})}})}
+   if(r.H>1e-6&&r.span>.1*r.chord&&(LBLM=='all'||res.mem.length<=8)&&r.sag>.02*r.chord)pill(sx(mp[0]),sy(mp[1])+16,'H '+fk(r.H)+' kN',css('--mut'),{fs:10.5,tries:[[0,0],[0,14],[0,-34],[40,0],[-40,0]]})}})}
 /* largest movement between the self-weight shape and the loaded shape */
 function peakD(){if(!(res&&res.ok&&res0))return null;let best=null;res.mem.forEach((r,i)=>{const u=res0.mem[i];if(!r||!u||r.pts.length!=u.pts.length)return;r.pts.forEach((p,k)=>{const d=Math.hypot(p[0]-u.pts[k][0],p[1]-u.pts[k][1]);if(!best||d>best.d)best={d,p,u:u.pts[k]}})});return best&&best.d>1e-9?best:null}
 function drawPeak(C){const b=peakD();if(!b)return;const c=C.D,X=sx(b.p[0]),Y=sy(b.p[1]);ctx.save();ctx.strokeStyle=c;ctx.fillStyle=c;ctx.lineWidth=1.2;ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(sx(b.u[0]),sy(b.u[1]));ctx.lineTo(X,Y);ctx.stroke();ctx.beginPath();ctx.arc(X,Y,3.5,0,7);ctx.fill();ctx.restore();
  pill(X,Y+20,'δmax '+(b.d<1?(b.d*1000).toFixed(0)+' mm':f3(b.d)+' m'),c,{b:1,fs:11,tries:[[0,0],[34,0],[-34,0],[0,-40],[60,0],[-60,0]]})}
 function drawNumbers(){ctx.save();ctx.font='600 10.5px ui-monospace,Menlo,monospace';ctx.textAlign='center';ctx.textBaseline='middle';nodes.forEach((n,i)=>{ctx.fillStyle=css('--mut');ctx.fillText(String(i+1),sx(n.x)-9,sy(n.y)-10)});
  members.forEach((m,i)=>{const p=memPts(i),q=p[Math.floor(p.length/2)];const t=(m.type=='bar'?'B':'C')+(i+1),w=ctx.measureText(t).width+8;ctx.fillStyle=css('--panel');ctx.strokeStyle=css('--line');ctx.beginPath();ctx.roundRect(sx(q[0])-w/2,sy(q[1])-8,w,16,4);ctx.fill();ctx.stroke();ctx.fillStyle=css('--ink');ctx.fillText(t,sx(q[0]),sy(q[1])+.5)});ctx.restore()}
-function legend(C,Tg){const x=12,h=74,y=H-h-34,w=212;ctx.save();ctx.fillStyle=css('--panel');ctx.globalAlpha=.93;ctx.strokeStyle=css('--line');ctx.beginPath();ctx.roundRect(x,y,w,h,10);ctx.fill();ctx.globalAlpha=1;ctx.stroke();
+function legend(C,Tg){const x=12,h=74,y=H-h-34,w=212;ctx.save();ctx.font='11px system-ui,sans-serif';ctx.fillStyle=css('--mut');ctx.textBaseline='alphabetic';ctx.fillText(gridTxt(),x+2,y-8);ctx.fillStyle=css('--panel');ctx.globalAlpha=.93;ctx.strokeStyle=css('--line');ctx.beginPath();ctx.roundRect(x,y,w,h,10);ctx.fill();ctx.globalAlpha=1;ctx.stroke();
  ctx.font='600 10px Inter,system-ui,sans-serif';ctx.fillStyle=css('--mut');ctx.textBaseline='middle';ctx.fillText('TENSION (kN)',x+10,y+12);
  const g=ctx.createLinearGradient(x+10,0,x+w-10,0);[0,.5,1].forEach(t=>g.addColorStop(t,tcol(t)));ctx.fillStyle=g;ctx.fillRect(x+10,y+20,w-20,7);
  ctx.font='10px ui-monospace,Menlo,monospace';ctx.fillStyle=css('--ink');ctx.textAlign='left';ctx.fillText('0',x+10,y+35);ctx.textAlign='right';ctx.fillText(res&&res.ok?fk(Tg):'–',x+w-10,y+35);
@@ -684,7 +720,7 @@ let svT=0;function autosave(){clearTimeout(svT);svT=setTimeout(()=>{try{localSto
 function fit(){if(!W)return;recompute();let a=[1e9,1e9,-1e9,-1e9];const add=(x,y)=>{a=[Math.min(a[0],x),Math.min(a[1],y),Math.max(a[2],x),Math.max(a[3],y)]};nodes.forEach(n=>add(n.x,n.y));
  members.forEach((m,i)=>memPts(i).forEach(p=>add(p[0],p[1])));if(res0)res0.mem.forEach(r=>r&&r.pts.forEach(p=>add(p[0],p[1])));ann.forEach(q=>{add(q.x1,q.y1);add(q.x2,q.y2)});
  if(a[0]>1e8)a=[0,-5,20,5];const w=Math.max(a[2]-a[0],1),h=Math.max(a[3]-a[1],1);const rpd=(!$('dsB').hidden||!$('infoB').hidden)&&$('dock')?Math.min($('dock').offsetWidth+16,W*.28):0;
- S=Math.max(.3,Math.min(200,Math.min((W-170-rpd)/w,(H-230)/h)));ox=(W-rpd)/2-S*(a[0]+a[2])/2;oy=H/2+20+S*(a[1]+a[3])/2;draw()}
+ S=Math.max(.3,Math.min(200,Math.min((W-170-rpd)/w,(H-270)/h)));ox=(W-rpd)/2-S*(a[0]+a[2])/2;oy=(H-40)/2+S*(a[1]+a[3])/2;draw()}
 /* ---- dialogs ---- */
 function showV(t,h){$('vt').textContent=t;$('vb').innerHTML=h;$('vmodal').hidden=false;const c=$('vmodal').querySelector('.vc');c.scrollTop=0;c.style.maxWidth=h.length>4000?'980px':'780px'}
 $('vclose').onclick=()=>{$('vmodal').hidden=true};$('vmodal').addEventListener('pointerdown',e=>{if(e.target===$('vmodal'))$('vmodal').hidden=true});
@@ -699,7 +735,7 @@ function endBox(){const d=drag,x0=Math.min(d.p0[0],d.p1[0]),x1=Math.max(d.p0[0],
 function toMulti(s){if(s.t=='multi')return s;const o=multi();if(s.t=='n')o.nodes.add(s.n);if(s.t=='m')o.members.add(s.m);if(s.t=='a')o.anns.add(s.a);return o}
 function toggleMulti(it){let s=sel?toMulti(sel):multi();const k=it.t=='n'?'nodes':it.t=='m'?'members':'anns',v=it.n||it.m||it.a;s[k].has(v)?s[k].delete(v):s[k].add(v);sel=selSize(s)?s:null}
 function delSel(){if(!sel)return;pushU();const dn=new Set(),dm=new Set(),da=new Set();if(sel.t=='n')dn.add(sel.n);if(sel.t=='m')dm.add(sel.m);if(sel.t=='a')da.add(sel.a);if(sel.t=='multi'){sel.nodes.forEach(n=>dn.add(n));sel.members.forEach(m=>dm.add(m));sel.anns.forEach(a=>da.add(a))}
- members=members.filter(m=>!dm.has(m)&&!dn.has(m.a)&&!dn.has(m.b));nodes=nodes.filter(n=>!dn.has(n));ann=ann.filter(a=>!da.has(a));sel=null;interr=false;lastSig='';buildPop();draw()}
+ members=members.filter(m=>!dm.has(m)&&!dn.has(m.a)&&!dn.has(m.b));nodes=nodes.filter(n=>!dn.has(n));ann=ann.filter(a=>!da.has(a));sel=null;lastSig='';buildPop();draw()}
 let clip=null;
 function copySel(){const s=sel?toMulti(sel):null,ns=s?new Set([...s.nodes]):new Set(nodes);if(s)s.members.forEach(m=>{ns.add(m.a);ns.add(m.b)});const NL=[...ns],ms=members.filter(m=>s?s.members.has(m):true),as=s?[...s.anns]:ann.slice();if(!NL.length&&!as.length)return false;
  clip={n:NL.map(n=>({x:n.x,y:n.y,sup:n.sup,load:n.load?{...n.load}:null})),m:ms.map(m=>({a:NL.indexOf(m.a),b:NL.indexOf(m.b),type:m.type,L0:m.L0,EA:m.EA,w:m.w,q:m.q,prod:m.prod})),an:as.map(a=>({...a}))};return true}
@@ -736,8 +772,8 @@ cv.addEventListener('pointerdown',e=>{const p=evp(e);mouse=p;downP=p;popOff=fals
  if(tool=='weight'){const hm=hitMem(p,'cable');if(!hm)return;pushU();hm.m.w=WT.w;if(WT.ea){hm.m.EA=WT.EA;hm.m.prod=WT.prod}sel={t:'m',m:hm.m};buildPop();draw();return}
  if(tool=='length'){const hm=hitMem(p,'cable');if(!hm)return;pushU();const m=hm.m;if(LN.mode=='drag'){drag={t:'ln',m,L00:m.L0,p0:p,u:1};sel={t:'m',m};return}m.L0=lenRule(chord(m),Math.abs(m.b.x-m.a.x),LN.mode,LN.v,m.EA);sel={t:'m',m};buildPop();draw();return}});
 cv.addEventListener('pointermove',e=>{const p=evp(e);mouse=p;const d=drag;
- $('coord').textContent='x '+mx(p[0]).toFixed(2)+'  y '+my(p[1]).toFixed(2)+' m';const c=$('tchip');if(c){c.style.left=Math.min(p[0]+16,W-c.offsetWidth-6)+'px';c.style.top=Math.min(p[1]+18,H-c.offsetHeight-6)+'px'}
- if(!d){const n=hitNode(p);hov=n?{t:'n',n}:(()=>{const h=hitMem(p);return h?{t:'m',m:h.m}:null})();if(tool.startsWith('an_'))hov=null;if(['deck','weight','length','split'].includes(tool)&&hov&&(hov.t!='m'||hov.m.type!='cable'))hov=null;draw();return}
+ $('coord').textContent='x '+mx(p[0]).toFixed(2)+' m, y '+my(p[1]).toFixed(2)+' m · snap '+(+gs.toPrecision(3))+' m';const c=$('tchip');if(c){c.style.left=Math.min(p[0]+16,W-c.offsetWidth-6)+'px';c.style.top=Math.min(p[1]+18,H-c.offsetHeight-6)+'px'}
+ if(!d){hov=hovTarget(p);draw();return}
  if(d.t=='pan'){if(Math.hypot(p[0]-d.p[0],p[1]-d.p[1])>3)d.moved=1;ox=d.o[0]+p[0]-d.p[0];oy=d.o[1]+p[1]-d.p[1];draw();return}
  if(d.t=='box'){d.p1=p;draw();return}
  /* once a press turns into a drag, the editor box gets out of the way and stays hidden until the next click */
@@ -763,13 +799,14 @@ addEventListener('keydown',e=>{const t=document.activeElement,tg=t&&t.tagName;if
  const k=e.key.toLowerCase();
  if(e.ctrlKey||e.metaKey){if(k=='z'){e.preventDefault();e.shiftKey?redo():undo()}else if(k=='y'){e.preventDefault();redo()}else if(k=='c'){if(copySel())e.preventDefault()}else if(k=='v'){e.preventDefault();pasteClip()}else if(k=='a'&&tool=='sel'){e.preventDefault();selAll()}return}
  if(e.altKey)return;if(k=='escape'){cancelOp();if(tool!='sel')setTool('sel');return}if(k=='delete'||k=='backspace'){e.preventDefault();delSel();return}
+ if(k=='i'){interr=!interr;sideShow();buildPop(1);draw();return}
  const tk=Object.keys(KEYS).find(x=>KEYS[x]==k);if(tk){setTool(tk);return}if(k=='f'){fit();return}
  if(k.startsWith('arrow')&&sel&&sel.t!='m'){e.preventDefault();const d=(e.shiftKey?5:1)*gs,dx=k=='arrowright'?d:k=='arrowleft'?-d:0,dy=k=='arrowup'?d:k=='arrowdown'?-d:0,s=toMulti(sel);s.members.forEach(m=>{s.nodes.add(m.a);s.nodes.add(m.b)});pushU();s.nodes.forEach(n=>{n.x+=dx;n.y+=dy});s.anns.forEach(a=>{a.x1+=dx;a.x2+=dx;a.y1+=dy;a.y2+=dy});lastSig='';draw()}});
 /* ---- canvas toolbar ---- */
 $('undo').onclick=undo;$('redo').onclick=redo;$('fit').onclick=fit;$('dup').onclick=()=>{if(copySel())pasteClip()};
 $('clr').onclick=()=>{pushU();nodes.forEach(n=>n.load=null);members.forEach(m=>m.q=0);lastSig='';buildPop();draw()};
 $('theme').onclick=()=>{const r=document.documentElement,d=r.dataset.theme?r.dataset.theme=='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=d?'light':'dark';try{if(RP.win&&!RP.win.closed)RP.win.document.documentElement.dataset.theme=r.dataset.theme}catch(e){}draw()};
-['sT','sTl','sR','sF','sU','sA','sW','sN','sL'].forEach(i=>$(i).onchange=draw);
+['sT','sR','sF','sU','sA','sW','sN','sL'].forEach(i=>$(i).onchange=draw);
 $('infoT').onclick=()=>{const b=$('infoB');b.hidden=!b.hidden;$('infoT').textContent=(b.hidden?'▸':'▾')+' Info panel'};
 $('mNew').onclick=()=>ask('Clear the canvas? Undo brings the structure back.',()=>{pushU();nodes=[];members=[];ann=[];sel=null;first=null;interr=false;lastSig='';buildPop();draw()});
 /* ---- diagram scale box ---- */
@@ -787,7 +824,7 @@ function anchorOf(){if(!sel)return null;if(sel.t=='n')return[sx(sel.n.x),sy(sel.
  if(sel.t=='a'){const b=annBox(sel.a);return[b[0]+b[2],b[1]]}let x=0,y=0,k=0;sel.nodes.forEach(n=>{x+=sx(n.x);y+=sy(n.y);k++});return k?[x/k,y/k]:[W/2,H/2]}
 function placePop(force){const pp=$('pop');if(pp.hidden)return;const k=popKey();if(!force&&k===POP.key)return;POP.key=k;const a=anchorOf()||[W/2,H/2],w=pp.offsetWidth,h=pp.offsetHeight,dock=$('dock').offsetWidth+20;
  let x=a[0]+28;if(x+w>W-dock)x=a[0]-28-w;if(x<8)x=Math.min(W-w-8,Math.max(8,a[0]+28));let y=a[1]-h/2;y=Math.max(64,Math.min(H-h-50,y));pp.style.left=x+'px';pp.style.top=y+'px'}
-function buildPop(keep){const pp=$('pop');const st=pp.scrollTop;pp.innerHTML='';if(!sel||(sel.t=='n'&&!nodes.includes(sel.n))||(sel.t=='m'&&!members.includes(sel.m))||(sel.t=='a'&&!ann.includes(sel.a))){if(sel&&sel.t!='multi')sel=null;if(!sel){pp.hidden=true;POP.key=null;if(interr){interr=false;$('side').hidden=true;setTimeout(resize,0)}return}}
+function buildPop(keep){const pp=$('pop');const st=pp.scrollTop;pp.innerHTML='';if(!sel||(sel.t=='n'&&!nodes.includes(sel.n))||(sel.t=='m'&&!members.includes(sel.m))||(sel.t=='a'&&!ann.includes(sel.a))){if(sel&&sel.t!='multi')sel=null;if(!sel){pp.hidden=true;POP.key=null;return}}
  if(popOff||(drag&&drag.mv)){pp.hidden=true;POP.key=null;return}
  pp.hidden=false;pp.style.width='';const h=document.createElement('h4');pp.appendChild(h);
  const row=(lab,...els)=>{const d=document.createElement('div');d.className='r';const s=document.createElement('span');s.innerHTML=lab;d.append(s,...els);pp.appendChild(d);return d};
@@ -806,7 +843,7 @@ function buildPop(keep){const pp=$('pop');const st=pp.scrollTop;pp.innerHTML='';
   pp.appendChild(out);refreshRes=()=>{let t='';const r=res&&res.ok?res:null;if(r){const R=r.R.find(q=>q.n===n);if(R)t+='<div><span>Reaction H</span><b>'+fk(R.rx)+' kN</b></div><div><span>Reaction V</span><b>'+fk(R.ry)+' kN</b></div>';
    if(res0){const u=[n.ux,n.uy];const d=Math.hypot(n.x-u[0],n.y-u[1]);if(n.sup!='pin')t+='<div><span>Moves under the loads</span><b>'+(d*1000).toFixed(1)+' mm</b></div>'}
    members.forEach((m,j)=>{if(m.a!==n&&m.b!==n)return;const q=r.mem[j];if(!q)return;const T=m.type=='bar'?q.N:m.a===n?q.TA:q.TB;t+='<div><span>'+(m.type=='bar'?'Bar B':'Cable C')+(j+1)+'</span><b>'+(m.type=='bar'&&T<0?'C '+fk(-T):fk(T))+' kN</b></div>'})}out.innerHTML=t||'<i>No equilibrium yet.</i>'};refreshRes();
-  if(n.load)btn('Remove load',()=>{pushU();n.load=null;lastSig='';buildPop(1);draw()});btn('Delete node',delSel);placePop(!keep);return}
+  inspChk(pp,'Node inspector (side panel)');if(n.load)btn('Remove load',()=>{pushU();n.load=null;lastSig='';buildPop(1);draw()});btn('Delete node',delSel);placePop(!keep);return}
  const m=sel.m,i=members.indexOf(m),cab=m.type=='cable';h.textContent=(cab?'Cable C':'Bar B')+(i+1);
  const L=cab?CABLES:BARS,ps=document.createElement('select');ps.innerHTML=L.map(p=>'<option value="'+p[0]+'">'+p[1]+'</option>').join('');ps.value=prodOf(L,m.prod)?m.prod:'custom';ps.onchange=()=>{const p=prodOf(L,ps.value);pushU();m.prod=p[0];if(p[2]!=null){m.EA=p[2];m.w=p[3]}lastSig='';buildPop(1);draw()};ps.className='psel';row('Product',ps);
  row('EA (kN)',num(m.EA,v=>{m.EA=Math.max(1,v);m.prod='custom'}));row('Weight w (kN/m)',num(m.w,v=>{m.w=Math.max(0,v);m.prod='custom'}));
@@ -817,25 +854,39 @@ function buildPop(keep){const pp=$('pop');const st=pp.scrollTop;pp.innerHTML='';
   if(r.bar)t=[['Axial force',(r.N<0?'C ':'T ')+fk(Math.abs(r.N))+' kN'],['Strain',(r.N/m.EA*1000).toFixed(3)+' ‰'],['Length',f3(r.chord)+' m']].map(e).join('');
   else t=[['Tension at A',fk(r.TA)+' kN'],['Tension at B',fk(r.TB)+' kN'],['Max tension',fk(r.Tmax)+' kN'],['Horizontal H',fk(r.H)+' kN'],['Sag f',f3(r.sag)+' m'+(r.sag>1e-6&&r.span>.05*r.chord?' (span/'+(r.span/r.sag).toFixed(1)+')':'')],['Stretched length',f3(r.Ls)+' m'],['Max strain',(r.Tmax/m.EA*1000).toFixed(3)+' ‰']].map(e).join('')+(r.slack?'<div class="warn">Slack: the cable is longer than the distance between its ends and carries no load.</div>':'');out.innerHTML=t};refreshRes();
  if(cab){const sp=document.createElement('div');sp.className='r';const s=document.createElement('span');s.textContent='Split into';const nn=document.createElement('input');nn.type='number';nn.className='nb';nn.min=2;nn.max=40;nn.value=SPN;const b=document.createElement('button');b.className='zb';b.textContent='Split';b.onclick=()=>{pushU();SPN=Math.max(2,Math.min(40,Math.round(+nn.value||2)));splitN(m,SPN);sel=null;buildPop();draw()};sp.append(s,nn,b);pp.appendChild(sp)}
- btn(interr?'Close interrogation':'Interrogate along the '+(cab?'cable':'bar')+' ▸',()=>{interr=!interr;$('side').hidden=!interr;setTimeout(()=>{resize();fit();sideUpdate()},0);buildPop(1)},'on');btn('Delete',delSel);placePop(!keep)}
+ inspChk(pp,'Member inspector (side panel)');btn('Delete',delSel);placePop(!keep)}
 /* ---- side panel: tension, H and V along the unstressed length, and the force triangle at a cut ---- */
 function cutAt(r,u){const Ts=r.Ts,L=Ts[Ts.length-1][0],s=u*L;let k=1;while(k<Ts.length-1&&Ts[k][0]<s)k++;const a=Ts[k-1],b=Ts[k],t=(s-a[0])/((b[0]-a[0])||1),p0=r.pts[k-1],p1=r.pts[k],x=p0[0]+(p1[0]-p0[0])*t,y=p0[1]+(p1[1]-p0[1])*t,T=a[1]+(b[1]-a[1])*t,ang=Math.atan2(p1[1]-p0[1],p1[0]-p0[0]);return{s,L,x,y,T,ang,H:T*Math.cos(ang),V:T*Math.sin(ang)}}
 function drawMarker(){const i=members.indexOf(sel.m),r=res&&res.ok&&res.mem[i];if(!r||r.Ts.length<2)return;const c=cutAt(r,interS),X=sx(c.x),Y=sy(c.y),k=26,col=css('--neon3');ctx.save();ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=1.6;ctx.beginPath();ctx.arc(X,Y,5,0,7);ctx.stroke();ctx.beginPath();ctx.moveTo(X,Y);ctx.lineTo(X+Math.cos(c.ang)*k,Y-Math.sin(c.ang)*k);ctx.stroke();head(X+Math.cos(c.ang)*k,Y-Math.sin(c.ang)*k,Math.cos(c.ang),-Math.sin(c.ang),col,8);ctx.restore()}
-function sideUpdate(){if(!interr)return;const ok=sel&&sel.t=='m'&&members.includes(sel.m),i=ok?members.indexOf(sel.m):-1,r=ok&&res&&res.ok&&res.mem[i];$('sideMsg').hidden=!!r;$('sideMain').hidden=!r;if(!r)return;
- const m=sel.m,c=cutAt(r,interS),W2=300,H2=150,pl=36,pr=8,pt=10,pb=22,Ts=r.Ts,L=c.L;let tmax=0,vmin=0,vmax=0;const V=Ts.map((q,k)=>{const p0=r.pts[Math.max(0,k-1)],p1=r.pts[Math.min(r.pts.length-1,k+1)],a=Math.atan2(p1[1]-p0[1],p1[0]-p0[0]);return[q[0],q[1]*Math.cos(a),q[1]*Math.sin(a)]});
- Ts.forEach((q,k)=>{tmax=Math.max(tmax,Math.abs(q[1]));vmin=Math.min(vmin,V[k][2]);vmax=Math.max(vmax,V[k][2],V[k][1])});const lo=Math.min(0,vmin),hi=Math.max(tmax,vmax,1e-9)*1.08,X=s=>pl+(W2-pl-pr)*s/(L||1),Y=v=>pt+(H2-pt-pb)*(hi-v)/((hi-lo)||1);
- const path=(f)=>Ts.map((q,k)=>(k?'L':'M')+X(q[0]).toFixed(1)+' '+Y(f(k)).toFixed(1)).join('');const tc=tcol(r.Tmax/Tglob());
+function sideShow(){const s=$('side'),open=!!interr;const tab=$('sideTab');if(tab){tab.hidden=open;$('wrap').classList.toggle('tabOn',!open)}if(s.hidden===!open)return;s.hidden=!open;SIDEK='';setTimeout(()=>{resize();sideUpdate()},0)}
+function sideUpdate(){const s=$('side');if(s.hidden===!!interr)sideShow();if(!interr)return;
+ const isN=!!(sel&&sel.t=='n'&&nodes.includes(sel.n)),isM=!!(sel&&sel.t=='m'&&members.includes(sel.m));$('sideH').querySelector('b').textContent=isN?'Node inspector':isM?'Member inspector':'Inspector';
+ if(s.classList.contains('col'))return;
+ const key=[isN?'n'+nodes.indexOf(sel.n):isM?'m'+members.indexOf(sel.m):'-',lastSig,interS,isDark(),res&&res.ok,res0?1:0].join('|');if(key===SIDEK)return;SIDEK=key;
+ const nb=$('sideNode');
+ if(isN){$('sideMsg').hidden=true;$('sideMain').hidden=true;nb.hidden=false;let h;try{h=nodeHTML(sel.n)}catch(e){h='<p class="ndW">'+e.message+'</p>'}nb.innerHTML=h;return}
+ nb.hidden=true;const i=isM?members.indexOf(sel.m):-1,r=isM&&res&&res.ok&&res.mem[i];$('sideMsg').hidden=!!r;$('sideMain').hidden=!r;
+ if(!r){$('sideMsg').textContent=isM?'No equilibrium yet: this member has no results.':'Select a cable, a bar or a node to interrogate it.';return}
+ const m=sel.m,c=cutAt(r,interS),W2=300,H2=150,pl=48,pr=10,pt=10,pb=22,Ts=r.Ts,L=c.L;let tmax=0,vmin=0,vmax=0;const V=Ts.map((q,k)=>{const p0=r.pts[Math.max(0,k-1)],p1=r.pts[Math.min(r.pts.length-1,k+1)],a=Math.atan2(p1[1]-p0[1],p1[0]-p0[0]);return[q[0],q[1]*Math.cos(a),q[1]*Math.sin(a)]});
+ Ts.forEach((q,k)=>{tmax=Math.max(tmax,Math.abs(q[1]));vmin=Math.min(vmin,V[k][2],V[k][1]);vmax=Math.max(vmax,V[k][2],V[k][1])});const lo=Math.min(0,vmin,r.bar?r.N:0)*1.08,hi=Math.max(tmax,vmax,1e-9)*1.08,X=s=>pl+(W2-pl-pr)*s/(L||1),Y=v=>pt+(H2-pt-pb)*(hi-v)/((hi-lo)||1);
+ const path=(f)=>Ts.map((q,k)=>(k?'L':'M')+X(q[0]).toFixed(1)+' '+Y(f(k)).toFixed(1)).join('');const tc=tcol(Math.abs(r.Tmax)/Tglob());
  let g='<svg viewBox="0 0 '+W2+' '+H2+'" class="sch"><line x1="'+pl+'" y1="'+Y(0)+'" x2="'+(W2-pr)+'" y2="'+Y(0)+'" stroke="var(--line)"/>';
- [lo,0,hi/1.08].filter((v,j,a)=>a.indexOf(v)==j).forEach(v=>{g+='<text x="'+(pl-4)+'" y="'+(Y(v)+3)+'" text-anchor="end">'+fk(v)+'</text>'});g+='<text x="'+pl+'" y="'+(H2-6)+'">s = 0</text><text x="'+(W2-pr)+'" y="'+(H2-6)+'" text-anchor="end">'+f2(L)+' m</text>';
+ const yl=[];[0,hi/1.08,lo/1.08].filter((v,j,a)=>a.indexOf(v)==j&&(v==0||Math.abs(v)>1e-9)).forEach(v=>{if(yl.some(y=>Math.abs(y-Y(v))<15))return;yl.push(Y(v));g+='<text x="'+(pl-4)+'" y="'+(Y(v)+3)+'" text-anchor="end">'+fk(v)+'</text>'});g+='<text x="'+pl+'" y="'+(H2-6)+'">s = 0</text><text x="'+(W2-pr)+'" y="'+(H2-6)+'" text-anchor="end">'+f2(L)+' m</text>';
  g+='<path d="'+path(k=>Ts[k][1])+'" fill="none" stroke="'+tc+'" stroke-width="2.2"/><path d="'+path(k=>V[k][1])+'" fill="none" stroke="var(--mut)" stroke-width="1.4" stroke-dasharray="2 3"/><path d="'+path(k=>V[k][2])+'" fill="none" stroke="#12d98a" stroke-width="1.4" stroke-dasharray="6 3"/>';
  g+='<line x1="'+X(c.s)+'" y1="'+pt+'" x2="'+X(c.s)+'" y2="'+(H2-pb)+'" stroke="var(--neon3)" stroke-width="1"/><circle cx="'+X(c.s)+'" cy="'+Y(c.T)+'" r="3.5" fill="var(--neon3)"/></svg>';
  $('sideCh').innerHTML='<div class="slg"><span><i style="background:'+tc+'"></i>T</span><span><i style="background:var(--mut)"></i>H</span><span><i style="background:#12d98a"></i>V</span><em>kN against unstressed length s</em></div>'+g;
- const e=x=>'<div><span>'+x[0]+'</span><b>'+x[1]+'</b></div>';$('sideSel').innerHTML='<b>'+(m.type=='bar'?'Bar B':'Cable C')+(i+1)+'</b> · '+(prodOf(m.type=='bar'?BARS:CABLES,m.prod)||['','Custom'])[1]+'<div class="pres">'+[['Cut at s',f2(c.s)+' m of '+f2(L)+' m'],['Point',f2(c.x)+', '+f2(c.y)+' m'],['Tension T',fk(c.T)+' kN'],['H, V',fk(c.H)+', '+fk(c.V)+' kN'],['Slope',(c.ang*180/Math.PI).toFixed(1)+'°'],['Strain T / EA',(c.T/m.EA*1000).toFixed(3)+' ‰']].map(e).join('')+'</div>';
- /* force triangle */const sc=110/Math.max(Math.abs(c.H),Math.abs(c.V),Math.abs(c.T),1e-9),hx=c.H*sc,vy=c.V*sc,o=[20,130];
- $('pshape').innerHTML='<svg viewBox="0 0 280 150" class="sch"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker></defs>'+
-  '<line x1="'+o[0]+'" y1="'+o[1]+'" x2="'+(o[0]+hx)+'" y2="'+o[1]+'" stroke="var(--mut)" stroke-width="2" marker-end="url(#ah)"/><line x1="'+(o[0]+hx)+'" y1="'+o[1]+'" x2="'+(o[0]+hx)+'" y2="'+(o[1]-vy)+'" stroke="#12d98a" stroke-width="2" marker-end="url(#ah)"/><line x1="'+o[0]+'" y1="'+o[1]+'" x2="'+(o[0]+hx)+'" y2="'+(o[1]-vy)+'" stroke="'+tc+'" stroke-width="2.6" marker-end="url(#ah)"/>'+
-  '<text x="'+(o[0]+hx/2)+'" y="'+(o[1]+14)+'" text-anchor="middle">H '+fk(c.H)+'</text><text x="'+(o[0]+hx+6)+'" y="'+(o[1]-vy/2)+'">V '+fk(c.V)+'</text><text x="'+(o[0]+hx/2-8)+'" y="'+(o[1]-vy/2-6)+'" text-anchor="end">T '+fk(c.T)+'</text></svg><p class="pnote">The tension at the cut splits into a constant horizontal part H and a vertical part V that grows by the weight of the cable between: V = V<sub>A</sub> + w s. T² = H² + V².</p>'}
-$('psl').oninput=e=>{interS=+e.target.value;sideUpdate();draw()};$('sideX').onclick=()=>{interr=false;$('side').hidden=true;buildPop(1);setTimeout(resize,0)};$('sideC').onclick=()=>{const s=$('side');s.classList.toggle('col');$('sideC').textContent=s.classList.contains('col')?'«':'»';setTimeout(resize,0)};
+ const e=x=>'<div><span>'+x[0]+'</span><b>'+x[1]+'</b></div>';$('sideSel').innerHTML='<b>'+(m.type=='bar'?'Bar B':'Cable C')+(i+1)+'</b> · '+(prodOf(m.type=='bar'?BARS:CABLES,m.prod)||['','Custom'])[1]+'<div class="pres">'+[['Cut at s',f2(c.s)+' m of '+f2(L)+' m'],['Point',f2(c.x)+', '+f2(c.y)+' m'],[r.bar?'Axial force N':'Tension T',(r.bar&&c.T<0?'C ':'')+fk(r.bar?Math.abs(c.T):c.T)+' kN'],['H, V',fk(c.H)+', '+fk(c.V)+' kN'],['Slope',(c.ang*180/Math.PI).toFixed(1)+'°'],['Strain T / EA',(c.T/m.EA*1000).toFixed(3)+' ‰']].map(e).join('')+'</div>';
+ /* force triangle: H then V tip to tail give T. The view box is fitted to the triangle and its labels, so it never clips whatever the signs */
+ const mxF=Math.max(Math.abs(c.H),Math.abs(c.V),Math.abs(c.T),1e-9),sc=100/mxF,hx=c.H*sc,vy=-c.V*sc,fp=v=>v.toFixed(1),lab=(x,y,t,an,col)=>'<text x="'+fp(x)+'" y="'+fp(y)+'" text-anchor="'+an+'"'+(col?' fill="'+col+'"':'')+'>'+t+'</text>';
+ const ln_=Math.hypot(hx,vy)||1;let nx=-vy/ln_,ny=hx/ln_;if(nx*hx/2+ny*(-vy/2)>0){nx=-nx;ny=-ny}
+ const tA=Math.abs(nx)<.3?'middle':nx>0?'start':'end',vA=hx>=0?'start':'end',x0=Math.min(0,hx)-78,x1=Math.max(0,hx)+78,y0=Math.min(0,vy)-24,y1=Math.max(0,vy)+26;
+ let tri='<svg viewBox="'+fp(x0)+' '+fp(y0)+' '+fp(x1-x0)+' '+fp(y1-y0)+'" class="sch ft" preserveAspectRatio="xMidYMid meet"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker></defs>';
+ if(Math.abs(hx)>1)tri+='<line x1="0" y1="0" x2="'+fp(hx)+'" y2="0" stroke="var(--mut)" stroke-width="2" marker-end="url(#ah)"/>';
+ if(Math.abs(vy)>1)tri+='<line x1="'+fp(hx)+'" y1="0" x2="'+fp(hx)+'" y2="'+fp(vy)+'" stroke="#12d98a" stroke-width="2" marker-end="url(#ah)"/>';
+ tri+='<line x1="0" y1="0" x2="'+fp(hx)+'" y2="'+fp(vy)+'" stroke="'+tc+'" stroke-width="2.6" marker-end="url(#ah)"/><circle cx="0" cy="0" r="2.5" fill="var(--mut)"/>';
+ tri+=lab(hx/2,vy>0?-8:15,'H '+fk(c.H),'middle')+lab(hx+(hx>=0?12:-12),vy/2+3,'V '+fk(c.V),vA,'#12d98a')+lab(hx/2+nx*12,vy/2+ny*12+3,(r.bar?'N ':'T ')+fk(c.T),tA,tc)+'</svg>';
+ $('pshape').innerHTML=tri+'<p class="pnote">'+(r.bar?'A bar carries its force N along its own line; H and V are its horizontal and vertical parts.':'The tension at the cut splits into a constant horizontal part H and a vertical part V that grows by the weight of the cable between: V = V<sub>A</sub> + w s. T² = H² + V².')+'</p>'}
+$('psl').oninput=e=>{interS=+e.target.value;sideUpdate();draw()};$('sideX').onclick=()=>{interr=false;sideShow();buildPop(1);draw()};$('sideC').onclick=()=>{const s=$('side');s.classList.toggle('col');$('sideC').textContent=s.classList.contains('col')?'«':'»';SIDEK='';setTimeout(()=>{resize();sideUpdate()},0)};
 
 /* ===== v1.19: annotations (model coordinates; text, box, ell, line/arrow, dim) ===== */
 /* v2.2: annotations live in model space, so their text, line weights and arrowheads scale with the zoom relative to the zoom they were drawn at (s0) */
@@ -947,6 +998,39 @@ const PRESETS={
   note('Load per metre of cable (left) or per metre of plan (right):\na catenary and a parabola, almost the same at this sag.',0,7)},'Head to head'],
  h2h_ea:['Head to head: stiff or stretchy',()=>{[['ss20',0,'Steel strand'],['poly',22,'Polyester rope']].forEach(([k,x,t])=>{const A=N_(x,0,'pin'),B=N_(x+16,0,'pin'),C=N_(x+8,-1.5);C_(A,C,k,{L0:8.15});C_(C,B,k,{L0:8.15});ld(C,0,-6);note(t,x+3,3)});
   note('The same geometry and load: the rope stretches,\nsags further and so carries a lower tension.',0,9)},'Head to head']};
+/* ---- v1.1 examples: roofs and domes, 2D tensegrity ---- */
+/* a cable pretensioned to T (kN): unstressed length from the chord; a strut precompressed to P (kN) */
+const preC=(a,b,k,T,o)=>{const p=pr(k),ch=Math.hypot(b.x-a.x,b.y-a.y);return C_(a,b,k,Object.assign({L0:ch/(1+T/p.EA)},o||{}))};
+const preB=(a,b,k,P)=>{const p=pr(k),ch=Math.hypot(b.x-a.x,b.y-a.y);return B_(a,b,k,{L0:ch/(1-P/p.EA)})};
+Object.assign(PRESETS,{
+ dome:['Millennium Dome (section)',()=>{const R=182.5,yr=x=>10+40*(1-(x/R)**2),xs=[-182.5,-150,-120,-90,-60,-30,30,60,90,120,150,182.5];
+  const RN=xs.map((x,i)=>N_(x,yr(x),i==0||i==xs.length-1?'pin':'none'));
+  for(let i=0;i<RN.length-1;i++){const c=preC(RN[i],RN[i+1],'ss40',120);c.q=2}
+  [-1,1].forEach(s=>{const base=N_(s*100,0,'pin'),top=N_(s*112,100),anc=N_(s*215,0,'pin');B_(base,top,'chs273');preC(top,anc,'lc100',200);
+   RN.forEach(n=>{if(n.sup=='none'&&n.x*s>0)preC(top,n,'lc60',60)})});
+  dimA(-182.5,0,182.5,0,-14,{dp:0});note('An idealised section through two of the twelve 100 m masts of the\nMillennium Dome (London, 1999; 365 m across, 50 m high). The radial\nroof cables hang from the mast tops on hangers and run to a central\nring; backstays tie the masts down. Roof load 2 kN/m on plan.',-182,150);return{}},'Roofs and domes'],
+ geiger:['Cable dome (Geiger)',()=>{const E1=N_(-60,0,'pin'),E2=N_(60,0,'pin'),T=[],Bo=[],xs=[-40,-20,0,20,40],yt=[8,12,15,12,8],yb=[-4,0,4,0,-4];
+  xs.forEach((x,i)=>{T.push(N_(x,yt[i]));Bo.push(N_(x,yb[i]))});const rid=[E1,...T,E2];for(let i=0;i<rid.length-1;i++)preC(rid[i],rid[i+1],'ss40',80);
+  xs.forEach((x,i)=>preB(Bo[i],T[i],'chs168',60));
+  preC(E1,Bo[0],'ss40',80);preC(T[0],Bo[1],'ss40',80);preC(T[1],Bo[2],'ss40',80);preC(E2,Bo[4],'ss40',80);preC(T[4],Bo[3],'ss40',80);preC(T[3],Bo[2],'ss40',80);
+  preC(Bo[0],Bo[4],'ss40',1500);preC(Bo[1],Bo[3],'ss40',2500);T.forEach(n=>ld(n,0,-15));
+  note('Geiger’s cable dome (Seoul 1986, Georgia Dome 1992) cut through its\ncentre: ridge cables, diagonals and flying struts, with the hoop cables\ndrawn as ties across the span. Pretension, not mass, gives it stiffness.',-60,40);return{}},'Roofs and domes'],
+ tg_x:['Tensegrity X-module',()=>{const a=4,A=N_(0,0,'pin'),B=N_(a,0,'ry'),C=N_(a,a),D=N_(0,a);[[A,B],[B,C],[C,D],[D,A]].forEach(([p,q])=>preC(p,q,'ss20',20));
+  preB(A,C,'chs114',20*Math.SQRT2);preB(B,D,'chs114',20*Math.SQRT2);ld(C,0,-6);ld(D,2,0);
+  note('The simplest 2D tensegrity: four cables round a square,\ntwo struts across it. Every cable carries T and each strut\n√2 T in compression before any load; take the pretension\naway (Length tool) and it folds.',-1,8.5);return{}},'Tensegrity'],
+ tg_beam:['Tensegrity beam',()=>{const n=4,a=3,h=3,T=[],Bt=[];for(let i=0;i<=n;i++){T.push(N_(i*a,h));Bt.push(N_(i*a,0,i==0?'pin':i==n?'ry':'none'))}
+  for(let i=0;i<n;i++){preC(T[i],T[i+1],'ss20',25);preC(Bt[i],Bt[i+1],'ss20',25);preB(Bt[i],T[i+1],'chs114',35);preB(T[i],Bt[i+1],'chs114',35)}
+  for(let i=0;i<=n;i++)preC(T[i],Bt[i],'ss20',25);ld(T[2],0,-12);
+  note('Four X-modules in a row: cable chords and verticals, crossing\nstruts. Under the load the top chord and the bottom chord\nshare the bending; a chord that goes slack shows dotted.',0,7.5);return{}},'Tensegrity'],
+ tg_tower:['Tensegrity tower',()=>{const n=4,b=2.4,h=3,L=[],Rr=[];for(let i=0;i<=n;i++){const k=i*.15;L.push(N_(k,i*h,i==0?'pin':'none'));Rr.push(N_(b-k,i*h,i==0?'pin':'none'))}
+  for(let i=0;i<n;i++){preC(L[i],L[i+1],'ss20',20);preC(Rr[i],Rr[i+1],'ss20',20);preB(L[i],Rr[i+1],'chs114',25);preB(Rr[i],L[i+1],'chs114',25)}
+  for(let i=1;i<=n;i++)preC(L[i],Rr[i],'ss20',20);ld(L[n],3,0);ld(L[n-1],2,0);
+  note('A 2D cousin of Snelson’s Needle Tower: X-modules\nstacked and tapering. Wind from the left tightens\nthe windward cables and relaxes the leeward ones.',3.5,11);return{}},'Tensegrity']});
+const EXDESC={dome:'A section through the Millennium Dome: radial cables hung from two 100 m masts on hangers, backstays to the ground, 2 kN/m of roof load.',
+ geiger:'A Geiger cable dome through its centre: ridge cables, diagonals, flying struts and hoops, pretensioned and loaded at the ridge.',
+ tg_x:'Four cables and two crossing struts: the basic 2D tensegrity, stiff only because of its pretension.',
+ tg_beam:'Four tensegrity X-modules in a row as a simply supported beam with a central load.',
+ tg_tower:'Four tapering X-modules stacked into a mast and pushed sideways by wind.'};
 const GAL_DESC={chain:'A 20 m stud-link chain with 4 m of slack hangs in a catenary. Push it, shorten it, or split it and hang loads from it.',
  incl:'A strand between supports 14 m apart in height. The low point moves towards the lower support and the upper support takes more load.',
  point:'An 18 m strand with 20 kN at the third point: two straight segments meeting at the load, H = P a b / (L f).',
@@ -966,8 +1050,9 @@ const GAL_DESC={chain:'A 20 m stud-link chain with 4 m of slack hangs in a caten
  h2h_pre:'Two taut strands with 5 and 50 kN pretension under the same 10 kN load. Pretension is what makes a cable stiff.',
  h2h_cat:'Self-weight along the cable against the same load per plan metre: catenary against parabola.',
  h2h_ea:'A steel strand and a polyester rope of the same length and load: the stretchier rope sags more and pulls less.'};
+Object.assign(GAL_DESC,EXDESC);
 let pendPre=null;
-function preset(k){const P=PRESETS[k];if(!P)return;nodes=[];members=[];ann=[];sel=null;first=null;hold=null;interr=false;$('side').hidden=true;let f=null;try{f=P[1]()}catch(e){console.error(e)}
+function preset(k){const P=PRESETS[k];if(!P)return;nodes=[];members=[];ann=[];sel=null;first=null;hold=null;interr=false;let f=null;try{f=P[1]()}catch(e){console.error(e)}if(anOn)anSet(false);
  ['sA','sU'].forEach(i=>$(i).checked=!!(f&&f[i]));lastSig='';res=null;U=[];R2=[];recompute(true);recompute(true);buildPop();setTimeout(()=>{resize();fit();ann.forEach(a=>a.s0=S);draw()},0);autosave()}
 (function(){const s=$('pre'),G=[];Object.entries(PRESETS).forEach(([k,p])=>{let g=G.find(x=>x[0]==p[2]);if(!g)G.push(g=[p[2],[]]);g[1].push(k)});
  G.forEach(([g,ks])=>{const o=document.createElement('optgroup');o.label=g;ks.forEach(k=>{const op=document.createElement('option');op.value=k;op.textContent=PRESETS[k][0];o.appendChild(op)});s.appendChild(o)});
@@ -1034,6 +1119,18 @@ const VTESTS=[
  ['Global checks','Save and open give the same answer','The suspension bridge example saved as text and opened again must solve to the same H.',()=>{
   const M1=galModel('susp'),sv=[nodes,members,ann];let H2=NaN;try{nodes=[];members=[];ann=[];PRESETS.susp[1]();const t=JSON.stringify(dump());loadDump(JSON.parse(t));const r=solveModel(nodes,members);H2=r.mem[1].H}finally{nodes=sv[0];members=sv[1];ann=sv[2];lastSig=''}
   return[['H of the main cable (kN)',M1.r.mem[1].H,H2,1e-9]]}]];
+/* v1.1 checks */
+VTESTS.push(
+ ['Tensegrity (v1.1)','X-module self-stress','A square of four cables with two crossing struts and no load or weight. Equilibrium of each corner requires the same tension T in all four cables and N = −√2 T in both struts, whatever the level of pretension.',()=>{
+  const a=4,A=vN(0,0,'pin'),B=vN(a,0,'ry'),C=vN(a,a),D=vN(0,a),EAc=1e5,EAs=1e6,cs=[[A,B],[B,C],[C,D],[D,A]].map(([p,q])=>vC(p,q,a/(1+30/EAc),EAc,0)),s1=vB(A,C,a*Math.SQRT2*(1+1e-4),EAs),s2=vB(B,D,a*Math.SQRT2*(1+1e-4),EAs);
+  const r=solveModel([A,B,C,D],[...cs,s1,s2]),T=r.mem[0].Tmax;return[['T in cable BC ÷ T in AB',1,r.mem[1].Tmax/T],['T in cable CD ÷ T in AB',1,r.mem[2].Tmax/T],['N strut AC ÷ T',-Math.SQRT2,r.mem[4].N/T],['N strut BD ÷ T',-Math.SQRT2,r.mem[5].N/T]]}],
+ ['Tensegrity (v1.1)','Load factor of the animation','Each animation frame is solved with the loads × λ. The point-load cable solved at λ = 0.4 must match the same cable solved with 0.4 × the load.',()=>{
+  const mk=P=>{const A=vN(0,0,'pin'),B=vN(18,0,'pin'),C=vN(6,-3,'none',[0,-P]);return[[A,B,C],[vC(A,C,6.9,39200,.0195),vC(C,B,12.4,39200,.0195)]]};
+  const m1=mk(20),r1=solveModel(m1[0],m1[1],{lf:.4}),m2=mk(8),r2=solveModel(m2[0],m2[1]);return[['H at λ = 0.4 (kN)',r2.mem[0].H,r1.mem[0].H,1e-9],['Load node y at λ = 0.4 (m)',r2.pos[2][1],r1.pos[2][1],1e-9]]}],
+ ['Tensegrity (v1.1)','Node inspector: equilibrium of a joint','The node inspector adds the forces of every member end, the load, the deck share and the reaction at a joint. For the loaded node and a support of the suspension bridge they must sum to zero.',()=>{
+  const sv=[nodes,members,ann,res,res0];let out=[];try{nodes=[];members=[];ann=[];PRESETS.susp[1]();const r=solveModel(nodes,members);res=r;res0=null;r.pos.forEach((p,i)=>{nodes[i].x=p[0];nodes[i].y=p[1]});
+   const t1=nodeData(nodes[1],r),t0=nodeData(nodes[0],r);out=[['Saddle node: |ΣF| ÷ largest force',0,t1.res,1e-7],['Anchor: |ΣF| ÷ largest force',0,t0.res,1e-7],['Saddle node: member ends found',2,t1.ends.length,0]]}
+  finally{nodes=sv[0];members=sv[1];ann=sv[2];res=sv[3];res0=sv[4];lastSig=''}return out}]);
 function vtRunAll(){const rows=[];VTESTS.forEach(([g,n,d,f])=>{let cs=[],err=null;try{cs=f()}catch(e){err=e.message||String(e)}rows.push({g,n,d,cs,err})});return rows}
 function vtPass(c){const[q,e,g,t]=c;if(!isFinite(g))return false;if(Math.abs(e)<1e-12)return Math.abs(g)<=(t!=null?t:1e-9);return Math.abs(g-e)<=(t!=null?t:1e-4)*Math.abs(e)}
 const vtF=v=>!isFinite(v)?'–':Math.abs(v)>=1e4||(Math.abs(v)<1e-3&&v!=0)?v.toExponential(4):(+v.toPrecision(7)).toString();
@@ -1492,6 +1589,14 @@ addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey)||e.altKey||e.shiftKey)
 
 /* ===== about, method, shortcuts and start-up ===== */
 const CHANGELOG=[
+['1.1','Tensegrity',['Grid and snapping as in Frame Pusher: a 1–2–5 grid at least 22 px apart with a major line every five, teal reference lines every 5 m labelled with their coordinates (stepping to 50 m and 500 m when zoomed far out), the grid size in the legend and the snap step beside the cursor coordinates. A ring shows the grid point a click would use with the Node, Cable, Strut and support tools.',
+ 'Hover highlighting as in Frame Pusher: the cable, bar or node that the current tool would act on glows under the cursor (only cables for Split, Deck load, Self-weight and Length; nodes or cables for supports and new cables). Larger node dots.',
+ 'Bottom bar options for forces and animation: ▶ Animate grows the loads from zero to their full value and back, with each of twelve frames a solved, non-linear equilibrium blended smoothly (with no load, the self-weight grows instead), so the cables can be seen stiffening as they tighten. Speed control, and toggles for the shape, tension, load arrows and reactions; the panel shows the current load factor. A Labels control (All / Key values / None) replaces the Labels tick box, and a Loads tick box hides the load arrows.',
+ 'Inspector side panel for nodes as well as members: with the panel open, a node shows its free-body diagram (member stubs in their true directions, the force from every member end, the load and the reaction, to scale), its movement under the loads, the equilibrium table in global axes with its sum, and the tension, angle and strain of every member end. Members show T, H and V along the unstressed length and the force triangle at a cut. “Member inspector” and “Node inspector” tick boxes in the popups, an ‹ Inspector tab on the right edge of the canvas, and the I key open it; it stays open while the selection changes.',
+ 'Fixed: the force triangle in the interrogation panel was drawn at a fixed origin and clipped when V was negative (the rising end of a cable) or large; its view box now fits the triangle and its labels for any signs. The tension chart has room for longer axis values, and the panel now follows the selection.', 'Fixed: after Undo, Redo or opening a file, a node’s “Moves under the loads” read NaN because the self-weight shape was reused for the rebuilt nodes; it is now solved again.',
+ 'Theme button as a sun / moon icon at the right-hand end of the top bar (the choice is remembered), and a home button at the left that goes to ankacha.github.io, as in Frame Pusher.',
+ 'Five new examples in two new groups. Roofs and domes: a section through the Millennium Dome (radial cables hung from two 100 m masts, backstays, 2 kN/m roof load) and a Geiger cable dome. Tensegrity: the X-module, a tensegrity beam of four modules and a tapering tensegrity tower under wind.',
+ 'Solver: optional load factor and self-weight factor for the animation frames. Three new verification checks: the self-stress of the X-module (N = −√2 T), the load factor against a scaled load, and the equilibrium of joints in the node inspector.']],
 ['1.0','Catenary',['First release of Cable Pusher, built on the Frame Pusher and Arch Pusher interfaces for hanging cable structures, nets and masts.',
  'Solver: every cable is one exact elastic catenary element (Irvine), so a single element reproduces a hanging cable with its self-weight and stretch; cables with a deck load are split internally into sixteen sub-catenaries. Struts are geometrically non-linear bars. The equilibrium shape is found for large displacements by Newton–Raphson with the exact tangent, a Levenberg shift and a line search on the energy gradient, so slack and very flexible nets converge from a poor first guess.',
  'Zoomable, pannable canvas: Node, Cable, Strut and Split tools; pin and roller supports; point loads dragged on nodes or anywhere on a cable (which is split exactly at that point without changing its shape); deck loads per plan metre; self-weight from a list of indicative cable products (spiral strand, locked coil, wire rope, tension bar, chain, polyester rope); and a Length tool to lengthen or pretension a cable by dragging or by rule (slack %, sag ratio, pretension, length).',
@@ -1506,12 +1611,131 @@ function showMethod(){showV('Method and assumptions','<p><b>Elastic catenary ele
  '<p><b>Deck loads.</b> A load q per metre of plan hangs from the cable as from a bridge deck. Such a cable is split internally into sixteen sub-catenaries of equal unstressed length and the load is lumped at their joints by plan tributary length, updated with the shape.</p><p><b>Bars.</b> Pin-ended, linear-elastic, N = EA(L − L₀)/L₀ in tension or compression, with the geometric stiffness N/L. No buckling check.</p>'+
  '<p><b>Equilibrium.</b> The free nodal coordinates are found by Newton–Raphson on the out-of-balance forces using the exact tangent of every element. A Levenberg shift keeps the step defined when the tangent is not positive definite (a slack node, a compressed strut), and a line search on R·Δ, the derivative of the potential energy along the step, brackets and bisects through slack-to-taut transitions. Convergence is declared when the largest residual force is below 10⁻⁹ of the applied load (or the round-off limit of the stiffness). Supports and the global equilibrium are checked after every solve.</p>'+
  '<p><b>Sign conventions.</b> x to the right, y upwards; loads and reactions positive along the axes. Tension positive. H is the horizontal component of cable tension, constant along any unloaded stretch of cable; V grows by the weight of cable passed. Sag f is measured vertically from the chord.</p><p><b>Assumptions.</b> Plane structures; linear-elastic material; large displacements included exactly; cables have no bending stiffness and carry no compression; loads keep their direction. EA and weights of the products in the lists are indicative only.</p><p style="color:var(--mut)">References: H. M. Irvine, <i>Cable Structures</i>, MIT Press, 1981; W. T. O’Brien and A. J. Francis, “Cable movements under two-dimensional loads”, <i>J. Struct. Div. ASCE</i> 90(3), 1964.</p>')}
-function showKeys(){showV('Keyboard shortcuts','<ul><li><b>Tools:</b> V select · N node · C cable · B strut · X split · 1 pin · 2 roller V · 3 roller H · 4 no support · P point load · U deck load · W self-weight · E length</li><li><b>Annotate:</b> T text · G box · J ellipse · L line · K arrow · D dimension</li><li><b>F</b> fit view · <b>Esc</b> cancel and return to Select · <b>right-click</b> cancel the current operation (right-drag pans) · <b>Del</b> delete the selection</li><li><b>Ctrl+Z</b> undo · <b>Ctrl+Y</b> redo · <b>Ctrl+C / Ctrl+V</b> copy and paste · <b>Ctrl+A</b> select all</li><li><b>Ctrl+S</b> save to a file · <b>Ctrl+O</b> open a file (or drop one on the app)</li><li><b>Arrow keys</b> nudge the selection by the grid step (Shift = 5×)</li><li>Scroll to zoom · right-drag or middle-drag to pan</li></ul>')}
+function showKeys(){showV('Keyboard shortcuts','<ul><li><b>Tools:</b> V select · N node · C cable · B strut · X split · 1 pin · 2 roller V · 3 roller H · 4 no support · P point load · U deck load · W self-weight · E length</li><li><b>Annotate:</b> T text · G box · J ellipse · L line · K arrow · D dimension</li><li><b>F</b> fit view · <b>Esc</b> cancel and return to Select · <b>right-click</b> cancel the current operation (right-drag pans) · <b>Del</b> delete the selection</li><li><b>Ctrl+Z</b> undo · <b>Ctrl+Y</b> redo · <b>Ctrl+C / Ctrl+V</b> copy and paste · <b>Ctrl+A</b> select all</li><li><b>Ctrl+S</b> save to a file · <b>Ctrl+O</b> open a file (or drop one on the app)</li><li><b>Arrow keys</b> nudge the selection by the grid step (Shift = 5×)</li><li><b>I</b> open or close the inspector (side panel): select a cable, a bar or a node to interrogate it. The ‹ Inspector tab on the right edge of the canvas opens it too.</li><li><b>▶ Animate</b> (bottom bar) grows the loads from zero and back; every frame is a solved equilibrium</li><li>Scroll to zoom · right-drag or middle-drag to pan</li></ul>')}
 $('mAbout').onclick=showAbout;$('mMeth').onclick=showMethod;$('mKeys').onclick=showKeys;
+
+/* ===== v1.1 “Tensegrity”: hover targets, snap ghost, animation, node inspector, theme, home ===== */
+/* what the current tool would act on under the cursor, for a clear hover highlight (as in Frame Pusher) */
+function hovTarget(p){if(drag||!mouseIn||tool.startsWith('an_'))return null;const n=hitNode(p),
+ cab=()=>{const h=hitMem(p,'cable');return h?{t:'m',m:h.m}:null},any=()=>{const h=hitMem(p);return h?{t:'m',m:h.m}:null},ld=()=>{const l=hitLoad(p);return l?{t:'n',n:l}:null};
+ if(tool=='sel'||tool=='pload')return n?{t:'n',n}:ld()||any();
+ if(['split','deck','weight','length'].includes(tool))return cab();
+ if(tool=='node')return n?null:cab();
+ if(tool=='cable'||tool=='bar'||tool.startsWith('sup_'))return n?{t:'n',n}:cab();
+ return n?{t:'n',n}:any()}
+function hovMem(m){const i=members.indexOf(m);if(i<0)return;const hc=css('--neon2'),p=memPts(i);ctx.save();ctx.strokeStyle=hc;ctx.lineCap='round';ctx.lineJoin='round';
+ ctx.globalAlpha=.22;ctx.lineWidth=24;drawCurve(p,1);ctx.globalAlpha=.45;ctx.lineWidth=13;drawCurve(p,1);ctx.globalAlpha=1;ctx.lineWidth=m.type=='bar'?3:2;if(m.type!='bar')ctx.setLineDash([7,4]);drawCurve(p,1);ctx.restore()}
+function hovNode(n){const hc=css('--neon2'),X=sx(n.x),Y=sy(n.y);ctx.save();ctx.fillStyle=hc;ctx.globalAlpha=.25;ctx.beginPath();ctx.arc(X,Y,16,0,7);ctx.fill();ctx.globalAlpha=1;ctx.strokeStyle=hc;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(X,Y,11,0,7);ctx.stroke();ctx.beginPath();ctx.arc(X,Y,5,0,7);ctx.fill();ctx.restore()}
+/* the grid point a click would use, while a building tool is active and the cursor is not on a node or a cable */
+function snapGhost(){if(!mouseIn||drag||!(['node','cable','bar'].includes(tool)||tool.startsWith('sup_'))||hitNode(mouse)||(hov&&hov.t=='m'))return;const q=snapPt(mouse);
+ ctx.save();ctx.strokeStyle=css('--acc');ctx.globalAlpha=.75;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(sx(q[0]),sy(q[1]),6,0,7);ctx.stroke();ctx.globalAlpha=.5;ctx.beginPath();ctx.moveTo(sx(q[0])-10,sy(q[1]));ctx.lineTo(sx(q[0])+10,sy(q[1]));ctx.moveTo(sx(q[0]),sy(q[1])-10);ctx.lineTo(sx(q[0]),sy(q[1])+10);ctx.stroke();ctx.restore()}
+/* teal reference lines every 5 m (50 m, 500 m when zoomed far out) with their coordinates, as in Frame Pusher */
+function g5(){let s=5;while(s*S<40&&s<5e4)s*=10;G5=s;const c='#00d9bf',X0=Math.ceil(mx(0)/s),X1=Math.floor(mx(W)/s),Y0=Math.ceil(my(H)/s),Y1=Math.floor(my(0)/s),st=Math.max(1,Math.ceil(56/(s*S))),lg=$('sL').checked&&W>520;ctx.save();ctx.strokeStyle=c;ctx.globalAlpha=isDark()?.6:.45;ctx.lineWidth=1.5;ctx.beginPath();
+ for(let i=X0;i<=X1;i++){const X=Math.round(sx(i*s))+.5;ctx.moveTo(X,0);ctx.lineTo(X,H)}for(let j=Y0;j<=Y1;j++){const Y=Math.round(sy(j*s))+.5;ctx.moveTo(0,Y);ctx.lineTo(W,Y)}ctx.stroke();ctx.globalAlpha=1;ctx.fillStyle=isDark()?c:'#0b8f7f';ctx.font='600 11px system-ui,sans-serif';ctx.textBaseline='alphabetic';ctx.textAlign='left';
+ for(let i=X0;i<=X1;i++)if(i%st==0)ctx.fillText(+(i*s).toPrecision(6)+' m',sx(i*s)+3,12);for(let j=Y0;j<=Y1;j++)if(j%st==0&&sy(j*s)>22&&!(lg&&sy(j*s)>H-190))ctx.fillText(+(j*s).toPrecision(6)+' m',4,sy(j*s)-3);ctx.restore()}
+const gridTxt=()=>'Grid '+(+gs.toPrecision(2))+' m (major every '+(+(gs*5).toPrecision(2))+' m) · teal = '+G5+' m';
+
+/* ---------- animation: the loads grow from zero to their full value and back; every frame is a solved equilibrium ---------- */
+const anLoaded=()=>nodes.some(n=>n.load&&(n.load.fx||n.load.fy))||members.some(m=>m.q);
+function anReset(){AN.sig=lastSig;AN.mode=anLoaded()?'load':'grav';AN.k=0;AN.frames=[];AN.done=false;AN.fail=0;
+ const cn=nodes.map(n=>({x:n.ux!=null&&isFinite(n.ux)?n.ux:n.x,y:n.uy!=null&&isFinite(n.uy)?n.uy:n.y,sup:n.sup,load:n.load?{fx:n.load.fx,fy:n.load.fy}:null}));
+ AN.cn=cn;AN.ix=new Map(cn.map((n,i)=>[n,i]));AN.cm=members.map(m=>({a:cn[nodes.indexOf(m.a)],b:cn[nodes.indexOf(m.b)],type:m.type,L0:m.L0,EA:m.EA,w:m.w,q:m.q,_g:m._gu?m._gu.slice():null}));
+ AN.hold=hold?new Set([...hold].map(n=>cn[nodes.indexOf(n)])):null}
+/* frame k carries the loads × k/K (or, with no load, the self-weight from 5 % to 100 %); the last frame is the solution itself */
+function anBuild(ms){if(!(res&&res.ok))return false;if(AN.sig!==lastSig)anReset();if(AN.done)return true;const t0=performance.now();
+ while(AN.k<AN.K&&(AN.k==0||performance.now()-t0<ms)){const k=AN.k,lam=k/AN.K,opt={hold:AN.hold};if(AN.mode=='load')opt.lf=lam;else opt.wf=.05+.95*lam;let r=null;
+  try{r=solveModel(AN.cn,AN.cm,opt)}catch(e){r=null}
+  if(r&&r.ok){r.pos.forEach((p,i)=>{AN.cn[i].x=p[0];AN.cn[i].y=p[1]});r.R=r.R.map(q=>Object.assign({},q,{n:nodes[AN.ix.get(q.n)]}));r.mem=r.mem.map((q,i)=>q?Object.assign(q,{m:members[i]}):q);AN.frames[k]=r}else{AN.fail++;AN.frames[k]=null}AN.k++;if(performance.now()-t0>=ms)break}
+ if(AN.k>=AN.K){AN.frames[AN.K]=res;for(let k=AN.K-1;k>=0;k--)if(!AN.frames[k])AN.frames[k]=AN.frames[k+1];AN.done=true}return AN.done}
+const lerp=(a,b,t)=>a+(b-a)*t,lerpP=(A,B,t)=>A.map((p,i)=>[lerp(p[0],B[i][0],t),lerp(p[1],B[i][1],t)]);
+function anBlend(lam){const K=AN.K,f=Math.max(0,Math.min(K,lam*K)),k=Math.min(K-1,Math.floor(f)),t=f-k,A=AN.frames[k],B=AN.frames[k+1];if(!A||!B)return null;
+ const mem=res.mem.map((rm,i)=>{const a=A.mem[i],b=B.mem[i];if(!rm||!a||!b)return rm;let bm;
+  if(a.pts.length==b.pts.length&&a.Ts.length==b.Ts.length){bm=Object.assign({},b);bm.pts=lerpP(a.pts,b.pts,t);bm.Ts=a.Ts.map((q,j)=>[lerp(q[0],b.Ts[j][0],t),lerp(q[1],b.Ts[j][1],t)]);
+   ['TA','TB','Tmax','Tmin','H','N','VA','VB','sag','sagX','chord','span','Ls'].forEach(x=>{if(isFinite(a[x])&&isFinite(b[x]))bm[x]=lerp(a[x],b[x],t)});bm.inner=a.inner&&b.inner&&a.inner.length==b.inner.length?lerpP(a.inner,b.inner,t):b.inner;bm.slack=t<.5?a.slack:b.slack}
+  else bm=t<.5?a:b;
+  const S_=AK.D?bm:rm,F_=AK.T?bm:rm;return Object.assign({},F_,{pts:S_.pts,sag:S_.sag,sagX:S_.sagX,chord:S_.chord,span:S_.span,inner:S_.inner,m:rm.m})});
+ const pos=AK.D?lerpP(A.pos,B.pos,t):res.pos;let R=res.R;
+ if(AK.R&&A.R.length==res.R.length&&B.R.length==res.R.length)R=res.R.map((q,j)=>Object.assign({},q,{rx:lerp(A.R[j].rx,B.R[j].rx,t),ry:lerp(A.R[j].ry,B.R[j].ry,t)}));
+ const sR={Rx:0,Ry:0};R.forEach(q=>{sR.Rx+=q.rx;sR.Ry+=q.ry});
+ return Object.assign({},res,{mem,pos,R,applied:{Fx:lerp(A.applied.Fx,B.applied.Fx,t),Fy:lerp(A.applied.Fy,B.applied.Fy,t)},sumR:sR})}
+/* while drawing a frame the model is swapped for the blended frame, then put back exactly as it was */
+function anSwap(){if(!anOn||drag||!(res&&res.ok)||!AN.done||AN.sig!==lastSig)return null;const lam=ANF,B=anBlend(lam);if(!B)return null;
+ const sv={res,xy:nodes.map(n=>[n.x,n.y]),ld:nodes.map(n=>n.load),q:members.map(m=>m.q)};TGFIX=Tglob();RMFIX=0;res.R.forEach(q=>{RMFIX=Math.max(RMFIX,Math.abs(q.rx),Math.abs(q.ry))});
+ if(AK.D)B.pos.forEach((p,i)=>{if(nodes[i]){nodes[i].x=p[0];nodes[i].y=p[1]}});
+ if(AN.mode=='load'&&AK.P){nodes.forEach(n=>{if(n.load)n.load={fx:n.load.fx*lam,fy:n.load.fy*lam}});members.forEach(m=>{if(m.q)m.q*=lam});LSC=lam}
+ if(!AK.R)RMFIX=0;res=B;ANSW=true;return sv}
+function anRestore(sv){if(!sv)return;ANSW=false;TGFIX=0;LSC=1;RMFIX=0;res=sv.res;nodes.forEach((n,i)=>{n.x=sv.xy[i][0];n.y=sv.xy[i][1];n.load=sv.ld[i]});members.forEach((m,i)=>{m.q=sv.q[i]})}
+function anStat(){const e=$('anLf');if(!e)return;if(!(res&&res.ok)){e.textContent='no equilibrium';return}
+ if(!AN.done||AN.sig!==lastSig){e.textContent='solving frames '+AN.k+' / '+AN.K;return}
+ e.textContent=AN.mode=='load'?(ANF).toFixed(2)+' × the loads':'self-weight '+Math.round(5+95*ANF)+' %'}
+function anStep(t){if(!anOn)return;if(!AN.done||AN.sig!==lastSig){if(!drag&&res&&res.ok){anBuild(14);if(AN.done){anPh=0;ANF=0}}}else{anPh=(anPh+Math.min(100,t-anT0)*anSpd/2600)%1;ANF=.5-.5*Math.cos(2*Math.PI*anPh)}
+ anT0=t;draw();anStat();requestAnimationFrame(anStep)}
+function anSet(on){anOn=on;const b=$('anB');b.classList.toggle('on',on);b.textContent=on?'■ Stop':'▶ Animate';$('anSp').hidden=!on;if(on){anPh=0;ANF=0;anT0=performance.now();requestAnimationFrame(anStep)}else{ANF=1;draw()}anStat()}
+$('anB').onclick=()=>anSet(!anOn);$('anSl').oninput=()=>{anSpd=Math.pow(2,+$('anSl').value);$('anSv').textContent=(+anSpd.toPrecision(2))+'×'};
+[...document.querySelectorAll('#anK button')].forEach(b=>b.onclick=()=>{const k=b.dataset.k;AK[k]=AK[k]?0:1;b.classList.toggle('on',!!AK[k]);draw()});
+$('lblM').onchange=draw;$('sP').onchange=draw;
+
+/* ---------- node inspector: the joint as a free body ---------- */
+function nodeData(n,r){const i=nodes.indexOf(n),o={n,i,ok:!!(r&&r.ok&&r.mem),ends:[]};if(!o.ok||i<0)return o;
+ members.forEach((m,j)=>{if(m.a!==n&&m.b!==n)return;const q=r.mem[j];if(!q||!q.el||!q.el.length)return;const atA=m.a===n,E=atA?q.el[0]:q.el[q.el.length-1],f=atA?E.r.fA:E.r.fB;if(!f)return;
+  const p=q.pts,P0=atA?p[0]:p[p.length-1],k=atA?Math.min(1,p.length-1):Math.max(0,p.length-2);
+  o.ends.push({m,j,end:atA?'A':'B',g:[f[0],f[1]],T:m.type=='bar'?q.N:atA?q.TA:q.TB,bar:m.type=='bar',slack:!!q.slack,dir:[p[k][0]-P0[0],p[k][1]-P0[1]]})});
+ const l=n.load;o.P=l&&(l.fx||l.fy)?[+l.fx||0,+l.fy||0]:null;
+ /* lumped shares carried by the joint itself: half of each bar's weight and the plan share of a deck load next to it */
+ let bw=0,dk=0;members.forEach((m,j)=>{if(m.a!==n&&m.b!==n)return;if(m.type=='bar'&&m.w)bw-=m.w*m.L0/2;const q=r.mem[j];
+  if(m.type!='bar'&&m.q&&q&&q.inner&&q.inner.length){const pi=m.a===n?q.inner[0]:q.inner[q.inner.length-1];dk-=Math.abs(pi[0]-n.x)*m.q/2}});
+ o.BW=bw?[0,bw]:null;o.DK=dk?[0,dk]:null;const R=(r.R||[]).find(q=>q.n===n);o.R=R?[R.rx,R.ry]:null;o.held=!!(R&&R.held);
+ const all=[...o.ends.map(e=>e.g),o.P,o.BW,o.DK,o.R].filter(Boolean),s=[0,0];let sc=1e-9;all.forEach(a=>{s[0]+=a[0];s[1]+=a[1];sc=Math.max(sc,Math.hypot(a[0],a[1]))});
+ o.sum=s;o.scale=sc;o.res=Math.hypot(s[0],s[1])/sc;o.d=res0&&n.ux!=null&&isFinite(n.ux)?[n.x-n.ux,n.y-n.uy]:null;return o}
+/* free-body drawing: member stubs in their true directions (cables dashed), the force from each member end, the load and the reaction, all to one scale */
+function nodeSvg(o){const W=320,H=212,cx=W/2,cy=H/2+6,f=v=>(+v).toFixed(1),n=o.n,MU='var(--mut)',C=cols();let s='';
+ const ln=(a,b,c,d,st)=>s+='<line x1="'+f(a)+'" y1="'+f(b)+'" x2="'+f(c)+'" y2="'+f(d)+'" '+st+'/>',tx=(x,y,t,c,an)=>s+='<text x="'+f(x)+'" y="'+f(y)+'" fill="'+c+'" class="ndL"'+(an?' text-anchor="'+an+'"':'')+'>'+t+'</text>';
+ const arr=(x0,y0,x1,y1,c,w)=>{const L=Math.hypot(x1-x0,y1-y0);if(L<3)return;const ux=(x1-x0)/L,uy=(y1-y0)/L;ln(x0,y0,x1-ux*6,y1-uy*6,'stroke="'+c+'" stroke-width="'+(w||2)+'" stroke-linecap="round"');s+='<path d="M'+f(x1)+' '+f(y1)+'l'+f(-ux*9-uy*4.5)+' '+f(-uy*9+ux*4.5)+'l'+f(uy*9)+' '+f(-ux*9)+'z" fill="'+c+'"/>'};
+ const fs=[];o.ends.forEach(e=>fs.push(Math.hypot(e.g[0],e.g[1])));[o.P,o.R,o.BW,o.DK].forEach(a=>{if(a)fs.push(Math.hypot(a[0],a[1]))});const fm=Math.max(1e-12,...fs),K=48/fm;
+ const stubs=o.ends.length?o.ends:members.filter(m=>m.a===n||m.b===n).map(m=>{const i=members.indexOf(m),p=memPts(i),atA=m.a===n,P0=atA?p[0]:p[p.length-1],q=atA?p[Math.min(1,p.length-1)]:p[Math.max(0,p.length-2)];return{m,j:i,dir:[q[0]-P0[0],q[1]-P0[1]],bar:m.type=='bar'}});
+ const used=[];stubs.forEach(e=>{const l=Math.hypot(e.dir[0],e.dir[1])||1,ux=e.dir[0]/l,uy=-e.dir[1]/l,bar=e.bar;
+  ln(cx,cy,cx+ux*62,cy+uy*62,'stroke="'+(bar?'var(--mem)':MU)+'" stroke-width="'+(bar?5:2)+'" stroke-linecap="round"'+(bar?'':' stroke-dasharray="5 3"'));
+  let lx=cx+ux*76,ly=cy+uy*76+4;used.forEach(u=>{if(Math.abs(u[0]-lx)<30&&Math.abs(u[1]-ly)<11)ly+=12});used.push([lx,ly]);tx(lx,ly,(bar?'B':'C')+(e.j+1),MU,'middle');
+  if(e.g&&!e.slack){const L=Math.hypot(e.g[0],e.g[1])*K,gl=Math.hypot(e.g[0],e.g[1])||1,gx=e.g[0]/gl,gy=-e.g[1]/gl,ox=-gy*9,oy=gx*9;arr(cx+gx*10+ox,cy+gy*10+oy,cx+gx*(10+L)+ox,cy+gy*(10+L)+oy,'var(--neon2)')}});
+ /* applied forces arrive at the joint (arrow tip at the node) */
+ const into=(a,c)=>{if(!a)return;const L=Math.hypot(a[0],a[1])*K;if(L<3)return;const ux=a[0]/Math.hypot(a[0],a[1]),uy=-a[1]/Math.hypot(a[0],a[1]);arr(cx-ux*(L+7),cy-uy*(L+7),cx-ux*7,cy-uy*7,c,2.2)};
+ into(o.P,C.L);into(o.DK,C.L);into(o.BW,'var(--mut)');into(o.R,C.R);
+ s+='<circle cx="'+cx+'" cy="'+cy+'" r="5" fill="var(--mem)"/>';
+ tx(8,14,'Forces on the joint (arrows to scale)',MU);
+ tx(8,H-8,'■ member ends','var(--neon2)');tx(100,H-8,'■ load',C.L);tx(146,H-8,'■ reaction',C.R);if(o.BW)tx(214,H-8,'■ bar weight','var(--mut)');
+ return'<svg viewBox="0 0 '+W+' '+H+'" class="ndSvg" role="img" aria-label="Free-body diagram of the joint">'+s+'</svg>'}
+const ndF=v=>{const a=Math.abs(v);return(a<5e-4?0:v).toFixed(a>=1000?1:a>=10?2:3)};
+const ndSUP={none:'free node',pin:'pinned support',ry:'roller (vertical restraint)',rx:'roller (horizontal restraint)'};
+function nodeHTML(n){const ix=nodes.indexOf(n),o=nodeData(n,res),nm=members.filter(m=>m.a===n||m.b===n).length;
+ let h='<div class="ndT"><b>Node '+(ix+1)+'</b> · x '+ndF(n.x)+' m, y '+ndF(n.y)+' m · '+nm+' member'+(nm==1?'':'s')+'</div><div class="ndC">'+(ndSUP[n.sup]||n.sup)+(hold&&hold.has(n)?' · held by hand':'')+'</div>';
+ if(!o.ok){return h+nodeSvg(o)+'<p class="ndW">'+(res&&!res.ok?'No equilibrium – no results.':'No results yet.')+'</p>'}
+ h+=nodeSvg(o);
+ if(o.d){const d=o.d;h+='<div class="ndH">Movement under the loads</div><table class="ndTb"><tr><th>Δx</th><th>Δy</th><th>|δ|</th></tr><tr><td>'+(d[0]*1000).toFixed(1)+' mm</td><td>'+(d[1]*1000).toFixed(1)+' mm</td><td>'+(Math.hypot(d[0],d[1])*1000).toFixed(1)+' mm</td></tr></table><div class="ndN">From the self-weight shape to the loaded shape (the dashed Unloaded shape).</div>'}
+ const row=(lab,a,cls)=>'<tr'+(cls?' class="'+cls+'"':'')+'><td>'+lab+'</td><td>'+ndF(a[0])+'</td><td>'+ndF(a[1])+'</td><td>'+ndF(Math.hypot(a[0],a[1]))+'</td></tr>';
+ h+='<div class="ndH">Equilibrium of the joint (global axes, forces on the joint)</div><table class="ndTb ndEq"><tr><th></th><th>F<sub>x</sub> kN</th><th>F<sub>y</sub> kN</th><th>|F| kN</th></tr>';
+ o.ends.forEach(e=>h+=row((e.bar?'Bar B':'Cable C')+(e.j+1)+' end '+e.end+(e.slack?' (slack)':''),e.g));
+ if(o.P)h+=row('Applied load',o.P,'ndP');if(o.DK)h+=row('Deck load share',o.DK,'ndP');if(o.BW)h+=row('Bar weight share',o.BW);if(o.R)h+=row(o.held?'Hand holding it':'Support reaction',o.R,'ndR');
+ h+=row('Σ (should be 0)',o.sum,'ndSum')+'</table><div class="ndN">'+(o.res<1e-6?'✓ The joint is in equilibrium: the pulls of the cables'+(o.ends.some(e=>e.bar)?' and the pushes and pulls of the bars':'')+' balance the load'+(o.R?' and the reaction':'')+'.':'⚠ Residual '+o.res.toExponential(1)+' of the largest force.')+' A cable can only pull: its force on the joint points along the cable, away from the node.</div>';
+ h+='<div class="ndH">Member ends at this joint</div><table class="ndTb"><tr><th></th><th>Force kN</th><th>Angle</th><th>T / EA</th></tr>';
+ o.ends.forEach(e=>{const ang=Math.atan2(e.dir[1],e.dir[0])*180/Math.PI;h+='<tr><td>'+(e.bar?'B':'C')+(e.j+1)+' '+e.end+'</td><td>'+(e.slack?'slack':e.bar?(e.T<0?'C ':'T ')+ndF(Math.abs(e.T)):'T '+ndF(e.T))+'</td><td>'+ang.toFixed(1)+'°</td><td>'+(e.T/e.m.EA*1000).toFixed(3)+' ‰</td></tr>'});
+ h+='</table><div class="ndN">Angle of the member as it leaves the joint, from +x anticlockwise. Tension positive; T = tension, C = compression.</div>';
+ return h}
+function inspChk(pp,t){const l=document.createElement('label');l.className='ndChk';const c=document.createElement('input');c.type='checkbox';c.checked=!!interr;c.onchange=()=>{interr=c.checked;sideShow();draw()};l.append(c,document.createTextNode(t));pp.appendChild(l)}
+$('sideTab').onclick=()=>{interr=true;const s=$('side');if(s.classList.contains('col')){s.classList.remove('col');$('sideC').textContent='»'}sideShow();draw()};
+
+/* ---------- theme: a sun / moon button at the right-hand end of the top bar; home button: a new tab when framed ---------- */
+const THM={sun:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.55 1.55M17.15 17.15l1.55 1.55M5.3 18.7l1.55-1.55M17.15 6.85l1.55-1.55"/></svg>',
+ moon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8z"/></svg>'};
+function thmSync(){const b=$('theme');if(!b)return;const d=isDark();b.innerHTML=d?THM.sun:THM.moon;b.title=d?'Switch to the light theme':'Switch to the dark theme';b.setAttribute('aria-label',b.title)}
+$('theme').onclick=()=>{const r=document.documentElement;r.dataset.theme=isDark()?'light':'dark';try{if(RP.win&&!RP.win.closed)RP.win.document.documentElement.dataset.theme=r.dataset.theme}catch(e){}try{localStorage.setItem('cp.theme',r.dataset.theme)}catch(e){}thmSync();SIDEK='';draw()};
+{let t=null;try{t=localStorage.getItem('cp.theme')}catch(e){}if(t=='light'||t=='dark')document.documentElement.dataset.theme=t;thmSync();
+ const h=$('home');let framed=true;try{framed=window.top!==window.self}catch(x){}if(h&&framed){h.target='_blank';h.rel='noopener'}}
+HINTS.sel+=' Tick “Member inspector” or “Node inspector” in the popup (or press I) to interrogate the selection in the side panel.';
+
 /* ---- start-up ---- */
 $('topVer').textContent='v'+VER+' “'+VNAME+'”';document.title='Cable Pusher v'+VER+' “'+VNAME+'”';
 addEventListener('resize',()=>{resize();placePop(true)});
-(function start(){sync();resize();let ok=false;try{const t=localStorage.getItem('cp_auto');if(t){const d=JSON.parse(t);if(d&&d.n&&d.n.length){loadDump(d);ok=true}}}catch(e){}
+(function start(){sync();sideShow();resize();let ok=false;try{const t=localStorage.getItem('cp_auto');if(t){const d=JSON.parse(t);if(d&&d.n&&d.n.length){loadDump(d);ok=true}}}catch(e){}
  if(ok){recompute(true);fit()}else preset('susp');guideStart()})();
 
 </script>
