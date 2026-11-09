@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Cable Pusher v1.2 “Matrix”</title>
+<title>Cable Pusher v1.3 “Bake”</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
 :root{--bg:#f1ebfc;--panel:#fbf9ff;--ink:#241838;--mut:#6d6188;--line:#d8cbf0;--mem:#43376a;--acc:#7c3aed;--grid:#d3c5ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -312,11 +312,26 @@ details.ip:has(#hint){display:none}
 #wrap.tabOn #dock{right:36px}
 .hmK{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:flex-start;margin:4px 0}.hmK>span{display:flex;flex-direction:column;font-size:10.5px;color:var(--mut)}
 #hm .hmr label{gap:5px}
-#hm:not(.hm-max){top:62px;max-height:calc(100% - 72px)}
+#hm:not(.hm-max){top:112px;max-height:calc(100% - 122px)}
+/* ===== v1.3 solver bar: Live / Paused, Solve, Step, Reset, Bake ===== */
+#sbar{position:absolute;top:70px;left:50%;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:2px;padding:3px;border-radius:999px;background:var(--panel);border:1px solid color-mix(in srgb,var(--acc) 45%,var(--line));box-shadow:var(--sh-s);white-space:nowrap}
+#sbar button{background:transparent;border:1px solid transparent;box-shadow:none;border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:600;color:var(--ink)}
+#sbar button:hover:not(:disabled){background:color-mix(in srgb,var(--acc) 22%,transparent);border-color:color-mix(in srgb,var(--acc) 60%,transparent)}
+#sbar button:disabled{opacity:.38;cursor:default}
+#sbar .sseg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:1px;margin-right:2px}#sbar .sseg button{padding:3px 10px}
+#sbar .sseg button.on{background:linear-gradient(135deg,var(--acc),var(--neon3));color:#fff}
+#sbar.pz .sseg button.on{background:linear-gradient(135deg,#ff7a1a,var(--neon3))}
+#sStat{padding:0 10px 0 6px;font-size:11.5px;color:var(--mut);border-left:1px solid var(--line);margin-left:2px;max-width:280px;overflow:hidden;text-overflow:ellipsis}
+#sStat b{color:var(--ink);font-weight:600}
+.bkW{position:relative;display:inline-flex}
+#bkM{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);z-index:8;width:270px;display:flex;flex-direction:column;gap:4px;padding:6px;background:var(--panel);border:1px solid color-mix(in srgb,var(--acc) 55%,var(--line));border-radius:12px;box-shadow:var(--sh);white-space:normal}
+#bkM[hidden]{display:none}#bkM button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border-radius:9px;padding:6px 9px}
+#bkM small{font-weight:400;color:var(--mut);font-size:11px;line-height:1.35}
+@media(max-width:900px){#sbar{left:10px;transform:none;top:10px;flex-wrap:wrap;max-width:calc(100% - 276px);border-radius:14px}#sStat{border-left:0;flex:1 0 100%;max-width:none;white-space:normal;padding:2px 8px}#bkM{left:0;transform:none}}
 </style>
 <nav id="top"><a id="home" href="https://ankacha.github.io/" title="Home – ankacha.github.io" aria-label="Home (ankacha.github.io)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h5v-5.5h3V20h5V9.5"/></svg></a><span class="tt">◡ Cable Pusher</span><small id="topVer" style="color:var(--mut);margin-right:8px"></small><button id="mIO" title="Save the model to a file, or open a saved file (Ctrl+S / Ctrl+O)">⤓ Save / open</button><button id="mRep" title="A4 calculation sheets of the current model as a PDF">⎙ Report</button><i></i><button id="mGuide" title="Open the illustrated quick guide">? Guide</button><button id="mVer" title="Compare the solver with closed-form cable solutions">✓ Verification tests</button><button id="mK" title="Inspect the tangent stiffness matrix of the solved structure">▦ Stiffness matrix</button><button id="mMeth">Method</button><button id="mKeys">Shortcuts</button><button id="mAbout">About</button><button id="mNew" title="Clear the canvas">New</button><button id="theme" class="thm" type="button"></button></nav>
 <aside id="tools"><div class="gh" style="margin-top:2px">Example structures</div><select id="pre"><option value="">Load example…</option></select></aside>
-<main><div id="mid"><div id="wrap"><canvas id="cv"></canvas><div id="dock"><div id="dsb"><button id="dsT" title="Scale the on-screen size of loads, reactions and the tension band"><span>⇕ Diagram scale</span><span id="dsA">▸</span></button><div id="dsB" hidden></div></div><div id="info"><button id="infoT">▸ Info panel</button><div id="infoB" hidden><div id="coord"></div><details open class="ip"><summary>Results</summary><div id="read"></div></details><details open class="ip"><summary>Solver status</summary><div id="fea"></div></details></div></div></div><label id="lgT"><input type="checkbox" id="sL" checked>Legend</label><div id="ctb"><button id="undo" title="Undo (Ctrl+Z)">↶ Undo</button><button id="redo" title="Redo (Ctrl+Y)">↷ Redo</button><button id="fit" title="Fit view (F)">⤢ Fit</button><button id="dup" title="Copy the selection (or the whole structure) and paste it into free space">⧉ Duplicate</button><button id="clr" title="Remove all point and deck loads">Clear loads</button><label title="Keep a dragged load in place when you let go, instead of it springing back to zero"><input type="checkbox" id="latch" checked>Keep loads on release</label></div><div id="tchip" class="off"></div><div id="pop" hidden></div><button id="sideTab" type="button" title="Open the inspector (I): select a cable, a bar or a node to interrogate it" aria-label="Open the inspector"><span class="stA">‹</span><span class="stT">Inspector</span></button></div><aside id="side" hidden><div id="sideH"><b>Inspector</b><span><button id="sideC" title="Collapse or expand the panel">»</button><button id="sideX" title="Close the panel">✕</button></span></div><div id="sideB"><div id="sideMsg">Select a cable, a bar or a node to interrogate it.</div><div id="sideNode" hidden></div><div id="sideMain" hidden><div id="sideSel"></div><div style="margin-top:6px">Position along the cable (A → B)<input type="range" id="psl" min="0" max="1" step="0.0025" value="0.5"></div><div id="sideCh"></div><details open id="sideSf"><summary>Force triangle at the cut</summary><div id="pshape"></div></details></div></div></aside></div>
+<main><div id="mid"><div id="wrap"><canvas id="cv"></canvas><div id="dock"><div id="dsb"><button id="dsT" title="Scale the on-screen size of loads, reactions and the tension band"><span>⇕ Diagram scale</span><span id="dsA">▸</span></button><div id="dsB" hidden></div></div><div id="info"><button id="infoT">▸ Info panel</button><div id="infoB" hidden><div id="coord"></div><details open class="ip"><summary>Results</summary><div id="read"></div></details><details open class="ip"><summary>Solver status</summary><div id="fea"></div></details></div></div></div><label id="lgT"><input type="checkbox" id="sL" checked>Legend</label><div id="ctb"><button id="undo" title="Undo (Ctrl+Z)">↶ Undo</button><button id="redo" title="Redo (Ctrl+Y)">↷ Redo</button><button id="fit" title="Fit view (F)">⤢ Fit</button><button id="dup" title="Copy the selection (or the whole structure) and paste it into free space">⧉ Duplicate</button><button id="clr" title="Remove all point and deck loads">Clear loads</button><label title="Keep a dragged load in place when you let go, instead of it springing back to zero"><input type="checkbox" id="latch" checked>Keep loads on release</label></div><div id="sbar"><span class="sseg"><button id="sLive" class="on" title="Live: the structure is solved again after every change (S toggles)">● Live</button><button id="sPause" title="Paused: what you draw stays where you draw it until you press Solve or Step (S toggles)">❚❚ Paused</button></span><button id="sSolve" title="Solve from the current state (Enter)">▶ Solve</button><button id="sStep" title="One Newton–Raphson iteration from the current state (.)">⏭ Step</button><button id="sReset" title="Put every node back where it was drawn and clear the result (R)">⟲ Reset</button><span class="bkW"><button id="sBake" title="Make the solved shape the new drawn state">⤓ Bake ▾</button><div id="bkM" hidden><button id="bkShape"><b>Bake shape</b><small>Drawn state := solved positions. L₀ is kept, so the tension stays and solving again gives the same state.</small></button><button id="bkFree"><b>Bake as unstressed</b><small>Drawn state := solved positions and L₀ := stretched length, so the shape becomes stress-free (form-finding). Under weight or load it moves again when solved.</small></button></div></span><span id="sStat"></span></div><div id="tchip" class="off"></div><div id="pop" hidden></div><button id="sideTab" type="button" title="Open the inspector (I): select a cable, a bar or a node to interrogate it" aria-label="Open the inspector"><span class="stA">‹</span><span class="stT">Inspector</span></button></div><aside id="side" hidden><div id="sideH"><b>Inspector</b><span><button id="sideC" title="Collapse or expand the panel">»</button><button id="sideX" title="Close the panel">✕</button></span></div><div id="sideB"><div id="sideMsg">Select a cable, a bar or a node to interrogate it.</div><div id="sideNode" hidden></div><div id="sideMain" hidden><div id="sideSel"></div><div style="margin-top:6px">Position along the cable (A → B)<input type="range" id="psl" min="0" max="1" step="0.0025" value="0.5"></div><div id="sideCh"></div><details open id="sideSf"><summary>Force triangle at the cut</summary><div id="pshape"></div></details></div></div></aside></div>
 <div class="bar b">
 <span class="dgrp"><button id="anB" title="Animate the response: the loads grow from zero to their full value and back (with no load, the self-weight grows instead). Every frame is a solved equilibrium, so the stiffening of the cables shows">▶ Animate</button><div id="anSp" hidden><div class="anR"><span>Speed</span><input type="range" id="anSl" min="-2" max="2" step="0.25" value="0" aria-label="Animation speed"><b id="anSv">1×</b></div><div class="anR" id="anK"><span>Animate</span><button data-k="D" class="on" title="Hanging shape">δ</button><button data-k="T" class="on" title="Tension and bar forces">T</button><button data-k="P" class="on" title="Load arrows">P</button><button data-k="R" class="on" title="Reactions">R</button></div><div class="anR"><span>Now</span><b id="anLf">–</b></div></div></span><i class="bsep"></i>
 <label id="lblW" title="How many values are written on the canvas: All, Key values (the largest tensions, loads, reactions and sags; labels that would overlap move or are left out) or None"><span>Labels</span><select id="lblM"><option value="all">All</option><option value="key" selected>Key values</option><option value="none">None</option></select></label>
@@ -326,6 +341,7 @@ details.ip:has(#hint){display:none}
 <label><input type="checkbox" id="sF" checked><i class="sw" style="--c:#12d98a;--a:3px;--b:7px"></i>Sag</label>
 <label><input type="checkbox" id="sU"><i class="sw" style="--c:#9d90c9;--a:9px;--b:14px"></i>Unloaded shape</label>
 <label title="The hanging shape turned upside down: the funicular arch for the same loads (as in Arch Pusher)"><input type="checkbox" id="sA"><i class="sw" style="--c:#ffb020;--a:9px;--b:13px"></i>Inverted arch</label>
+<label title="The drawn (initial) state as a ghost, where the nodes have moved away from it"><input type="checkbox" id="sD"><i class="sw" style="--c:#19c8e0;--a:2px;--b:6px"></i>Drawn state</label>
 <label><input type="checkbox" id="sW" checked>Self-weight</label>
 <label><input type="checkbox" id="sN">Numbers</label>
 </div></main>
@@ -347,7 +363,9 @@ const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
 const $=id=>document.getElementById(id);
 let nodes=[],members=[],ann=[],tool='sel',S=30,ox=0,oy=0,W=0,H=0,sel=null,drag=null,first=null,mouse=[0,0],res=null,res0=null,hov=null,hold=null,
  DS={L:1,R:1,T:1},interr=false,interS=.5,lastSig='',dirtyU=true,mouseIn=false;
-const VER='1.2',VNAME='Matrix';
+const VER='1.3',VNAME='Bake';
+/* v1.3 solver control: Live (solve on every change) or Paused (the drawn state is kept until Solve or Step) */
+const SOLV={live:true,its:0,mu:0,step:false};
 /* v1.1 state: animation, inspector cache, teal grid step */
 let ANF=1,anOn=false,anT0=0,anPh=0,anSpd=1,ANSW=false,TGFIX=0,LSC=1,RMFIX=0,G5=5,SIDEK='';const AK={D:1,T:1,P:1,R:1},AN={sig:null,K:12,k:0,frames:[],done:false,mode:'load'};
 /* indicative cable and bar products: EA (kN) and weight w (kN/m) */
@@ -369,7 +387,7 @@ const chord=m=>Math.hypot(m.b.x-m.a.x,m.b.y-m.a.y);
 function lenRule(ch,span,mode,v,EA){if(mode=='sag'){const r=Math.max(0,v||0);return ch*(1+8/3*r*r)}if(mode=='pre')return ch/(1+Math.max(0,v||0)/EA);if(mode=='abs')return Math.max(.01,+v||ch);return ch*(1+(+v||0)/100)}
 function mkCable(a,b,o){o=o||{};const ch=Math.hypot(b.x-a.x,b.y-a.y),EA=o.EA||CB.EA,m={a,b,type:'cable',EA,w:o.w!=null?o.w:CB.w,q:o.q||0,prod:o.prod||CB.prod,L0:o.L0||lenRule(ch,Math.abs(b.x-a.x),o.mode||CB.mode,o.v!=null?o.v:CB.v,EA)};members.push(m);return m}
 function mkBar(a,b,o){o=o||{};const m={a,b,type:'bar',EA:o.EA||BR.EA,w:o.w!=null?o.w:BR.w,q:0,prod:o.prod||BR.prod,L0:o.L0||Math.hypot(b.x-a.x,b.y-a.y)};members.push(m);return m}
-function mkNode(x,y,sup){const n={x,y,sup:sup||'none',load:null};nodes.push(n);return n}
+function mkNode(x,y,sup){const n={x,y,x0:x,y0:y,sup:sup||'none',load:null};nodes.push(n);return n}
 /* ---- tools ---- */
 const TOOLS=[
 ['sel','Select','<path d="M5 3l14 7-6 2-2 6z"/>'],
@@ -437,9 +455,9 @@ function chipSet(){const c=$('tchip');if(!c)return;const nm=(TOOLS.find(t=>t[0]=
  if(tool=='deck'&&DK.mode=='fix')x='click a cable · q = '+DK.q+' kN/m';if(tool=='length'&&LN.mode!='drag')x='click a cable · '+MODEU[LN.mode][0]+' = '+LN.v+' '+MODEU[LN.mode][1];
  c.innerHTML='<b>'+nm+'</b> · '+x+(tool!='sel'?' · Esc to exit':'');c.classList.toggle('off',tool=='sel'||!mouseIn||!!drag)}
 /* ---- model (de)serialisation ---- */
-function dump(){const ix=new Map(nodes.map((n,i)=>[n,i]));return{v:1,n:nodes.map(n=>{const o={x:+n.x.toFixed(9),y:+n.y.toFixed(9),s:n.sup};if(n.load&&(n.load.fx||n.load.fy))o.l=[n.load.fx,n.load.fy];return o}),
+function dump(){const ix=new Map(nodes.map((n,i)=>[n,i]));return{v:1,n:nodes.map(n=>{const o={x:+n.x.toFixed(9),y:+n.y.toFixed(9),s:n.sup};if(n.x0!=null&&(Math.abs(n.x0-n.x)>1e-9||Math.abs(n.y0-n.y)>1e-9)){o.x0=+n.x0.toFixed(9);o.y0=+n.y0.toFixed(9)}if(n.load&&(n.load.fx||n.load.fy))o.l=[n.load.fx,n.load.fy];return o}),
  m:members.map(m=>{const o={a:ix.get(m.a),b:ix.get(m.b),t:m.type,L0:m.L0,EA:m.EA,w:m.w};if(m.q)o.q=m.q;if(m.prod)o.p=m.prod;return o}),an:ann.map(a=>Object.assign({},a))}}
-function loadDump(d){nodes=d.n.map(o=>({x:+o.x,y:+o.y,sup:['pin','rx','ry','none'].includes(o.s)?o.s:'none',load:o.l?{fx:+o.l[0]||0,fy:+o.l[1]||0}:null}));
+function loadDump(d){nodes=d.n.map(o=>({x:+o.x,y:+o.y,x0:o.x0!=null&&isFinite(+o.x0)?+o.x0:+o.x,y0:o.y0!=null&&isFinite(+o.y0)?+o.y0:+o.y,sup:['pin','rx','ry','none'].includes(o.s)?o.s:'none',load:o.l?{fx:+o.l[0]||0,fy:+o.l[1]||0}:null}));
  members=d.m.filter(o=>nodes[o.a]&&nodes[o.b]&&o.a!==o.b).map(o=>({a:nodes[o.a],b:nodes[o.b],type:o.t=='bar'?'bar':'cable',L0:Math.max(1e-6,+o.L0||1),EA:Math.max(1e-6,+o.EA||1),w:Math.max(0,+o.w||0),q:+o.q||0,prod:o.p||'custom'}));
  ann=Array.isArray(d.an)?d.an.map(a=>Object.assign({},a)):[];sel=null;first=null;hold=null;lastSig='';lastSig0='';dirtyU=true}
 
@@ -522,7 +540,7 @@ function solveModel(N,M,opt){opt=opt||{};const LF=opt.lf==null?1:opt.lf,WF=opt.w
    if(K){const da=dof[e.a],db=dof[e.b];for(let i=0;i<2;i++)for(let j=0;j<2;j++){const k=r.K[i][j];if(da[i]>=0&&da[j]>=0)K[da[i]*nf+da[j]]+=k;if(db[i]>=0&&db[j]>=0)K[db[i]*nf+db[j]]+=k;if(da[i]>=0&&db[j]>=0)K[da[i]*nf+db[j]]-=k;if(db[i]>=0&&da[j]>=0)K[db[i]*nf+da[j]]-=k}}});
   P.forEach((p,i)=>{for(let c=0;c<2;c++)if(dof[i][c]>=0)R[dof[i][c]]=F[2*i+c]});return{ok,R,K,F}};
  const nrm=R=>{let m=0;for(let i=0;i<R.length;i++)m=Math.max(m,Math.abs(R[i]));return m};
- let tolR=1e-9*scale+1e-12;const maxIt=opt.maxIt||250;let it=0,mu=0,A=assemble(X,true),r=A.ok?nrm(A.R):Infinity,conv=A.ok&&r<=tolR,fail='';
+ let tolR=1e-9*scale+1e-12;const maxIt=opt.maxIt!=null?opt.maxIt:250;let it=0,mu=opt.mu0||0,A=assemble(X,true),r=A.ok?nrm(A.R):Infinity,conv=A.ok&&r<=tolR,fail='';
  for(;it<maxIt&&!conv;it++){if(!A.ok){fail='element';break}
   let dmax=0;for(let i=0;i<nf;i++)dmax=Math.max(dmax,Math.abs(A.K[i*nf+i]));if(!(dmax>0))dmax=1;
   /* forces cannot be resolved more finely than the stiffness times the round-off in the coordinates */
@@ -544,8 +562,10 @@ function solveModel(N,M,opt){opt=opt||{};const LF=opt.lf==null?1:opt.lf,WF=opt.w
   if(opt.dbg)console.log(it,"r",r,"->",acc.rn,"a",a,"mu",mu,"dm",dm);X.set(acc.Xn);r=acc.rn;mu=mu/4;if(mu<1e-12)mu=0;
   if(a*dm<1e-13*size&&r<1e-6*scale){A=assemble(X,true);conv=A.ok;tolR=Math.max(tolR,r);break}A=assemble(X,true);conv=A.ok&&r<=tolR}
  /* results */
- const out={ok:conv,its:it,resid:r,tol:tolR,nf,nel:E.length,fail,ms:0,scale,size};
+ const out={ok:conv,its:it,resid:r,tol:tolR,nf,nel:E.length,fail,ms:0,scale,size,mu};
  out.pos=N.map((n,i)=>[X[2*i],X[2*i+1]]);A=assemble(X,false);
+ /* v1.3: out-of-balance force at the free DOFs of every user node (zero at equilibrium), for the drawn and stepped states */
+ out.Rn=N.map((n,i)=>{const q=opt.pz?(RESTR[n.sup]||[0,0]):P[i].r;return[q[0]||!A.ok?0:A.F[2*i],q[1]||!A.ok?0:A.F[2*i+1]]});
  out.R=[];P.forEach((p,i)=>{if(!p.user||!(p.r[0]||p.r[1]))return;out.R.push({n:p.user,rx:p.r[0]?-A.F[2*i]:0,ry:p.r[1]?-A.F[2*i+1]:0,held:!(RESTR[p.user.sup]||[0,0]).some(Boolean)})});
  out.mem=MI.map(I=>{if(!I)return null;const m=I.m,els=I.els.map(e=>{const r=e.r||{};const pa=[X[2*e.a],X[2*e.a+1]],pb=[X[2*e.b],X[2*e.b+1]];if(r.bar){r.dx=(pb[0]-pa[0])/(r.L||1);r.dy=(pb[1]-pa[1])/(r.L||1)}return{e,r,pa,pb}});
   let Tmax=-1e18,Tmin=1e18,stretch=0;const pts=[],Ts=[];let sAcc=0;
@@ -558,7 +578,7 @@ function solveModel(N,M,opt){opt=opt||{};const LF=opt.lf==null?1:opt.lf,WF=opt.w
   const bar=m.type=='bar',N0=bar?f.r.N:0,slack=!bar&&!(m.w>0)&&!I.q&&!!f.r.slack;
   return{m,pts,Ts,TA:bar?N0:f.r.T0,TB:bar?N0:l.r.T1,Tmax:bar?N0:Tmax,Tmin:bar?N0:Tmin,H:bar?f.r.H:Math.abs(f.r.H||0),VA:f.r.V0,VB:l.r.V1,N:N0,bar,slack,sag,sagX:sx,chord:Math.hypot(B0[0]-A0[0],B0[1]-A0[1]),span:Math.abs(B0[0]-A0[0]),Ls:m.L0+stretch,el:els,inner:I.ids.slice(1,-1).map(i=>[X[2*i],X[2*i+1]])}});
  /* warm starts for the next solve (only after a converged solve) */
- if(conv)MI.forEach(I=>{if(!I)return;const m=I.m;if(I.q){m._sub=I.ids.slice(1,-1).map(i=>[X[2*i],X[2*i+1]]);m._gs=I.els.map(e=>e._g?e._g.slice():null);m._g=null}else{m._g=I.els[0]._g?I.els[0]._g.slice():null;m._sub=null;m._gs=null}});
+ if(conv||opt.warm)MI.forEach(I=>{if(!I)return;const m=I.m;if(I.q){m._sub=I.ids.slice(1,-1).map(i=>[X[2*i],X[2*i+1]]);m._gs=I.els.map(e=>e._g?e._g.slice():null);m._g=null}else{m._g=I.els[0]._g?I.els[0]._g.slice():null;m._sub=null;m._gs=null}});
  /* applied totals for the equilibrium check */let Fx=0,Fy=0;P.forEach(p=>{Fx+=p.fx;Fy+=p.fy});const fp=plan(X);for(let i=1;i<fp.length;i+=2)Fy+=fp[i];E.forEach(e=>{if(e.type=='cable')Fy-=e.w*e.L0});
  out.applied={Fx,Fy};let Rx=0,Ry=0;out.R.forEach(q=>{Rx+=q.rx;Ry+=q.ry});out.sumR={Rx,Ry};out.eq=Math.max(Math.abs(Fx+Rx),Math.abs(Fy+Ry))/Math.max(scale,1e-9);
  /* tangent stiffness at the solved shape, for the matrix inspector: K (all 2 × points DOFs), fixed flags, applied nodal forces, element blocks */
@@ -575,9 +595,17 @@ function sigOf(){const ix=new Map(nodes.map((n,i)=>[n,i]));let s='';nodes.forEac
 let unsolved='',lastSig0='';
 /* the self-weight shape depends only on the anchors and the members, so it is solved again only when they change */
 function sig0(){const ix=new Map(nodes.map((n,i)=>[n,i]));let s='';nodes.forEach(n=>{s+=n.sup+(n.sup!='none'?n.x.toFixed(9)+','+n.y.toFixed(9):'')+';'});members.forEach(m=>{s+=ix.get(m.a)+'-'+ix.get(m.b)+m.type+m.L0+','+m.EA+','+m.w+';'});return s}
-function recompute(force){if(ANSW)return;const g=sigOf();if(!force&&g===lastSig&&res)return;
+function recompute(force){if(ANSW)return;const g=sigOf();if(!SOLV.live){if(g!==lastSig||!res)pausedEval();return}if(!force&&g===lastSig&&res)return;doSolve()}
+/* v1.3: with the solver paused, the members are evaluated where they are drawn (no iterations), so the canvas shows each cable's
+   true hanging shape between the drawn nodes and the out-of-balance forces at the nodes; nothing moves until Solve or Step */
+function pausedEval(){unsolved='';res0=null;SOLV.its=0;SOLV.mu=0;if(!nodes.length){res=null;lastSig=sigOf();return}
+ /* every drawn node is held, so only the joints inside deck-loaded cables are solved: each member then has its exact shape between its two drawn nodes */
+ try{res=solveModel(nodes,members,{hold:new Set(nodes),pz:1,warm:1})}catch(e){console.error(e);res=null}
+ if(res){const b=resMax(res);if(res.fail=='element'||!res.mem){res.ok=false;res.pz=1}else if(!b||b.v<=Math.max(1e-7*res.scale,1e-9)){doSolve();return}else{res.ok=false;res.pz=1;res.R=[]}}
+ lastSig=sigOf();autosave();if(typeof rpQueue=='function')rpQueue();if(interr)sideUpdate()}
+function doSolve(opt){const g=sigOf();
  unsolved='';if(!nodes.length){res=null;res0=null;lastSig=g;return}
- try{res=solveModel(nodes,members,{hold})}catch(e){console.error(e);res={ok:false,fail:'error',R:[],mem:[]}}
+ try{res=solveModel(nodes,members,Object.assign({hold},opt||{}))}catch(e){console.error(e);res={ok:false,fail:'error',R:[],mem:[]}}
  if(res.ok)res.pos.forEach((p,i)=>{nodes[i].x=p[0];nodes[i].y=p[1]});else unsolved=whyUnsolved();
  const loaded=nodes.some(n=>n.load&&(n.load.fx||n.load.fy))||members.some(m=>m.q),g0=sig0();
  if(res.ok&&loaded&&res0&&g0===lastSig0){}
@@ -619,9 +647,9 @@ function supSym(n,c){const X=sx(n.x),Y=sy(n.y);ctx.save();ctx.strokeStyle=c;ctx.
  ctx.restore()}
 /* rollers H are drawn on the side away from the structure */
 function nodeSide(n){let v=0;members.forEach(m=>{if(m.a===n)v+=m.b.x-n.x;else if(m.b===n)v+=m.a.x-n.x});return v>=0?-1:1}
-function memPts(i){const r=res&&res.ok&&res.mem[i];if(r)return r.pts;const m=members[i];return[[m.a.x,m.a.y],[m.b.x,m.b.y]]}
+function memPts(i){const r=res&&(res.ok||res.pz)&&res.mem&&res.mem[i];if(r&&r.pts&&r.pts.length>1)return r.pts;const m=members[i];return[[m.a.x,m.a.y],[m.b.x,m.b.y]]}
 function drawCurve(pts,o){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(sx(p[0]),sy(p[1])):ctx.moveTo(sx(p[0]),sy(p[1])));if(o)ctx.stroke()}
-function Tglob(){if(TGFIX)return TGFIX;let t=0;if(res&&res.ok)res.mem.forEach(r=>{if(r&&!r.bar)t=Math.max(t,Math.abs(r.Tmax))});return t||1}
+function Tglob(){if(TGFIX)return TGFIX;let t=0;if(res&&(res.ok||res.pz))res.mem.forEach(r=>{if(r&&!r.bar)t=Math.max(t,Math.abs(r.Tmax))});return t||1}
 function draw(){if(!W)return;recompute();const sv=anSwap();try{draw0()}finally{anRestore(sv)}try{hmDraw()}catch(e){console.error(e)}sideUpdate()}
 function draw0(){PILLS=[];LBLM=$('lblM').value;const C=cols(),ok=res&&res.ok,Tg=Tglob(),dk=isDark();
  ctx.fillStyle=css('--bg');ctx.fillRect(0,0,W,H);grid();
@@ -633,7 +661,7 @@ function draw0(){PILLS=[];LBLM=$('lblM').value;const C=cols(),ok=res&&res.ok,Tg=
   members.forEach((m,i)=>{if(m.type!='cable'||!(m.w>0)||m.w<wm*.02)return;const p=memPts(i),L=3+6*m.w/wm;let acc=0;for(let k=1;k<p.length;k++){const a=[sx(p[k-1][0]),sy(p[k-1][1])],b=[sx(p[k][0]),sy(p[k][1])],l=Math.hypot(b[0]-a[0],b[1]-a[1]);acc+=l;if(acc>=16){acc=0;ctx.beginPath();ctx.moveTo(b[0],b[1]+3);ctx.lineTo(b[0],b[1]+3+L);ctx.stroke()}}});ctx.restore()}
  /* deck loads */drawDeck(C);
  /* members */
- members.forEach((m,i)=>{const r=ok&&res.mem[i],p=memPts(i);ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+ const pz=!!(res&&res.pz);members.forEach((m,i)=>{const r0=(ok||pz)&&res.mem[i],r=r0&&r0.pts&&r0.pts.length>1?r0:null,p=memPts(i);ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
   if(m.type=='bar'){const N=r?r.N:0,c=!r?css('--mem'):N<-1e-6?C.C:$('sT').checked?tcol(Math.abs(N)/Tg):css('--mem');ctx.strokeStyle=c;ctx.lineWidth=5;if(r&&N<-1e-6){ctx.shadowColor=c;ctx.shadowBlur=dk?8:0}drawCurve(p,1);ctx.shadowBlur=0;ctx.strokeStyle=css('--bg');ctx.lineWidth=1.2;ctx.globalAlpha=.55;drawCurve(p,1)}
   else if(!r){ctx.strokeStyle=css('--mut');ctx.setLineDash([6,5]);ctx.lineWidth=1.6;drawCurve(p,1)}
   else if(r.slack){ctx.strokeStyle=css('--mut');ctx.setLineDash([3,4]);ctx.lineWidth=1.5;drawCurve(p,1)}
@@ -651,6 +679,7 @@ function draw0(){PILLS=[];LBLM=$('lblM').value;const C=cols(),ok=res&&res.ok,Tg=
   if(held){ctx.strokeStyle=css('--neon3');ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(X,Y,10,0,7);ctx.stroke()}});
  if(hov&&!drag&&hov.t=='n')hovNode(hov.n);snapGhost();
  if(ok){drawLabels(C,Tg);drawLoads(C);if($('sR').checked)drawReac(C);drawPeak(C)}else drawLoads(C);
+ if(res&&res.pz)drawResid(C);if($('sD').checked)drawDrawn();
  if($('sN').checked)drawNumbers();
  /* rubber band */
  if(first&&(tool=='cable'||tool=='bar')){const p=snapPt(mouse),a=first,ch=Math.hypot(p[0]-a.x,p[1]-a.y);ctx.save();ctx.strokeStyle=css('--neon2');ctx.lineWidth=1.6;ctx.setLineDash([6,4]);ctx.beginPath();
@@ -662,7 +691,7 @@ function drawArch(C){const sups=nodes.filter(n=>n.sup!='none');if(sups.length<1)
  const yb=x=>R.x-L.x>1e-9?L.y+(R.y-L.y)*(x-L.x)/(R.x-L.x):L.y,c=C.C;ctx.save();ctx.strokeStyle=c;ctx.globalAlpha=.85;ctx.lineWidth=2;ctx.setLineDash([9,4,2,4]);
  let top=null;res.mem.forEach(r=>{if(!r)return;const q=r.pts.map(p=>[p[0],2*yb(p[0])-p[1]]);drawCurve(q,1);q.forEach(p=>{if(!top||p[1]>top[1])top=p})});ctx.restore();
  if(top)pill(sx(top[0]),sy(top[1])-16,'Inverted: funicular arch (compression)',c,{fs:11})}
-function drawDeck(C){if(!(res&&res.ok)||!$('sP').checked||LSC<.02)return;let qm=0;members.forEach(m=>{qm=Math.max(qm,Math.abs(m.q||0))});if(!qm)return;
+function drawDeck(C){if(!(res&&(res.ok||res.pz))||!$('sP').checked||LSC<.02)return;let qm=0;members.forEach(m=>{qm=Math.max(qm,Math.abs(m.q||0))});if(!qm)return;
  const seenQ=new Set();members.forEach((m,i)=>{if(!m.q)return;const p=memPts(i);let x0=Math.min(...p.map(q=>q[0])),x1=Math.max(...p.map(q=>q[0]));const yAt=x=>{for(let k=1;k<p.length;k++){const a=p[k-1],b=p[k];if((x-a[0])*(x-b[0])<=0&&a[0]!=b[0])return a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0])}return p[0][1]};
   const n=Math.max(4,Math.min(26,Math.round((sx(x1)-sx(x0))/26))),Lp=(16+22*Math.abs(m.q)/qm)*DS.L*LSC,c=C.L,tails=[];ctx.save();ctx.strokeStyle=c;ctx.lineWidth=1.3;
   for(let k=0;k<=n;k++){const x=x0+(x1-x0)*k/n,X=sx(x),Y=sy(yAt(x))-3;tails.push([X,Y-Lp]);ctx.beginPath();ctx.moveTo(X,Y-Lp);ctx.lineTo(X,Y-6);ctx.stroke();head(X,Y,0,1,c,7)}
@@ -692,6 +721,16 @@ function drawLabels(C,Tg){const showT=LBLM!='none',showF=$('sF').checked;let lim
 function peakD(){if(!(res&&res.ok&&res0))return null;let best=null;res.mem.forEach((r,i)=>{const u=res0.mem[i];if(!r||!u||r.pts.length!=u.pts.length)return;r.pts.forEach((p,k)=>{const d=Math.hypot(p[0]-u.pts[k][0],p[1]-u.pts[k][1]);if(!best||d>best.d)best={d,p,u:u.pts[k]}})});return best&&best.d>1e-9?best:null}
 function drawPeak(C){const b=peakD();if(!b)return;const c=C.D,X=sx(b.p[0]),Y=sy(b.p[1]);ctx.save();ctx.strokeStyle=c;ctx.fillStyle=c;ctx.lineWidth=1.2;ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(sx(b.u[0]),sy(b.u[1]));ctx.lineTo(X,Y);ctx.stroke();ctx.beginPath();ctx.arc(X,Y,3.5,0,7);ctx.fill();ctx.restore();
  pill(X,Y+20,'δmax '+(b.d<1?(b.d*1000).toFixed(0)+' mm':f3(b.d)+' m'),c,{b:1,fs:11,tries:[[0,0],[34,0],[-34,0],[0,-40],[60,0],[-60,0]]})}
+/* v1.3: out-of-balance forces at the nodes of an unsolved (drawn or stepped) state */
+function resMax(r){r=r||res;let b=null;if(r&&r.Rn)r.Rn.forEach((q,i)=>{const v=Math.hypot(q[0],q[1]);if(!b||v>b.v)b={v,i}});return b}
+function drawResid(C){const r=res;if(!r||!r.Rn)return;const b=resMax(r);if(!b||!(b.v>Math.max(1e-9,(r.tol||0)*10)))return;const c=C.D;
+ r.Rn.forEach((q,i)=>{const n=nodes[i],v=Math.hypot(q[0],q[1]);if(!n||!(v>b.v*1e-3))return;const ux=q[0]/v,uy=-q[1]/v,len=(18+40*Math.sqrt(v/b.v))*DS.L,X=sx(n.x),Y=sy(n.y);
+  ctx.save();ctx.strokeStyle=c;ctx.lineWidth=2;ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(X+ux*8,Y+uy*8);ctx.lineTo(X+ux*(len-6),Y+uy*(len-6));ctx.stroke();ctx.restore();head(X+ux*len,Y+uy*len,ux,uy,c,9);
+  if(i===b.i||LBLM=='all')pill(X+ux*(len+14),Y+uy*(len+14),'ΔF '+fk(v)+' kN',c,{fs:11})})}
+/* v1.3: the drawn (initial) state as a ghost, when the nodes have moved away from it */
+function drawDrawn(){if(!nodes.some(n=>n.x0!=null&&Math.hypot(n.x-n.x0,n.y-n.y0)>1e-9))return;const c=css('--neon2');ctx.save();ctx.strokeStyle=c;ctx.globalAlpha=.6;ctx.lineWidth=1.2;ctx.setLineDash([2,4]);
+ members.forEach(m=>{ctx.beginPath();ctx.moveTo(sx(m.a.x0),sy(m.a.y0));ctx.lineTo(sx(m.b.x0),sy(m.b.y0));ctx.stroke()});ctx.setLineDash([]);ctx.fillStyle=css('--panel');
+ nodes.forEach(n=>{ctx.beginPath();ctx.arc(sx(n.x0),sy(n.y0),3.5,0,7);ctx.fill();ctx.stroke()});ctx.restore()}
 function drawNumbers(){ctx.save();ctx.font='600 10.5px ui-monospace,Menlo,monospace';ctx.textAlign='center';ctx.textBaseline='middle';nodes.forEach((n,i)=>{ctx.fillStyle=css('--mut');ctx.fillText('n'+(i+1),sx(n.x)-10,sy(n.y)-11)});
  members.forEach((m,i)=>{const p=memPts(i),q=p[Math.floor(p.length/2)];const t=(m.type=='bar'?'B':'C')+(i+1),w=ctx.measureText(t).width+8;ctx.fillStyle=css('--panel');ctx.strokeStyle=css('--line');ctx.beginPath();ctx.roundRect(sx(q[0])-w/2,sy(q[1])-8,w,16,4);ctx.fill();ctx.stroke();ctx.fillStyle=css('--ink');ctx.fillText(t,sx(q[0]),sy(q[1])+.5)});ctx.restore()}
 function legend(C,Tg){const x=12,h=74,y=H-h-34,w=212;ctx.save();ctx.font='11px system-ui,sans-serif';ctx.fillStyle=css('--mut');ctx.textBaseline='alphabetic';ctx.fillText(gridTxt(),x+2,y-8);ctx.fillStyle=css('--panel');ctx.globalAlpha=.93;ctx.strokeStyle=css('--line');ctx.beginPath();ctx.roundRect(x,y,w,h,10);ctx.fill();ctx.globalAlpha=1;ctx.stroke();
@@ -699,7 +738,8 @@ function legend(C,Tg){const x=12,h=74,y=H-h-34,w=212;ctx.save();ctx.font='11px s
  const g=ctx.createLinearGradient(x+10,0,x+w-10,0);[0,.5,1].forEach(t=>g.addColorStop(t,tcol(t)));ctx.fillStyle=g;ctx.fillRect(x+10,y+20,w-20,7);
  ctx.font='10px ui-monospace,Menlo,monospace';ctx.fillStyle=css('--ink');ctx.textAlign='left';ctx.fillText('0',x+10,y+35);ctx.textAlign='right';ctx.fillText(res&&res.ok?fk(Tg):'–',x+w-10,y+35);
  ctx.textAlign='left';ctx.font='10.5px Inter,system-ui,sans-serif';const it=[[C.C,'compression',0],[css('--mut'),'slack',1],[C.R,'reaction',1],[C.L,'load',0]];it.forEach(([c,t,d],i)=>{const X=x+10+(i%2)*100,Y=y+50+Math.floor(i/2)*14;ctx.strokeStyle=c;ctx.lineWidth=2.4;ctx.setLineDash(d?[4,3]:[]);ctx.beginPath();ctx.moveTo(X,Y);ctx.lineTo(X+18,Y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=css('--mut');ctx.fillText(t,X+24,Y)});ctx.restore()}
-function info(){const r=res,E=$('read'),F=$('fea');if(!nodes.length){E.innerHTML='Empty canvas: pick an example or draw cables.';F.textContent='';return}
+function info(){const r=res,E=$('read'),F=$('fea');sbarSync();if(!nodes.length){E.innerHTML='Empty canvas: pick an example or draw cables.';F.textContent='';return}
+ if(!SOLV.live&&r&&r.pz){const b=resMax(r);E.innerHTML='<b style="color:'+COL.D+'">Solver paused</b> · '+(SOLV.its?'after '+SOLV.its+' step'+(SOLV.its==1?'':'s'):'drawn state')+'<br>Largest out-of-balance force <b>'+(b?fk(b.v):'–')+' kN</b>'+(b?' at node '+(b.i+1):'')+'<br>Press ▶ Solve (Enter) or ⏭ Step (.) to find the equilibrium from here.';F.innerHTML='Members evaluated at the current node positions, without iterating · '+r.nf+' unknowns · '+r.nel+' element'+(r.nel==1?'':'s');return}
  if(!r||!r.ok){E.innerHTML='<b style="color:#ff3d5a">No equilibrium</b><br>'+(unsolved||'');F.innerHTML='Newton–Raphson stopped after '+(r?r.its:0)+' iterations'+(r&&r.fail?' ('+r.fail+')':'')+'.';return}
  let tm=null,cm=null,sm=null;r.mem.forEach((q,i)=>{if(!q)return;if(!q.bar&&(!tm||q.Tmax>tm.v))tm={v:q.Tmax,i,H:q.H};if(q.bar&&q.N<0&&(!cm||q.N<cm.v))cm={v:q.N,i};if(!q.bar&&q.sag>.005*q.chord&&q.span>.1*q.chord){const k=q.span/q.sag;if(!sm||k<sm.v)sm={v:k,i}}});
  const pk=peakD(),A=r.applied,R=r.sumR,L=[];
@@ -790,7 +830,7 @@ cv.addEventListener('pointermove',e=>{const p=evp(e);mouse=p;const d=drag;
  if(d.t=='gm'){groupMove(e,p);lastSig='';draw();return}
  if(d.t=='ah'){annDrag(e,p);draw();return}if(d.t=='am'){annMove(e,p);draw();return}
  if(d.t=='node'){if(!d.moved&&Math.hypot(p[0]-d.p0[0],p[1]-d.p0[1])<4)return;d.moved=1;const n=d.n;
-  if(n.sup!='none'){const q=snapPt(p,e);if(hitNode(p)===n||!hitNode(p)){n.x=e.altKey?mx(p[0]):snap(mx(p[0]));n.y=e.altKey?my(p[1]):snap(my(p[1]))}}else{hold=new Set([n]);n.x=mx(p[0]);n.y=my(p[1])}draw();return}
+  if(n.sup!='none'||!SOLV.live){if(hitNode(p)===n||!hitNode(p)){n.x=n.x0=e.altKey?mx(p[0]):snap(mx(p[0]));n.y=n.y0=e.altKey?my(p[1]):snap(my(p[1]))}}else{hold=new Set([n]);n.x=mx(p[0]);n.y=my(p[1])}draw();return}
  if(d.t=='pl'){const k=PL.k,s=PL.s,sn=v=>s>0?Math.round(v/s)*s:v;const fx=sn((p[0]-d.p0[0])*k),fy=sn(-(p[1]-d.p0[1])*k);d.n.load=fx||fy?{fx,fy}:null;buildPop(1);draw();return}
  if(d.t=='dk'){d.m.q=Math.max(0,Math.round((d.q0+(p[1]-d.p0[1])*PL.k*.2)*2)/2);buildPop(1);draw();return}
  if(d.t=='ln'){const m=d.m;m.L0=Math.max(.02*d.L00,d.L00*(1+(p[1]-d.p0[1])*.0015));m._g=null;buildPop(1);draw();return}});
@@ -809,13 +849,14 @@ addEventListener('keydown',e=>{const t=document.activeElement,tg=t&&t.tagName;if
  if(e.ctrlKey||e.metaKey){if(k=='z'){e.preventDefault();e.shiftKey?redo():undo()}else if(k=='y'){e.preventDefault();redo()}else if(k=='c'){if(copySel())e.preventDefault()}else if(k=='v'){e.preventDefault();pasteClip()}else if(k=='a'&&tool=='sel'){e.preventDefault();selAll()}return}
  if(e.altKey)return;if(k=='escape'){cancelOp();if(tool!='sel')setTool('sel');return}if(k=='delete'||k=='backspace'){e.preventDefault();delSel();return}
  if(k=='i'){interr=!interr;sideShow();buildPop(1);draw();return}
+ if(k=='s'){setLive(!SOLV.live);return}if(k=='enter'){e.preventDefault();solverSolve();return}if(k=='.'){solverStep();return}if(k=='r'){solverReset();return}
  const tk=Object.keys(KEYS).find(x=>KEYS[x]==k);if(tk){setTool(tk);return}if(k=='f'){fit();return}
- if(k.startsWith('arrow')&&sel&&sel.t!='m'){e.preventDefault();const d=(e.shiftKey?5:1)*gs,dx=k=='arrowright'?d:k=='arrowleft'?-d:0,dy=k=='arrowup'?d:k=='arrowdown'?-d:0,s=toMulti(sel);s.members.forEach(m=>{s.nodes.add(m.a);s.nodes.add(m.b)});pushU();s.nodes.forEach(n=>{n.x+=dx;n.y+=dy});s.anns.forEach(a=>{a.x1+=dx;a.x2+=dx;a.y1+=dy;a.y2+=dy});lastSig='';draw()}});
+ if(k.startsWith('arrow')&&sel&&sel.t!='m'){e.preventDefault();const d=(e.shiftKey?5:1)*gs,dx=k=='arrowright'?d:k=='arrowleft'?-d:0,dy=k=='arrowup'?d:k=='arrowdown'?-d:0,s=toMulti(sel);s.members.forEach(m=>{s.nodes.add(m.a);s.nodes.add(m.b)});pushU();s.nodes.forEach(n=>{n.x+=dx;n.y+=dy;n.x0+=dx;n.y0+=dy});s.anns.forEach(a=>{a.x1+=dx;a.x2+=dx;a.y1+=dy;a.y2+=dy});lastSig='';draw()}});
 /* ---- canvas toolbar ---- */
 $('undo').onclick=undo;$('redo').onclick=redo;$('fit').onclick=fit;$('dup').onclick=()=>{if(copySel())pasteClip()};
 $('clr').onclick=()=>{pushU();nodes.forEach(n=>n.load=null);members.forEach(m=>m.q=0);lastSig='';buildPop();draw()};
 $('theme').onclick=()=>{const r=document.documentElement,d=r.dataset.theme?r.dataset.theme=='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=d?'light':'dark';try{if(RP.win&&!RP.win.closed)RP.win.document.documentElement.dataset.theme=r.dataset.theme}catch(e){}draw()};
-['sT','sR','sF','sU','sA','sW','sN','sL'].forEach(i=>$(i).onchange=draw);
+['sT','sR','sF','sU','sA','sW','sN','sL','sD'].forEach(i=>$(i).onchange=draw);
 $('infoT').onclick=()=>{const b=$('infoB');b.hidden=!b.hidden;$('infoT').textContent=(b.hidden?'▸':'▾')+' Info panel'};
 $('mNew').onclick=()=>ask('Clear the canvas? Undo brings the structure back.',()=>{pushU();nodes=[];members=[];ann=[];sel=null;first=null;interr=false;lastSig='';buildPop();draw()});
 /* ---- diagram scale box ---- */
@@ -847,11 +888,11 @@ function buildPop(keep){const pp=$('pop');const st=pp.scrollTop;pp.innerHTML='';
   btn('Delete selection',delSel);placePop(!keep);return}
  if(sel.t=='n'){const n=sel.n,i=nodes.indexOf(n);h.textContent='Node '+(i+1)+(n.sup!='none'?' · support':'');
   const seg=document.createElement('div');seg.className='pseg';[['none','Free'],['pin','Pin'],['ry','Roller V'],['rx','Roller H']].forEach(([k,t])=>{const b=document.createElement('button');b.textContent=t;b.classList.toggle('on',n.sup==k);b.onclick=()=>{pushU();n.sup=k;lastSig='';buildPop(1);draw()};seg.appendChild(b)});row('Support').after(seg);
-  if(n.sup!='none'){row('x (m)',num(n.x,v=>n.x=v,{p:7}));row('y (m)',num(n.y,v=>n.y=v,{p:7}))}else{const d=document.createElement('p');d.className='pnote';d.textContent='A free node sits where the cables put it: x '+f3(n.x)+', y '+f3(n.y)+' m. Drag it to pull it around.';pp.appendChild(d)}
+  if(n.sup!='none'||!SOLV.live){row('x (m)',num(n.x,v=>{n.x=n.x0=v},{p:7}));row('y (m)',num(n.y,v=>{n.y=n.y0=v},{p:7}))}else{const d=document.createElement('p');d.className='pnote';d.textContent='A free node sits where the cables put it: x '+f3(n.x)+', y '+f3(n.y)+' m. Drag it to pull it around.';pp.appendChild(d)}
   const l=n.load||{fx:0,fy:0};row('Load Fx (kN)',num(l.fx,v=>{n.load={fx:v,fy:n.load?n.load.fy:0};if(!n.load.fx&&!n.load.fy)n.load=null}));row('Load Fy (kN)',num(l.fy,v=>{n.load={fx:n.load?n.load.fx:0,fy:v};if(!n.load.fx&&!n.load.fy)n.load=null}));
   pp.appendChild(out);refreshRes=()=>{let t='';const r=res&&res.ok?res:null;if(r){const R=r.R.find(q=>q.n===n);if(R)t+='<div><span>Reaction H</span><b>'+fk(R.rx)+' kN</b></div><div><span>Reaction V</span><b>'+fk(R.ry)+' kN</b></div>';
    if(res0){const u=[n.ux,n.uy];const d=Math.hypot(n.x-u[0],n.y-u[1]);if(n.sup!='pin')t+='<div><span>Moves under the loads</span><b>'+(d*1000).toFixed(1)+' mm</b></div>'}
-   members.forEach((m,j)=>{if(m.a!==n&&m.b!==n)return;const q=r.mem[j];if(!q)return;const T=m.type=='bar'?q.N:m.a===n?q.TA:q.TB;t+='<div><span>'+(m.type=='bar'?'Bar B':'Cable C')+(j+1)+'</span><b>'+(m.type=='bar'&&T<0?'C '+fk(-T):fk(T))+' kN</b></div>'})}out.innerHTML=t||'<i>No equilibrium yet.</i>'};refreshRes();
+   members.forEach((m,j)=>{if(m.a!==n&&m.b!==n)return;const q=r.mem[j];if(!q)return;const T=m.type=='bar'?q.N:m.a===n?q.TA:q.TB;t+='<div><span>'+(m.type=='bar'?'Bar B':'Cable C')+(j+1)+'</span><b>'+(m.type=='bar'&&T<0?'C '+fk(-T):fk(T))+' kN</b></div>'})}out.innerHTML=t||'<i>'+(res&&res.pz?'Solver paused, not solved yet':'No equilibrium yet')+'.</i>'};refreshRes();
   inspChk(pp,'Node inspector (side panel)');if(n.load)btn('Remove load',()=>{pushU();n.load=null;lastSig='';buildPop(1);draw()});btn('Delete node',delSel);placePop(!keep);return}
  const m=sel.m,i=members.indexOf(m),cab=m.type=='cable';h.textContent=(cab?'Cable C':'Bar B')+(i+1);
  const L=cab?CABLES:BARS,ps=document.createElement('select');ps.innerHTML=L.map(p=>'<option value="'+p[0]+'">'+p[1]+'</option>').join('');ps.value=prodOf(L,m.prod)?m.prod:'custom';ps.onchange=()=>{const p=prodOf(L,ps.value);pushU();m.prod=p[0];if(p[2]!=null){m.EA=p[2];m.w=p[3]}lastSig='';buildPop(1);draw()};ps.className='psel';row('Product',ps);
@@ -859,7 +900,7 @@ function buildPop(keep){const pp=$('pop');const st=pp.scrollTop;pp.innerHTML='';
  const ch=chord(m);row('Length L₀ (m)',num(m.L0,v=>{m.L0=Math.max(1e-3,v);m._g=null},{p:7}));
  if(cab){const sl=add('L₀ / current chord',.9,1.6,.001,+(m.L0/ch).toFixed(4),v=>{m.L0=Math.max(.05,v)*chord(m);m._g=null});sl.title='Shorter than the chord stretches the cable (pretension); longer lets it sag';
   row('Deck load q (kN/m plan)',num(m.q||0,v=>{m.q=Math.max(0,v)}))}else{btn('Set L₀ to the current length (no force)',()=>{pushU();m.L0=chord(m);lastSig='';buildPop(1);draw()})}
- pp.appendChild(out);refreshRes=()=>{const r=res&&res.ok&&res.mem[members.indexOf(m)];if(!r){out.innerHTML='<i>No equilibrium yet.</i>';return}const e=x=>'<div><span>'+x[0]+'</span><b>'+x[1]+'</b></div>';let t='';
+ pp.appendChild(out);refreshRes=()=>{const r=res&&res.ok&&res.mem[members.indexOf(m)];if(!r){out.innerHTML='<i>'+(res&&res.pz?'Solver paused, not solved yet':'No equilibrium yet')+'.</i>';return}const e=x=>'<div><span>'+x[0]+'</span><b>'+x[1]+'</b></div>';let t='';
   if(r.bar)t=[['Axial force',(r.N<0?'C ':'T ')+fk(Math.abs(r.N))+' kN'],['Strain',(r.N/m.EA*1000).toFixed(3)+' ‰'],['Length',f3(r.chord)+' m']].map(e).join('');
   else t=[['Tension at A',fk(r.TA)+' kN'],['Tension at B',fk(r.TB)+' kN'],['Max tension',fk(r.Tmax)+' kN'],['Horizontal H',fk(r.H)+' kN'],['Sag f',f3(r.sag)+' m'+(r.sag>1e-6&&r.span>.05*r.chord?' (span/'+(r.span/r.sag).toFixed(1)+')':'')],['Stretched length',f3(r.Ls)+' m'],['Max strain',(r.Tmax/m.EA*1000).toFixed(3)+' ‰']].map(e).join('')+(r.slack?'<div class="warn">Slack: the cable is longer than the distance between its ends and carries no load.</div>':'');out.innerHTML=t};refreshRes();
  if(cab){const sp=document.createElement('div');sp.className='r';const s=document.createElement('span');s.textContent='Split into';const nn=document.createElement('input');nn.type='number';nn.className='nb';nn.min=2;nn.max=40;nn.value=SPN;const b=document.createElement('button');b.className='zb';b.textContent='Split';b.onclick=()=>{pushU();SPN=Math.max(2,Math.min(40,Math.round(+nn.value||2)));splitN(m,SPN);sel=null;buildPop();draw()};sp.append(s,nn,b);pp.appendChild(sp)}
@@ -875,7 +916,7 @@ function sideUpdate(){const s=$('side');if(s.hidden===!!interr)sideShow();if(!in
  const nb=$('sideNode');
  if(isN){$('sideMsg').hidden=true;$('sideMain').hidden=true;nb.hidden=false;let h;try{h=nodeHTML(sel.n)}catch(e){h='<p class="ndW">'+e.message+'</p>'}nb.innerHTML=h;return}
  nb.hidden=true;const i=isM?members.indexOf(sel.m):-1,r=isM&&res&&res.ok&&res.mem[i];$('sideMsg').hidden=!!r;$('sideMain').hidden=!r;
- if(!r){$('sideMsg').textContent=isM?'No equilibrium yet: this member has no results.':'Select a cable, a bar or a node to interrogate it.';return}
+ if(!r){$('sideMsg').textContent=isM?''+(res&&res.pz?'Solver paused, not solved yet':'No equilibrium yet')+': this member has no results.':'Select a cable, a bar or a node to interrogate it.';return}
  const m=sel.m,c=cutAt(r,interS),W2=300,H2=150,pl=48,pr=10,pt=10,pb=22,Ts=r.Ts,L=c.L;let tmax=0,vmin=0,vmax=0;const V=Ts.map((q,k)=>{const p0=r.pts[Math.max(0,k-1)],p1=r.pts[Math.min(r.pts.length-1,k+1)],a=Math.atan2(p1[1]-p0[1],p1[0]-p0[0]);return[q[0],q[1]*Math.cos(a),q[1]*Math.sin(a)]});
  Ts.forEach((q,k)=>{tmax=Math.max(tmax,Math.abs(q[1]));vmin=Math.min(vmin,V[k][2],V[k][1]);vmax=Math.max(vmax,V[k][2],V[k][1])});const lo=Math.min(0,vmin,r.bar?r.N:0)*1.08,hi=Math.max(tmax,vmax,1e-9)*1.08,X=s=>pl+(W2-pl-pr)*s/(L||1),Y=v=>pt+(H2-pt-pb)*(hi-v)/((hi-lo)||1);
  const path=(f)=>Ts.map((q,k)=>(k?'L':'M')+X(q[0]).toFixed(1)+' '+Y(f(k)).toFixed(1)).join('');const tc=tcol(Math.abs(r.Tmax)/Tglob());
@@ -935,8 +976,8 @@ function annPt(p,e,a,k){const n=hitNode(p);let X,Y;if(n&&a.t!='text'){X=n.x;Y=n.
  if(e.shiftKey&&k==2&&!(n&&a.t!='text')){const dx=X-a.x1,dy=Y-a.y1;if(a.t=='box'||a.t=='ell'){const m=Math.max(Math.abs(dx),Math.abs(dy));X=a.x1+(dx<0?-m:m);Y=a.y1+(dy<0?-m:m)}else if(Math.abs(dx)>=Math.abs(dy))Y=a.y1;else X=a.x1}return[X,Y]}
 function annDrag(e,p){const d=drag,a=d.a;if(d.k==3){const g=dimG(a);a.off=+((mx(p[0])-a.x1)*g.n[0]+(my(p[1])-a.y1)*g.n[1]).toFixed(2);return}const q=annPt(p,e,a,d.k);if(d.k==1){a.x1=q[0];a.y1=q[1]}else{a.x2=q[0];a.y2=q[1]}}
 /* group drag: everything in a multi-selection (nodes, members via their end nodes, annotations) moves together */
-function startGM(p,pick){const ns=new Set(sel.nodes);sel.members.forEach(m=>{ns.add(m.a);ns.add(m.b)});drag={t:'gm',p0:[mx(p[0]),my(p[1])],s:p,pick,moved:0,nodes:[...ns].map(n=>[n,n.x,n.y]),anns:[...(sel.anns||[])].map(a=>[a,a.x1,a.y1,a.x2,a.y2])}}
-function groupMove(e,p){const d=drag;if(!d.moved&&Math.hypot(p[0]-d.s[0],p[1]-d.s[1])<5)return;d.moved=1;let dx=mx(p[0])-d.p0[0],dy=my(p[1])-d.p0[1];if(!e.altKey){const r=d.nodes[0]?[d.nodes[0][1],d.nodes[0][2]]:d.anns[0]?[d.anns[0][1],d.anns[0][2]]:null;if(r){dx=snap(r[0]+dx)-r[0];dy=snap(r[1]+dy)-r[1]}}d.nodes.forEach(([n,x,y])=>{n.x=+(x+dx).toFixed(6);n.y=+(y+dy).toFixed(6)});d.anns.forEach(([a,x1,y1,x2,y2])=>{a.x1=x1+dx;a.y1=y1+dy;a.x2=x2+dx;a.y2=y2+dy})}
+function startGM(p,pick){const ns=new Set(sel.nodes);sel.members.forEach(m=>{ns.add(m.a);ns.add(m.b)});drag={t:'gm',p0:[mx(p[0]),my(p[1])],s:p,pick,moved:0,nodes:[...ns].map(n=>[n,n.x,n.y,n.x0,n.y0]),anns:[...(sel.anns||[])].map(a=>[a,a.x1,a.y1,a.x2,a.y2])}}
+function groupMove(e,p){const d=drag;if(!d.moved&&Math.hypot(p[0]-d.s[0],p[1]-d.s[1])<5)return;d.moved=1;let dx=mx(p[0])-d.p0[0],dy=my(p[1])-d.p0[1];if(!e.altKey){const r=d.nodes[0]?[d.nodes[0][1],d.nodes[0][2]]:d.anns[0]?[d.anns[0][1],d.anns[0][2]]:null;if(r){dx=snap(r[0]+dx)-r[0];dy=snap(r[1]+dy)-r[1]}}d.nodes.forEach(([n,x,y,x0,y0])=>{n.x=+(x+dx).toFixed(6);n.y=+(y+dy).toFixed(6);n.x0=+(x0+dx).toFixed(6);n.y0=+(y0+dy).toFixed(6)});d.anns.forEach(([a,x1,y1,x2,y2])=>{a.x1=x1+dx;a.y1=y1+dy;a.x2=x2+dx;a.y2=y2+dy})}
 function annMove(e,p){const d=drag,a=d.a;let dx=mx(p[0])-d.p0[0],dy=my(p[1])-d.p0[1];if(a.t!='text'&&!e.altKey){dx=snap(d.o[0]+dx)-d.o[0];dy=snap(d.o[1]+dy)-d.o[1]}a.x1=d.o[0]+dx;a.y1=d.o[1]+dy;a.x2=d.o[2]+dx;a.y2=d.o[3]+dy}
 function annEndCreate(){const a=drag.a;if(Math.hypot(sx(a.x2)-sx(a.x1),sy(a.y2)-sy(a.y1))<5){ann.splice(ann.indexOf(a),1);sel=null}else sel={t:'a',a};buildPop()}
 function annDown(e,p,n){const an=tool.slice(0,3)=='an_';if(!an&&tool!='sel')return false;
@@ -1150,6 +1191,22 @@ VTESTS.push(
   const mk=()=>{const A=vN(0,0,'pin'),B=vN(18,0,'pin'),C=vN(6,-3,'none',[0,-20]);return[[A,B,C],[vC(A,C,6.9,39200,.0195),vC(C,B,12.4,39200,.0195)]]},m0=mk(),r=solveModel(m0[0],m0[1]),KM=r.km(),x=r.pos[2],h=1e-5;
   const force=(dx,dy)=>{const m=mk();let fx=0,fy=0;[[0,2],[2,1]].forEach(([a,b],k)=>{const e=m[1][k],pa=a==2?[x[0]+dx,x[1]+dy]:r.pos[a],pb=b==2?[x[0]+dx,x[1]+dy]:r.pos[b],q=elEval(e,pa[0],pa[1],pb[0],pb[1]);const f=a==2?q.fA:q.fB;fx+=f[0];fy+=f[1]});return[fx,fy]};
   const fu=[force(h,0),force(-h,0)],fv=[force(0,h),force(0,-h)];return[['K[n3 u, n3 u] (kN/m)',-(fu[0][0]-fu[1][0])/(2*h),KM.K[4][4],1e-4],['K[n3 v, n3 v] (kN/m)',-(fv[0][1]-fv[1][1])/(2*h),KM.K[5][5],1e-4],['K[n3 u, n3 v] (kN/m)',-(fv[0][0]-fv[1][0])/(2*h),KM.K[4][5],1e-3]]}]);
+/* v1.3 checks */
+VTESTS.push(
+ ['Drawn state and bake (v1.3)','Solving from the drawn state','The suspension bridge example is built in its drawn state and evaluated without iterating (as the Paused solver shows it): it is out of balance. Solving from there must give the same main-cable H as the live solve.',()=>{
+  const M1=galModel('susp'),sv=[nodes,members,ann];let out=[];try{nodes=[];members=[];ann=[];PRESETS.susp[1]();const r0=solveModel(nodes,members,{maxIt:0}),b=resMax(r0),r=solveModel(nodes,members);
+   out=[['Drawn state out of balance (1 = yes)',1,!r0.ok&&b&&b.v>0?1:0,0],['H of the main cable (kN)',M1.r.mem[1].H,r.mem[1].H,1e-7]]}finally{nodes=sv[0];members=sv[1];ann=sv[2];lastSig=''}return out}],
+ ['Drawn state and bake (v1.3)','Step converges to the same state as Solve','The point-load cable is stepped one Newton–Raphson iteration at a time from a poor drawn state (the load node 4 m too high), carrying the Levenberg shift and the warm starts between steps. It must reach the same position and H as a full solve.',()=>{
+  const mk=()=>{const A=vN(0,0,'pin'),B=vN(18,0,'pin'),C=vN(6,1,'none',[0,-20]);return[[A,B,C],[vC(A,C,6.9,39200,.0195),vC(C,B,12.4,39200,.0195)]]},m1=mk(),rf=solveModel(m1[0],m1[1]),m2=mk();let mu=0,k=0,r=null;
+  for(;k<200;k++){r=solveModel(m2[0],m2[1],{maxIt:1,mu0:mu,warm:1});r.pos.forEach((p,i)=>{m2[0][i].x=p[0];m2[0][i].y=p[1]});mu=r.mu||0;if(r.ok)break}
+  return[['Converged within 200 steps (1 = yes)',1,r&&r.ok?1:0,0],['Load node y (m)',rf.pos[2][1],r.pos[2][1],1e-8],['H (kN)',rf.mem[0].H,r.mem[0].H,1e-8]]}],
+ ['Drawn state and bake (v1.3)','Bake shape keeps the equilibrium','After Bake shape the solved positions are the drawn state and L₀ is kept, so solving again from them must leave the nodes where they are and give the same tension.',()=>{
+  const A=vN(0,0,'pin'),B=vN(18,0,'pin'),C=vN(6,-3,'none',[0,-20]),N=[A,B,C],M=[vC(A,C,6.9,39200,.0195),vC(C,B,12.4,39200,.0195)],r1=solveModel(N,M);r1.pos.forEach((p,i)=>{N[i].x=p[0];N[i].y=p[1]});
+  const r2=solveModel(N,M);return[['Movement of the load node on solving again (m)',0,Math.hypot(r2.pos[2][0]-r1.pos[2][0],r2.pos[2][1]-r1.pos[2][1]),1e-9],['T max in AC (kN)',r1.mem[0].Tmax,r2.mem[0].Tmax,1e-9]]}],
+ ['Drawn state and bake (v1.3)','Bake as unstressed','A weightless cable and a bar carrying a point load are solved, then L₀ := stretched length. Evaluated at the baked positions, both members must carry no force (to 10⁻⁵ of the tension before: the cable keeps the vanishing weight that lets one element span slack and taut states), and the out-of-balance force at the load node must equal the load (0, −20 kN).',()=>{
+  const A=vN(0,0,'pin'),B=vN(12,0,'pin'),C=vN(6,-2,'none',[0,-20]),N=[A,B,C],M=[vC(A,C,6.4,1e5,0),vB(C,B,6.3,1e5)],r1=solveModel(N,M);r1.pos.forEach((p,i)=>{N[i].x=p[0];N[i].y=p[1]});
+  const T1=r1.mem[0].Tmax;M.forEach((m,i)=>{m.L0=r1.mem[i].Ls;m._g=null});const r2=solveModel(N,M,{maxIt:0});
+  return[['Cable AC: T ÷ T before baking',0,Math.abs(r2.mem[0].Tmax)/T1,1e-5],['Bar CB: N ÷ T before baking',0,Math.abs(r2.mem[1].N)/T1,1e-7],['ΔFx at the load node (kN)',0,r2.Rn[2][0],1e-3],['ΔFy at the load node (kN)',-20,r2.Rn[2][1],1e-4]]}]);
 function vtRunAll(){const rows=[];VTESTS.forEach(([g,n,d,f])=>{let cs=[],err=null;try{cs=f()}catch(e){err=e.message||String(e)}rows.push({g,n,d,cs,err})});return rows}
 function vtPass(c){const[q,e,g,t]=c;if(!isFinite(g))return false;if(Math.abs(e)<1e-12)return Math.abs(g)<=(t!=null?t:1e-9);return Math.abs(g-e)<=(t!=null?t:1e-4)*Math.abs(e)}
 const vtF=v=>!isFinite(v)?'–':Math.abs(v)>=1e4||(Math.abs(v)<1e-3&&v!=0)?v.toExponential(4):(+v.toPrecision(7)).toString();
@@ -1251,7 +1308,7 @@ function rpFigure(kind,o,hMax){const pad=kind=='geom'?{l:rpBox().y1-rpBox().y0>1
  const F=rpFit(RPG.MW,hMax,pad);return{h:F.h,draw:(pg,Y)=>{const X=RPG.MX,P=rpMap(F,X,Y),boxes=[],pal=rpPal(o),FB={X,Y,w:F.w,h:F.h};rpR(pg,X,Y,F.w,F.h,{st:'#c8c8c8',w:.15});
   if(kind=='geom'){rpStructure(pg,P,o);rpNumbers(pg,P,boxes,FB);rpDims(pg,P,F,X,Y);return}
   if(kind=='load'){rpStructure(pg,P,o);rpLoads(pg,P,pal.L,boxes,FB,o);if(o.num)rpNumbers(pg,P,boxes,FB);return}
-  if(!(res&&res.ok)){rpStructure(pg,P,o);rpT(pg,X+F.w/2,Y+F.h/2,'No equilibrium – see the solver status',8,{a:'c',c:'#a00'});return}
+  if(!(res&&res.ok)){rpStructure(pg,P,o);rpT(pg,X+F.w/2,Y+F.h/2,(res&&res.pz?'Solver paused – not solved yet':'No equilibrium – see the solver status'),8,{a:'c',c:'#a00'});return}
   if(kind=='shape'){if(res0)rpStructure(pg,P,Object.assign({},o,{ghost:1,u:1,noSup:1}));rpStructure(pg,P,o);const b=peakD();if(b&&o.vals){const p=P(b.p[0],b.p[1]),u=P(b.u[0],b.u[1]);rpL(pg,u[0],u[1],p[0],p[1],.2,pal.D,[.6,.6]);rpP(pg,rpCirc(p[0],p[1],.7,12),{cl:1,fill:pal.D});rpLab(pg,boxes,FB,p[0]+1.5,p[1]+3.4,'δmax = '+rpF(b.d*1000,0)+' mm',6.6,{c:pal.D,f:'B',bg:1,tries:[[0,0],[-26,0],[0,-6],[-26,-6]]})}
    if(o.vals)rpSag(pg,P,boxes,FB,o,pal);if(o.num)rpNumbers(pg,P,boxes,FB);return}
   if(kind=='tens'){rpStructure(pg,P,Object.assign({},o,{tens:1}));if(o.vals)members.forEach((m,i)=>{const r=res.mem[i];if(!r)return;let k=0;r.Ts.forEach((q,j)=>{if(q[1]>r.Ts[k][1])k=j});const p=r.pts[Math.min(k,r.pts.length-1)],mp=r.pts[Math.floor(r.pts.length/2)],[x,y]=P((r.bar?mp:p)[0],(r.bar?mp:p)[1]);
@@ -1314,7 +1371,7 @@ function rpBlocks(o){const B=[],dp=o.dp,r=res,ok=!!(r&&r.ok),hM=o.size=='s'?62:o
  if(S.meth){H('Analysis method and diagnostics');
   Pp('Method. Each cable is one exact elastic catenary element (Irvine, Cable Structures, 1981; O’Brien and Francis, 1964): from its unstressed length L₀, weight w and axial stiffness EA, the end forces follow from the chord alone, so a single element reproduces a hanging cable with no subdivision. A cable carrying a deck load is divided internally into sixteen sub-catenaries with the plan load lumped at their joints. Bars are two-force members, EA (L − L₀) / L₀, with geometric stiffness. The equilibrium shape is found by Newton–Raphson iteration on the free nodal coordinates using the exact tangent stiffness of every element, with a Levenberg shift when the tangent is not positive definite and a line search on the directional derivative of the potential energy, so slack cables and very flexible nets converge from a poor first guess.');
   Pp('Assumptions. Linear-elastic material; large displacements and the change of geometry are included exactly; cables have no bending stiffness and cannot carry compression; bars are pin-ended and are not checked for buckling; loads keep their direction (deck loads follow the current plan length).');
-  if(ok)Pp('Converged in '+r.its+' iteration'+(r.its==1?'':'s')+' with '+r.nf+' unknowns and '+r.nel+' elements; largest residual force '+r.resid.toExponential(1)+' kN; relative global equilibrium error '+r.eq.toExponential(1)+'.');else Pp('No equilibrium was found: '+(unsolved||'the solver did not converge')+'.',{c:'#a00'});
+  if(ok)Pp('Converged in '+r.its+' iteration'+(r.its==1?'':'s')+' with '+r.nf+' unknowns and '+r.nel+' elements; largest residual force '+r.resid.toExponential(1)+' kN; relative global equilibrium error '+r.eq.toExponential(1)+'.');else Pp(res&&res.pz?'The solver is paused and this state has not been solved: press Solve first.':'No equilibrium was found: '+(unsolved||'the solver did not converge')+'.',{c:'#a00'});
   Pp('These results come from an exploratory teaching tool and must be independently checked before they are relied on for design.',{c:'#555',f:'I'})}
  if(S.notes&&o.notes&&o.notes.trim()){H('Notes');Pp(o.notes.trim())}
  return B}
@@ -1608,6 +1665,13 @@ addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey)||e.altKey||e.shiftKey)
 
 /* ===== about, method, shortcuts and start-up ===== */
 const CHANGELOG=[
+['1.3','Bake',['Drawn (initial) state: every node now keeps the position it was drawn at as well as the position the solver puts it in. Save files, undo and copy / paste carry both (files without them still open).',
+ 'Solver bar under the canvas toolbar: <b>● Live / ❚❚ Paused</b> (S). Live works as before. Paused leaves the nodes where they are drawn, moved or loaded; the cables are drawn with their exact catenary between the drawn nodes and coloured by tension, and orange arrows show the out-of-balance force ΔF at each free node, with the largest labelled. Free nodes can be dragged or typed into place while paused. The choice is remembered.',
+ '<b>▶ Solve</b> (Enter) finds the equilibrium from the current state and <b>⏭ Step</b> (.) runs a single Newton–Raphson iteration, so the structure can be watched falling from its drawn shape into equilibrium; the step count and ΔF show in the bar and the info panel.',
+ '<b>⟲ Reset</b> (R) puts every node back where it was drawn and forgets the warm starts, in Live mode solving again from there, so a structure with more than one equilibrium can be sent to a different one by changing the drawn state.',
+ '<b>⤓ Bake</b>: <i>Bake shape</i> makes the solved shape the new drawn state and keeps L₀ (the state is unchanged and solving again gives the same answer); <i>Bake as unstressed</i> also sets every L₀ to its stretched length, so the shape becomes stress-free, the hanging-model form-finding step: with weight or load it moves again when solved.',
+ 'A <b>Drawn state</b> tick box in the bottom bar shows the drawn state as a dotted ghost under the solved shape.',
+ 'Solver: optional number of iterations (including none, to evaluate a state), a Levenberg shift and warm starts that carry over between calls, and the out-of-balance force at every node in the result. Four new verification checks: solving from the drawn state matches the live solve, Step converges to the same state as Solve, Bake shape leaves the equilibrium unchanged, and Bake as unstressed leaves weightless members with no force.']],
 ['1.2','Matrix',['Tangent stiffness matrix inspector (▦ Stiffness matrix in the top bar), the counterpart of Frame Pusher’s. A cable structure is non-linear, so it shows the tangent K at the solved shape (the matrix the Newton–Raphson solver factorises at its last step): two DOFs (u, v) per point, with the joints inside deck-loaded cables as extra points named C4·7.', 'Heatmap with free (K_ff) and full views, log / linear / pattern colours, assembly or reduced-bandwidth (RCM) order, zoom and Read, values or element terms in the cells, and strips for the movement under the loads δ, the applied forces F and the reactions R. Changed cells and the DOFs of the selection are highlighted; the panel can be dragged, collapsed and maximised, and Fit leaves room for it.', 'Hovering a cell names its two DOFs, sums the element contributions, highlights the elements and draws the column on the canvas: a unit move of one DOF and the forces needed to hold the rest still. Clicking pins it.', 'The element panel derives each block: for a bar the elastic part (EA/L₀) n nᵀ plus the geometric part (N/L)(I − n nᵀ), side by side; for a catenary the flexibility f, k = f⁻¹, and its stiffness along the chord (softened by sag, Ernst’s effect) and across it (≈ T/L). Build K element by element with a slider and play button.', 'Statistics: non-zeros, bandwidth, symmetry, positive definiteness (stability), the smallest and largest eigenvalues and the condition number. Show softest mode draws the eigenvector of the smallest eigenvalue on the canvas: the way the structure would give way first.', 'Node numbers on the canvas read n1, n2 … to match the matrix; they are shown while the matrix is open on models of up to 20 members.', 'Three new verification checks: the symmetry and rigid-body rows of the tangent matrix, the geometric stiffness N/L of a bar, and the tangent against finite differences.']],
 ['1.1','Tensegrity',['Grid and snapping as in Frame Pusher: a 1–2–5 grid at least 22 px apart with a major line every five, teal reference lines every 5 m labelled with their coordinates (stepping to 50 m and 500 m when zoomed far out), the grid size in the legend and the snap step beside the cursor coordinates. A ring shows the grid point a click would use with the Node, Cable, Strut and support tools.',
  'Hover highlighting as in Frame Pusher: the cable, bar or node that the current tool would act on glows under the cursor (only cables for Split, Deck load, Self-weight and Length; nodes or cables for supports and new cables). Larger node dots.',
@@ -1630,8 +1694,8 @@ function showAbout(){let h='<p style="margin:0 0 8px"><b>Cable Pusher</b> v'+VER
 function showMethod(){showV('Method and assumptions','<p><b>Elastic catenary element.</b> A cable of unstressed length L₀, weight w per unstressed metre and axial stiffness EA, with tension components H and V₀ at its first end, reaches the chord</p><p class="eq">l<sub>x</sub> = H L₀/EA + (H/w)[asinh(V₁/H) − asinh(V₀/H)]<br>l<sub>y</sub> = (V₀ L₀ + w L₀²/2)/EA + (1/w)[√(H² + V₁²) − √(H² + V₀²)],  V₁ = V₀ + w L₀</p><p>Given the chord, Newton iteration finds H and V₀. The 2 × 2 flexibility ∂(l<sub>x</sub>, l<sub>y</sub>)/∂(H, V₀) is inverted for the element stiffness, so the element is exact for any sag, slack or taut, without subdivision. The differences are evaluated in a form that keeps full precision for light, taut cables, so a weightless cable is the same element with negligible weight and becomes slack naturally.</p>'+
  '<p><b>Deck loads.</b> A load q per metre of plan hangs from the cable as from a bridge deck. Such a cable is split internally into sixteen sub-catenaries of equal unstressed length and the load is lumped at their joints by plan tributary length, updated with the shape.</p><p><b>Bars.</b> Pin-ended, linear-elastic, N = EA(L − L₀)/L₀ in tension or compression, with the geometric stiffness N/L. No buckling check.</p>'+
  '<p><b>Equilibrium.</b> The free nodal coordinates are found by Newton–Raphson on the out-of-balance forces using the exact tangent of every element. A Levenberg shift keeps the step defined when the tangent is not positive definite (a slack node, a compressed strut), and a line search on R·Δ, the derivative of the potential energy along the step, brackets and bisects through slack-to-taut transitions. Convergence is declared when the largest residual force is below 10⁻⁹ of the applied load (or the round-off limit of the stiffness). Supports and the global equilibrium are checked after every solve.</p>'+
- '<p><b>Sign conventions.</b> x to the right, y upwards; loads and reactions positive along the axes. Tension positive. H is the horizontal component of cable tension, constant along any unloaded stretch of cable; V grows by the weight of cable passed. Sag f is measured vertically from the chord.</p><p><b>Assumptions.</b> Plane structures; linear-elastic material; large displacements included exactly; cables have no bending stiffness and carry no compression; loads keep their direction. EA and weights of the products in the lists are indicative only.</p><p style="color:var(--mut)">References: H. M. Irvine, <i>Cable Structures</i>, MIT Press, 1981; W. T. O’Brien and A. J. Francis, “Cable movements under two-dimensional loads”, <i>J. Struct. Div. ASCE</i> 90(3), 1964.</p>')}
-function showKeys(){showV('Keyboard shortcuts','<ul><li><b>Tools:</b> V select · N node · C cable · B strut · X split · 1 pin · 2 roller V · 3 roller H · 4 no support · P point load · U deck load · W self-weight · E length</li><li><b>Annotate:</b> T text · G box · J ellipse · L line · K arrow · D dimension</li><li><b>F</b> fit view · <b>Esc</b> cancel and return to Select · <b>right-click</b> cancel the current operation (right-drag pans) · <b>Del</b> delete the selection</li><li><b>Ctrl+Z</b> undo · <b>Ctrl+Y</b> redo · <b>Ctrl+C / Ctrl+V</b> copy and paste · <b>Ctrl+A</b> select all</li><li><b>Ctrl+S</b> save to a file · <b>Ctrl+O</b> open a file (or drop one on the app)</li><li><b>Arrow keys</b> nudge the selection by the grid step (Shift = 5×)</li><li><b>I</b> open or close the inspector (side panel): select a cable, a bar or a node to interrogate it. The ‹ Inspector tab on the right edge of the canvas opens it too.</li><li><b>▶ Animate</b> (bottom bar) grows the loads from zero and back; every frame is a solved equilibrium</li><li>Scroll to zoom · right-drag or middle-drag to pan</li></ul>')}
+ '<p><b>Drawn state, Solve, Step, Reset and Bake (v1.3).</b> Every node keeps the position it was drawn at as well as its current position. The drawn positions are only the starting point of the Newton–Raphson iteration; the unstressed lengths L₀ decide the answer. Where a structure has more than one equilibrium (a net that can snap through, a tensegrity, a strut chain that can fold either way) the starting point decides which one is found. With the solver Paused, the members are evaluated at the drawn positions without iterating: each cable is drawn with its exact catenary between its two nodes and its tension, and the orange arrows are the out-of-balance forces ΔF at the free nodes. Step runs one iteration (the Levenberg shift carries over between steps), Solve iterates to equilibrium, and Reset returns every node to where it was drawn. Bake shape makes the solved positions the drawn state and keeps L₀, so the state is unchanged. Bake as unstressed also sets L₀ to the stretched length L₀ + ∫T/EA ds, so the shape becomes stress-free: weightless members carry no force at the baked positions, and weight and loads then make it move again, as in hanging-model form-finding.</p><p><b>Sign conventions.</b> x to the right, y upwards; loads and reactions positive along the axes. Tension positive. H is the horizontal component of cable tension, constant along any unloaded stretch of cable; V grows by the weight of cable passed. Sag f is measured vertically from the chord.</p><p><b>Assumptions.</b> Plane structures; linear-elastic material; large displacements included exactly; cables have no bending stiffness and carry no compression; loads keep their direction. EA and weights of the products in the lists are indicative only.</p><p style="color:var(--mut)">References: H. M. Irvine, <i>Cable Structures</i>, MIT Press, 1981; W. T. O’Brien and A. J. Francis, “Cable movements under two-dimensional loads”, <i>J. Struct. Div. ASCE</i> 90(3), 1964.</p>')}
+function showKeys(){showV('Keyboard shortcuts','<ul><li><b>Tools:</b> V select · N node · C cable · B strut · X split · 1 pin · 2 roller V · 3 roller H · 4 no support · P point load · U deck load · W self-weight · E length</li><li><b>Annotate:</b> T text · G box · J ellipse · L line · K arrow · D dimension</li><li><b>F</b> fit view · <b>Esc</b> cancel and return to Select · <b>right-click</b> cancel the current operation (right-drag pans) · <b>Del</b> delete the selection</li><li><b>Ctrl+Z</b> undo · <b>Ctrl+Y</b> redo · <b>Ctrl+C / Ctrl+V</b> copy and paste · <b>Ctrl+A</b> select all</li><li><b>Ctrl+S</b> save to a file · <b>Ctrl+O</b> open a file (or drop one on the app)</li><li><b>Solver:</b> <b>S</b> Live / Paused · <b>Enter</b> solve · <b>.</b> one Newton step · <b>R</b> reset to the drawn state · Bake from the ⤓ Bake menu</li><li><b>Arrow keys</b> nudge the selection by the grid step (Shift = 5×)</li><li><b>I</b> open or close the inspector (side panel): select a cable, a bar or a node to interrogate it. The ‹ Inspector tab on the right edge of the canvas opens it too.</li><li><b>▶ Animate</b> (bottom bar) grows the loads from zero and back; every frame is a solved equilibrium</li><li>Scroll to zoom · right-drag or middle-drag to pan</li></ul>')}
 $('mAbout').onclick=showAbout;$('mMeth').onclick=showMethod;$('mKeys').onclick=showKeys;
 
 /* ===== v1.1 “Tensegrity”: hover targets, snap ghost, animation, node inspector, theme, home ===== */
@@ -1728,7 +1792,7 @@ const ndF=v=>{const a=Math.abs(v);return(a<5e-4?0:v).toFixed(a>=1000?1:a>=10?2:3
 const ndSUP={none:'free node',pin:'pinned support',ry:'roller (vertical restraint)',rx:'roller (horizontal restraint)'};
 function nodeHTML(n){const ix=nodes.indexOf(n),o=nodeData(n,res),nm=members.filter(m=>m.a===n||m.b===n).length;
  let h='<div class="ndT"><b>Node '+(ix+1)+'</b> · x '+ndF(n.x)+' m, y '+ndF(n.y)+' m · '+nm+' member'+(nm==1?'':'s')+'</div><div class="ndC">'+(ndSUP[n.sup]||n.sup)+(hold&&hold.has(n)?' · held by hand':'')+'</div>';
- if(!o.ok){return h+nodeSvg(o)+'<p class="ndW">'+(res&&!res.ok?'No equilibrium – no results.':'No results yet.')+'</p>'}
+ if(!o.ok){return h+nodeSvg(o)+'<p class="ndW">'+(res&&!res.ok?(res.pz?'Solver paused – not solved yet.':'No equilibrium – no results.'):'No results yet.')+'</p>'}
  h+=nodeSvg(o);
  if(o.d){const d=o.d;h+='<div class="ndH">Movement under the loads</div><table class="ndTb"><tr><th>Δx</th><th>Δy</th><th>|δ|</th></tr><tr><td>'+(d[0]*1000).toFixed(1)+' mm</td><td>'+(d[1]*1000).toFixed(1)+' mm</td><td>'+(Math.hypot(d[0],d[1])*1000).toFixed(1)+' mm</td></tr></table><div class="ndN">From the self-weight shape to the loaded shape (the dashed Unloaded shape).</div>'}
  const row=(lab,a,cls)=>'<tr'+(cls?' class="'+cls+'"':'')+'><td>'+lab+'</td><td>'+ndF(a[0])+'</td><td>'+ndF(a[1])+'</td><td>'+ndF(Math.hypot(a[0],a[1]))+'</td></tr>';
@@ -1935,7 +1999,7 @@ function hmInit(){const d=document.createElement('div');d.id='hm';d.hidden=true;
  const H_=$('hmH');H_.onpointerdown=e=>{if(e.target.tagName=='BUTTON'||hm.max)return;const r0=hm.el.getBoundingClientRect(),w0=$('wrap').getBoundingClientRect(),dx=e.clientX-r0.left,dy=e.clientY-r0.top;H_.setPointerCapture(e.pointerId);H_.onpointermove=ev=>{hm.el.style.left=Math.max(0,Math.min(w0.width-60,ev.clientX-w0.left-dx))+'px';hm.el.style.top=Math.max(0,Math.min(w0.height-30,ev.clientY-w0.top-dy))+'px'};H_.onpointerup=()=>{H_.onpointermove=null;H_.onpointerup=null}}}
 function hmToggle(){if(!hm.el)hmInit();hm.open=!hm.open;hm.el.hidden=!hm.open;$('mK').classList.toggle('on',hm.open);hm.hover=null;hm.pin=null;hm.sig='';draw();fit()}
 function hmDraw(){if(!hm.open||!hm.el)return;if(!$('sN').checked&&members.length<=20)drawNumbers();
- const r=res;if(!r||!r.ok||!r.km){$('hmNote').innerHTML='<b>No equilibrium yet, so there is no tangent matrix to show.</b>';hm.view=null;const g=$('hmCv').getContext('2d');g.clearRect(0,0,$('hmCv').width,$('hmCv').height);$('hmSt').innerHTML='';$('hmVs').innerHTML='';$('hmIn').innerHTML='';hm.stS=hm.vsS=hm.infoS='';return}
+ const r=res;if(!r||!r.ok||!r.km){$('hmNote').innerHTML='<b>'+(res&&res.pz?'Solver paused, not solved yet':'No equilibrium yet')+', so there is no tangent matrix to show.</b>';hm.view=null;const g=$('hmCv').getContext('2d');g.clearRect(0,0,$('hmCv').width,$('hmCv').height);$('hmSt').innerHTML='';$('hmVs').innerHTML='';$('hmIn').innerHTML='';hm.stS=hm.vsS=hm.infoS='';return}
  const KM=r.km(),K=KM.K,nd=KM.nd,fx=KM.fx;let kmx=0;for(let i=0;i<nd;i++){const a=K[i];for(let j=0;j<nd;j++){const v=Math.abs(a[j]);if(v>kmx)kmx=v}}
  let diff=true;if(hm.cur&&hm.curN==nd){diff=false;let m=null;const tl=1e-6*(kmx||1);for(let i=0;i<nd;i++){const a=K[i],b=hm.cur[i];for(let j=0;j<nd;j++)if(Math.abs(a[j]-b[j])>tl){if(!m)m=new Uint8Array(nd*nd);m[i*nd+j]=1}}if(m){diff=true;hm.chm=m;hm.note=''}}else if(hm.cur){hm.chm=null;hm.note='Matrix size changed: '+hm.curN+' → '+nd+' DOFs'}
  if(diff){hm.cur=K.map(a=>Float64Array.from(a));hm.curN=nd}
@@ -1952,6 +2016,38 @@ function hmDraw(){if(!hm.open||!hm.el)return;if(!$('sN').checked&&members.length
  if(nt!==hm.noteS){hm.noteS=nt;$('hmNote').innerHTML=nt}
  hmSel(KM);hmPaint();hmStats();hmVsUpd();hmStruct()}
 $('mK').onclick=()=>hmToggle();
+
+/* ===== v1.3 “Bake”: drawn (initial) state, Live / Paused solver, Solve, Step, Reset and Bake ===== */
+const movedFromDrawn=()=>nodes.some(n=>n.x0!=null&&Math.hypot(n.x-n.x0,n.y-n.y0)>1e-9*Math.max(1,Math.abs(n.x0),Math.abs(n.y0)));
+function sbarSync(){const b=$('sbar');if(!b)return;const L=SOLV.live,ok=!!(res&&res.ok),has=nodes.length>0;b.classList.toggle('pz',!L);$('sLive').classList.toggle('on',L);$('sPause').classList.toggle('on',!L);
+ $('sSolve').disabled=L||!has||ok;$('sStep').disabled=L||!has||ok;$('sReset').disabled=!has||!movedFromDrawn();$('sBake').disabled=!ok;if(!ok)$('bkM').hidden=true;
+ let t;if(!has)t=(L?'<b>Live</b>':'<b>Paused</b>')+' · empty';
+ else if(L)t='<b>Live</b> · '+(ok?'in equilibrium':'no equilibrium');
+ else if(ok)t='<b>Paused</b> · in equilibrium'+(SOLV.its?' after '+SOLV.its+' step'+(SOLV.its==1?'':'s'):'');
+ else if(res&&res.pz){const m=resMax();t='<b>Paused</b> · '+(SOLV.its?'step '+SOLV.its:'drawn state')+' · ΔF '+(m?fk(m.v):'–')+' kN'}
+ else t='<b>Paused</b> · no equilibrium';
+ if($('sStat').innerHTML!==t)$('sStat').innerHTML=t}
+function setLive(on){if(SOLV.live===on)return;SOLV.live=on;hold=null;SOLV.its=0;SOLV.mu=0;if(!on&&anOn)anSet(false);if(on)lastSig='';try{localStorage.setItem('cp_live',on?'1':'0')}catch(e){}
+ draw();fioMsg(on?'Solver live: the structure is solved again after every change.':'Solver paused: nodes stay where you draw them. ▶ Solve or ⏭ Step finds the equilibrium; ⟲ Reset returns to the drawn state.')}
+/* Solve from the current positions (the drawn state, or wherever Step has got to) */
+function solverSolve(){if(SOLV.live||!nodes.length||(res&&res.ok))return;pushU();const its=SOLV.its;doSolve();if(res&&res.ok)SOLV.its=its+res.its;else{fioMsg('No equilibrium found from this state'+(unsolved?': '+unsolved:'.'),1)}SOLV.mu=0;buildPop(1);draw()}
+/* one Newton–Raphson iteration; the Levenberg shift and the warm starts carry over from step to step */
+function solverStep(){if(SOLV.live||!nodes.length||(res&&res.ok))return;if(!SOLV.its)pushU();let r;try{r=solveModel(nodes,members,{maxIt:1,mu0:SOLV.mu,warm:1})}catch(e){console.error(e);return}
+ r.pos.forEach((p,i)=>{if(isFinite(p[0])&&isFinite(p[1])){nodes[i].x=p[0];nodes[i].y=p[1]}});const its=SOLV.its+Math.max(1,r.its);SOLV.mu=r.mu||0;
+ if(r.ok){doSolve();SOLV.its=its}else{res=r;res.pz=1;res0=null;lastSig=sigOf();SOLV.its=its;autosave();if(r.fail&&r.fail!='')fioMsg('Step '+its+': the solver reports “'+r.fail+'”. Try Solve, or Reset and change the drawn state.',1)}
+ buildPop(1);draw()}
+/* back to the drawn state: every node returns to where it was drawn and the warm starts are forgotten */
+function solverReset(){if(!nodes.length||!movedFromDrawn())return;pushU();nodes.forEach(n=>{if(n.x0!=null){n.x=n.x0;n.y=n.y0}n.ux=n.uy=undefined});members.forEach(m=>{m._g=m._sub=m._gs=m._gu=null});
+ hold=null;res=null;res0=null;lastSig='';lastSig0='';SOLV.its=0;SOLV.mu=0;buildPop(1);draw();fioMsg(SOLV.live?'Reset to the drawn state and solved again from there.':'Reset to the drawn state.')}
+/* bake: the solved state becomes the new drawn state; as unstressed, the stretched lengths also become the unstressed lengths */
+function solverBake(free){$('bkM').hidden=true;if(!(res&&res.ok)){fioMsg('Solve first: only an equilibrium can be baked.',1);return}pushU();
+ if(free)members.forEach((m,i)=>{const r=res.mem[i];if(r&&isFinite(r.Ls)&&r.Ls>0){m.L0=r.Ls;m._g=null;m._sub=m._gs=m._gu=null}});
+ nodes.forEach(n=>{n.x0=n.x;n.y0=n.y});if(free){lastSig='';SOLV.its=0}buildPop(1);draw();
+ fioMsg(free?'Baked as unstressed: the shape is now the drawn state and every L₀ is its stretched length.'+(SOLV.live?' Solved again with the loads and weight.':' Press Solve to load it again.'):'Baked: the solved shape is now the drawn state (L₀ kept).')}
+$('sLive').onclick=()=>setLive(true);$('sPause').onclick=()=>setLive(false);$('sSolve').onclick=solverSolve;$('sStep').onclick=solverStep;$('sReset').onclick=solverReset;
+$('sBake').onclick=e=>{e.stopPropagation();$('bkM').hidden=!$('bkM').hidden};$('bkShape').onclick=()=>solverBake(false);$('bkFree').onclick=()=>solverBake(true);
+addEventListener('pointerdown',e=>{if(!$('bkM').hidden&&!e.target.closest('.bkW'))$('bkM').hidden=true});
+try{if(localStorage.getItem('cp_live')=='0')SOLV.live=false}catch(e){}
 
 /* ---- start-up ---- */
 $('topVer').textContent='v'+VER+' “'+VNAME+'”';document.title='Cable Pusher v'+VER+' “'+VNAME+'”';
